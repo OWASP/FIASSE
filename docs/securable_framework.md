@@ -57,10 +57,10 @@ This document describes the Framework for Integrating Application Security into 
     - [5.3. Early Integration: Planning and Requirements](#53-early-integration-planning-and-requirements)
   - [6. Common AppSec Anti-Patterns](#6-common-appsec-anti-patterns)
     - [6.1. The Control-Catalog Fallacy](#61-the-control-catalog-fallacy)
-    - [6.1. The "Shoveling Left" Phenomenon](#61-the-shoveling-left-phenomenon)
-      - [6.1.1. Ineffective Vulnerability Reporting](#611-ineffective-vulnerability-reporting)
-      - [6.1.2. Pitfalls of Exploit-First Training](#612-pitfalls-of-exploit-first-training)
-    - [6.2. Strategic Use of Security Output](#62-strategic-use-of-security-output)
+    - [6.2. The "Shoveling Left" Phenomenon](#62-the-shoveling-left-phenomenon)
+      - [6.2.1. Ineffective Vulnerability Reporting](#621-ineffective-vulnerability-reporting)
+      - [6.2.2. Pitfalls of Exploit-First Training](#622-pitfalls-of-exploit-first-training)
+    - [6.3. Strategic Use of Security Output](#63-strategic-use-of-security-output)
   - [7. Roles and Responsibilities](#7-roles-and-responsibilities)
     - [7.1. The Role of the Security Team](#71-the-role-of-the-security-team)
     - [7.2. Senior Software Engineers](#72-senior-software-engineers)
@@ -617,13 +617,13 @@ The fallacy appears whenever "is this software secure?" is answered by enumerati
 
 The corrective discipline is the first FIASSE value (Section 2). Engineering attention belongs on the qualities that make features complete and software defensible. Control catalogs belong in the assurance and risk functions that evaluate this from outside the code creation process. The two are complementary. Mistaking one for the other is a fallacy.
 
-### 6.1. The "Shoveling Left" Phenomenon
+### 6.2. The "Shoveling Left" Phenomenon
 
 "Shoveling Left" is the practice of supplying impractical information to developers and leaving the responsibility on them to make sense of it. This anti-pattern manifests in how vulnerabilities are reported, how training is conducted, and how testing results are delivered. It undermines AppSec's credibility and leads to developer disengagement.
 
 The corrective discipline is the **Actionable Security Intelligence Principle**: security teams collaborate with development teams on systemic flaw reductions by producing findings, guidance, and training in a form developers can act on within their normal engineering workflow. Raw tool output, exploit-centric narratives, and unfiltered vulnerability lists are information, not yet intelligence. The principle holds that security output becomes valuable only once it has been translated into prioritized, engineering-grounded direction calibrated to the developer's context. Shoveling Left is the direct inversion of this principle, and the sub-sections that follow examine two of its most common forms.
 
-#### 6.1.1. Ineffective Vulnerability Reporting
+#### 6.2.1. Ineffective Vulnerability Reporting
 
 A prime example of "Shoveling Left" is routing raw output from security scanning tools directly into the development team's backlog without context, prioritization, or actionable guidance. While initial progress may follow, momentum typically dissipates and issues tend to recur in a "whack-a-mole" pattern. Raw tool output alone is rarely sufficient to drive sustained improvement.
 
@@ -636,13 +636,13 @@ To avoid this pattern, AppSec should:
 5. **Collaborate on solutions:** Work with development to identify wide-impact engineering solutions rather than line-level mitigations.
 6. **Verify fixes:** Confirm that remediation is effective, and consider automated regression tests to prevent recurrence.
 
-#### 6.1.2. Pitfalls of Exploit-First Training
+#### 6.2.2. Pitfalls of Exploit-First Training
 
 Security training for developers that primarily emphasizes exploitation techniques, often framed as "learn the hack to stop the attack," is another form of "Shoveling Left." As Section 2.4 establishes, understanding how to compromise a system is not the same as knowing how to engineer a robust one. The hacker mindset and the engineer mindset are complementary disciplines, not interchangeable ones.
 
 This type of training is ineffective because it does not equip developers with the engineering principles needed for daily work. It also fails to provide the knowledge needed to identify or build code with inherently securable qualities as defined by SSEM. At best, developers gain a superficial understanding of risks without the practical knowledge to implement systemic preventative measures. This can produce a false sense of security and does little to foster the proactive, engineering-focused examination of "What can go wrong?" The goal is better design and implementation, not line-level mitigations applied after the fact.
 
-### 6.2. Strategic Use of Security Output
+### 6.3. Strategic Use of Security Output
 
 Scanning and testing tools are valuable for understanding current security posture, but their output must be used strategically. It should not be assumed that security requirements are implicit, or that developers can be held responsible for missing controls if clear expectations were never set. Productive software engineers operate within a structured workflow designed to deliver value. Disrupting that workflow degrades software quality and produces the conditions that application security seeks to prevent.
 
