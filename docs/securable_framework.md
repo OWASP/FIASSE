@@ -56,6 +56,7 @@ This document describes the Framework for Integrating Application Security into 
     - [5.2. The Role of Merge Reviews](#52-the-role-of-merge-reviews)
     - [5.3. Early Integration: Planning and Requirements](#53-early-integration-planning-and-requirements)
   - [6. Common AppSec Anti-Patterns](#6-common-appsec-anti-patterns)
+    - [6.1. The Control-Catalog Fallacy](#61-the-control-catalog-fallacy)
     - [6.1. The "Shoveling Left" Phenomenon](#61-the-shoveling-left-phenomenon)
       - [6.1.1. Ineffective Vulnerability Reporting](#611-ineffective-vulnerability-reporting)
       - [6.1.2. Pitfalls of Exploit-First Training](#612-pitfalls-of-exploit-first-training)
@@ -121,10 +122,20 @@ This document is intended for Software Engineers, Application Security professio
 
 FIASSE is oriented by four core values. Framed in the spirit of the Agile Manifesto, each expresses a relative preference: both sides have worth, but when choices must be made, FIASSE favors the left.
 
-- **Securable Attributes over Security Controls**: prefer the engineering qualities that let a system be defended and kept defensible over static checklists of controls evaluated at a point in time.
+- **Securable Attributes over Security Controls**: prefer the engineering qualities that let a system be built and kept defensible over external catalogs of controls evaluated against the system from outside the code creation process at a point in time.
 - **Participation over Assessment**: prefer structured engagement between security and development throughout the lifecycle over evaluation performed after the work is done.
 - **First Principle Alignment**: prefer grounding in established software engineering first principles over security-specific jargon or adversarial heuristics.
 - **Business Alignment**: prefer security that sustains the organization's value creation over security pursued as an end in itself.
+
+> **On Terminology: Controls, Features, and Attributes**
+>
+> The first value warrants a note on vocabulary, because the word "control" carries two distinct meanings that this framework keeps separate.
+>
+> In software engineering, "control" is an engineering concept (eg. control flow, version control, boundary control, control theory). In security and assurance vocabulary, "security control" is a risk-and-assurance concept: an administrative, technical, or physical measure cataloged so its presence and effectiveness can be evaluated, typically by parties external to the code creation process.
+>
+> Both meanings are legitimate in their own domain. FIASSE does not reject security controls as a concept; it locates them where they belong, which is in risk management, assurance, and external evaluation. It uses different vocabulary for the engineering work of building software. When discussing what developers build, FIASSE speaks of "Security Features" (specific capabilities such as Defendable Authentication; see Section 4.1.2), "Securable Attributes" (the SSEM qualities defined in Section 3.2), and Security "Acceptance Criteria" (testable conditions a feature must satisfy).
+>
+> The distinction matters because external security controls do not, on their own, make software secure. They measure and constrain; they do not construct. The qualities that make software defensible live in the code itself, and those qualities are what SSEM names. The first value is a statement about where engineering attention is best invested, not a dismissal of the assurance vocabulary that risk and audit functions correctly use.
 
 The sections that follow develop these values as the foundational principles of FIASSE.
 
@@ -427,6 +438,8 @@ When addressing the question "What are we going to do about it?", the default is
 
 ### 4.3. The Boundary Control Principle
 
+> Control in this section refers to its software-engineering sense the regulated handling of data and execution flow at a trust boundary and not a "security control" in the risk-and-assurance sense addressed in Section 3.1.
+
 The Boundary Control Principle holds that flexibility within a system's interior is an engineering asset to be preserved, while control at every trust boundary is a security requirement to be enforced. These objectives are complementary, not competing: uncontrolled flexibility at a trust boundary is an attack surface; controlled flexibility throughout the interior is what makes a system maintainable. The principle directs engineers to locate control precisely at the points where trust changes, and to preserve flexibility everywhere else.
 
 A key concept from threat modeling is the identification of trust boundaries: points in the system where data passes between entities with different levels of trust (user to application, application to database, service to service). Trust boundaries require heightened control over data and process execution.
@@ -595,6 +608,14 @@ The primary mechanism for early integration is active security team participatio
 ---
 
 ## 6. Common AppSec Anti-Patterns
+
+### 6.1. The Control-Catalog Fallacy
+
+Treating the external control catalog as the definition of secure software is a fallacy this framework is built to correct. Control catalogs (like NIST 800-53, ISO 27001 Annex A, PCI DSS, and their equivalents) support risk management, assurance, and external evaluation. They measure and constrain, they do not construct. Software does not become defensible because a catalog has been satisfied. It becomes defensible because the engineering qualities defined in Section 3.2 are present in the code.
+
+The fallacy appears whenever "is this software secure?" is answered by enumerating controls present rather than examining the qualities of the code itself. It produces systems that may pass audits but will fail under sustained adversarial attention. This is because the audit measured the wrong thing. It also produces development teams who experience security as a list of external demands rather than a property of their work. This is when "Shoveling Left" (Section 6.2) takes hold.
+
+The corrective discipline is the first FIASSE value (Section 2). Engineering attention belongs on the qualities that make features complete and software defensible. Control catalogs belong in the assurance and risk functions that evaluate this from outside the code creation process. The two are complementary. Mistaking one for the other is a fallacy.
 
 ### 6.1. The "Shoveling Left" Phenomenon
 
