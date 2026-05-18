@@ -438,7 +438,7 @@ When addressing the question "What are we going to do about it?", the default is
 
 ### 4.3. The Boundary Control Principle
 
-> Control in this section refers to its software-engineering sense the regulated handling of data and execution flow at a trust boundary and not a "security control" in the risk-and-assurance sense addressed in Section 3.1.
+> Control in this section refers to its software-engineering sense: the regulated handling of data and execution flow at a trust boundary, not a "security control" in the risk-and-assurance sense addressed in Section 3.1.
 
 The Boundary Control Principle holds that flexibility within a system's interior is an engineering asset to be preserved, while control at every trust boundary is a security requirement to be enforced. These objectives are complementary, not competing: uncontrolled flexibility at a trust boundary is an attack surface; controlled flexibility throughout the interior is what makes a system maintainable. The principle directs engineers to locate control precisely at the points where trust changes, and to preserve flexibility everywhere else.
 
