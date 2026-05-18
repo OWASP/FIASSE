@@ -56,10 +56,11 @@ This document describes the Framework for Integrating Application Security into 
     - [5.2. The Role of Merge Reviews](#52-the-role-of-merge-reviews)
     - [5.3. Early Integration: Planning and Requirements](#53-early-integration-planning-and-requirements)
   - [6. Common AppSec Anti-Patterns](#6-common-appsec-anti-patterns)
-    - [6.1. The "Shoveling Left" Phenomenon](#61-the-shoveling-left-phenomenon)
-      - [6.1.1. Ineffective Vulnerability Reporting](#611-ineffective-vulnerability-reporting)
-      - [6.1.2. Pitfalls of Exploit-First Training](#612-pitfalls-of-exploit-first-training)
-    - [6.2. Strategic Use of Security Output](#62-strategic-use-of-security-output)
+    - [6.1. The Control-Catalog Fallacy](#61-the-control-catalog-fallacy)
+    - [6.2. The "Shoveling Left" Phenomenon](#62-the-shoveling-left-phenomenon)
+      - [6.2.1. Ineffective Vulnerability Reporting](#621-ineffective-vulnerability-reporting)
+      - [6.2.2. Pitfalls of Exploit-First Training](#622-pitfalls-of-exploit-first-training)
+    - [6.3. Strategic Use of Security Output](#63-strategic-use-of-security-output)
   - [7. Roles and Responsibilities](#7-roles-and-responsibilities)
     - [7.1. The Role of the Security Team](#71-the-role-of-the-security-team)
     - [7.2. Senior Software Engineers](#72-senior-software-engineers)
@@ -121,10 +122,20 @@ This document is intended for Software Engineers, Application Security professio
 
 FIASSE is oriented by four core values. Framed in the spirit of the Agile Manifesto, each expresses a relative preference: both sides have worth, but when choices must be made, FIASSE favors the left.
 
-- **Securable Attributes over Security Controls**: prefer the engineering qualities that let a system be defended and kept defensible over static checklists of controls evaluated at a point in time.
+- **Securable Attributes over Security Controls**: prefer the engineering qualities that let a system be built and kept defensible over external catalogs of controls evaluated against the system from outside the code creation process at a point in time.
 - **Participation over Assessment**: prefer structured engagement between security and development throughout the lifecycle over evaluation performed after the work is done.
 - **First Principle Alignment**: prefer grounding in established software engineering first principles over security-specific jargon or adversarial heuristics.
 - **Business Alignment**: prefer security that sustains the organization's value creation over security pursued as an end in itself.
+
+> **On Terminology: Controls, Features, and Attributes**
+>
+> The first value warrants a note on vocabulary, because the word "control" carries two distinct meanings that this framework keeps separate.
+>
+> In software engineering, "control" is an engineering concept (eg. control flow, version control, boundary control, control theory). In security and assurance vocabulary, "security control" is a risk-and-assurance concept: an administrative, technical, or physical measure cataloged so its presence and effectiveness can be evaluated, typically by parties external to the code creation process.
+>
+> Both meanings are legitimate in their own domain. FIASSE does not reject security controls as a concept; it locates them where they belong, which is in risk management, assurance, and external evaluation. It uses different vocabulary for the engineering work of building software. When discussing what developers build, FIASSE speaks of "Security Features" (specific capabilities such as Defendable Authentication; see Section 4.1.2), "Securable Attributes" (the SSEM qualities defined in Section 3.2), and Security "Acceptance Criteria" (testable conditions a feature must satisfy).
+>
+> The distinction matters because external security controls do not, on their own, make software secure. They measure and constrain; they do not construct. The qualities that make software defensible live in the code itself, and those qualities are what SSEM names. The first value is a statement about where engineering attention is best invested, not a dismissal of the assurance vocabulary that risk and audit functions correctly use.
 
 The sections that follow develop these values as the foundational principles of FIASSE.
 
@@ -427,6 +438,8 @@ When addressing the question "What are we going to do about it?", the default is
 
 ### 4.3. The Boundary Control Principle
 
+> Control in this section refers to its software-engineering sense: the regulated handling of data and execution flow at a trust boundary, not a "security control" in the risk-and-assurance sense addressed in Section 3.1.
+
 The Boundary Control Principle holds that flexibility within a system's interior is an engineering asset to be preserved, while control at every trust boundary is a security requirement to be enforced. These objectives are complementary, not competing: uncontrolled flexibility at a trust boundary is an attack surface; controlled flexibility throughout the interior is what makes a system maintainable. The principle directs engineers to locate control precisely at the points where trust changes, and to preserve flexibility everywhere else.
 
 A key concept from threat modeling is the identification of trust boundaries: points in the system where data passes between entities with different levels of trust (user to application, application to database, service to service). Trust boundaries require heightened control over data and process execution.
@@ -596,13 +609,21 @@ The primary mechanism for early integration is active security team participatio
 
 ## 6. Common AppSec Anti-Patterns
 
-### 6.1. The "Shoveling Left" Phenomenon
+### 6.1. The Control-Catalog Fallacy
+
+Treating the external control catalog as the definition of secure software is a fallacy this framework is built to correct. Control catalogs (like NIST 800-53, ISO 27001 Annex A, PCI DSS, and their equivalents) support risk management, assurance, and external evaluation. They measure and constrain, they do not construct. Software does not become defensible because a catalog has been satisfied. It becomes defensible because the engineering qualities defined in Section 3.2 are present in the code.
+
+The fallacy appears whenever "is this software secure?" is answered by enumerating controls present rather than examining the qualities of the code itself. It produces systems that may pass audits but will fail under sustained adversarial attention. This is because the audit measured the wrong thing. It also produces development teams who experience security as a list of external demands rather than a property of their work. This is when "Shoveling Left" (Section 6.2) takes hold.
+
+The corrective discipline is the first FIASSE value (Section 2). Engineering attention belongs on the qualities that make features complete and software defensible. Control catalogs belong in the assurance and risk functions that evaluate this from outside the code creation process. The two are complementary. Mistaking one for the other is a fallacy.
+
+### 6.2. The "Shoveling Left" Phenomenon
 
 "Shoveling Left" is the practice of supplying impractical information to developers and leaving the responsibility on them to make sense of it. This anti-pattern manifests in how vulnerabilities are reported, how training is conducted, and how testing results are delivered. It undermines AppSec's credibility and leads to developer disengagement.
 
 The corrective discipline is the **Actionable Security Intelligence Principle**: security teams collaborate with development teams on systemic flaw reductions by producing findings, guidance, and training in a form developers can act on within their normal engineering workflow. Raw tool output, exploit-centric narratives, and unfiltered vulnerability lists are information, not yet intelligence. The principle holds that security output becomes valuable only once it has been translated into prioritized, engineering-grounded direction calibrated to the developer's context. Shoveling Left is the direct inversion of this principle, and the sub-sections that follow examine two of its most common forms.
 
-#### 6.1.1. Ineffective Vulnerability Reporting
+#### 6.2.1. Ineffective Vulnerability Reporting
 
 A prime example of "Shoveling Left" is routing raw output from security scanning tools directly into the development team's backlog without context, prioritization, or actionable guidance. While initial progress may follow, momentum typically dissipates and issues tend to recur in a "whack-a-mole" pattern. Raw tool output alone is rarely sufficient to drive sustained improvement.
 
@@ -615,13 +636,13 @@ To avoid this pattern, AppSec should:
 5. **Collaborate on solutions:** Work with development to identify wide-impact engineering solutions rather than line-level mitigations.
 6. **Verify fixes:** Confirm that remediation is effective, and consider automated regression tests to prevent recurrence.
 
-#### 6.1.2. Pitfalls of Exploit-First Training
+#### 6.2.2. Pitfalls of Exploit-First Training
 
 Security training for developers that primarily emphasizes exploitation techniques, often framed as "learn the hack to stop the attack," is another form of "Shoveling Left." As Section 2.4 establishes, understanding how to compromise a system is not the same as knowing how to engineer a robust one. The hacker mindset and the engineer mindset are complementary disciplines, not interchangeable ones.
 
 This type of training is ineffective because it does not equip developers with the engineering principles needed for daily work. It also fails to provide the knowledge needed to identify or build code with inherently securable qualities as defined by SSEM. At best, developers gain a superficial understanding of risks without the practical knowledge to implement systemic preventative measures. This can produce a false sense of security and does little to foster the proactive, engineering-focused examination of "What can go wrong?" The goal is better design and implementation, not line-level mitigations applied after the fact.
 
-### 6.2. Strategic Use of Security Output
+### 6.3. Strategic Use of Security Output
 
 Scanning and testing tools are valuable for understanding current security posture, but their output must be used strategically. It should not be assumed that security requirements are implicit, or that developers can be held responsible for missing controls if clear expectations were never set. Productive software engineers operate within a structured workflow designed to deliver value. Disrupting that workflow degrades software quality and produces the conditions that application security seeks to prevent.
 
