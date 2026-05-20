@@ -122,7 +122,7 @@ This document is intended for Software Engineers, Application Security professio
 
 FIASSE is oriented by four core values. Framed in the spirit of the Agile Manifesto, each expresses a relative preference: both sides have worth, but when choices must be made, FIASSE favors the left.
 
-- **Securable Attributes over Security Controls**: prefer the engineering qualities that let a system be built and kept defensible over external catalogs of controls evaluated against the system from outside the code creation process at a point in time.
+- **Securable Attributes over Security Controls**: prefer the engineering qualities that let a system be built and keep defensible over security controls put in after-the-fact to make up for weaknesses.
 - **Participation over Assessment**: prefer structured engagement between security and development throughout the lifecycle over evaluation performed after the work is done.
 - **First Principle Alignment**: prefer grounding in established software engineering first principles over security-specific jargon or adversarial heuristics.
 - **Business Alignment**: prefer security that sustains the organization's value creation over security pursued as an end in itself.
