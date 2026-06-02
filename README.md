@@ -6,7 +6,7 @@
 
 ## Overview
 
-TL;DR: please read the [RFC](docs/FIASSE-RFC.md). Explore [FIASSE website](https://fiasse.org). Visit [GitHub Discussions](https://github.com/owasp/www-project-fiasse/discussions) to contribute.
+TL;DR: please read the [DOC](docs/securable_framework.md). Explore [FIASSE website](https://fiasse.org). Visit [GitHub Discussions](https://github.com/owasp/www-project-fiasse/discussions) to contribute.
 
 This repository contains resources and materials for the OWASP Framework for Integrating Application Security into Software Engineering (FIASSE). FIASSE (pronounced /feiz/ like 'phase') promotes a **developer-centric, principled approach** to build **securable** software — recognizing that security is a dynamic, ongoing process like development. It introduces the Securable Software Engineering Model (SSEM) as a **common design language** that uses established software engineering terms to integrate security into software architecture, design, and engineering. Integrating security into the principals that mold the code itself. The framework aims to build resilient applications that withstand threats over time.
 
