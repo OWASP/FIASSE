@@ -16,7 +16,7 @@ To provide practical guidelines that **empower developers** to create securable 
 
 ## How is it Different?
 
-The SSEM functions as a set of positive attributes and practices to follow, similar to an 'allow list', as opposed to a 'block list' which highlights what to avoid. While the OWASP Top 10 highlights what to avoid (a block list), OWASP FIASSE provides a set of positive attributes and practices to follow (an allow list). This approach leverages existing software engineering skills to build securable software, rather than requiring developers to learn exploit techniques or adopt a vulnerability-focused mindset. The emphasis is on enabling practical, secure coding through familiar engineering principles.
+While assurance focused projects like the OWASP Top 10 highlight what to avoid (a block list), OWASP FIASSE provides a set of positive attributes and practices to follow (an allow list). This approach leverages existing software engineering skills to build securable software, rather than requiring developers to learn exploit techniques or adopt a vulnerability-focused mindset. The emphasis is on enabling practical, secure coding through familiar engineering principles.
 
 By clearly defining security requirements within the development process, this framework ensures that business value is captured effectively. By establishing expectations this way, this significantly reduces the likelihood that security flaws will be discovered and need remediation later.
 
