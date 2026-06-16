@@ -2,5 +2,5 @@ book/
 .devcontainer/devcontainer.json
 docs/CWE/*
 /git_history_signing.py
-scripts/__pycache__/extract_fiasse_sections.cpython-312.pyc
+scripts/__pycache__/
 .claude/settings.local.json
