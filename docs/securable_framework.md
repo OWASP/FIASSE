@@ -50,7 +50,7 @@ This document describes the Framework for Integrating Application Security into 
     - [4.3. The Boundary Control Principle](#43-the-boundary-control-principle)
     - [4.4. Resilient Coding](#44-resilient-coding)
       - [4.4.1. Canonical Input Handling](#441-canonical-input-handling)
-        - [4.4.1.1. The Request Surface Minimization Principle](#4411-the-request-surface-minimization-principle)
+        - [4.4.1.1. The Canonical Parsing Principle](#4411-the-canonical-parsing-principle)
         - [4.4.1.2. The Isolated Integrity Principle](#4412-the-isolated-integrity-principle)
     - [4.5. Dependency Management](#45-dependency-management)
     - [4.6. Dependency Stewardship](#46-dependency-stewardship)
@@ -482,15 +482,24 @@ Input handling is a critical aspect of resilient coding. The most effective appr
 
 In some platforms, it may be beneficial to signal that an input value has been fully handled by passing it as a contextualized object rather than a scalar value after validation. If this pattern is used, document and communicate it to the team.
 
-##### 4.4.1.1. The Request Surface Minimization Principle
+##### 4.4.1.1. The Canonical Parsing Principle
 
-One tactic for resilient input handling is to avoid assuming that the entire request or envelope is intended to be processed. This encourages developers to access specific named values within a request rather than processing all values indiscriminately. This approach has allowed developers to avoid certain categories of injection attack and is a sound sanitization tactic generally. It also preserves resilience by ignoring out-of-scope values rather than attempting to handle them.
+At trust boundaries, treat external input as untrusted data that must be parsed into a canonical internal type before business logic runs. This follows the "Parse, don't validate" approach: instead of passing around loosely typed data and repeatedly checking it, perform one strict parse step at the boundary and fail closed if parsing does not succeed.
 
-A security benefit of this approach is that the system can analyze requests for payload anomalies, fraud indicators, or probing behavior without disrupting normal application operation. Because the application only processes the values it expects, unexpected fields or values are observable as deviations rather than noise embedded in processing logic.
+In this model, the resulting data structure is proof that required invariants hold ("Data Structure as Proof"). If code receives a parsed `CreateOrderRequest`, then required fields, type constraints, format rules, and boundary checks were already enforced by the parser. Core logic can then operate on trustworthy structures rather than reinterpreting raw request envelopes.
+
+A practical boundary workflow is:
+
+- Define an explicit input schema per operation, not a generic "accept anything" envelope.
+- Parse only expected fields into a typed structure.
+- Optionally reject the request when parsing fails or when forbidden/unknown fields are present, based on policy.
+- Log parse failures and schema deviations with actionable context.
+
+This approach reduces injection risk, prevents accidental propagation of malformed input, and improves analyzability because input handling behavior is centralized and deterministic.
 
 Requests that deviate from expectation should be logged at minimum. The log entry should capture enough context to be useful in retrospect: the specific deviation observed, the request source, a timestamp, and any relevant session or user identity. A bare count or a generic "unexpected input" message does not support meaningful analysis.
 
-In sensitive contexts, log-and-reject is the more defensible posture, and in some cases the correct one. The reasons to prefer rejection over silent discard are:
+In sensitive contexts, parse-fail-and-reject is the more defensible posture, and in some cases the correct one. The reasons to prefer rejection over silent discard are:
 
 - **Reconnaissance detection.** Unexpected fields are frequently a sign that a client is probing the API surface: testing parameter names, injecting out-of-band values, or mapping the system's behavior. Rejecting the request raises the cost of this activity and makes the behavior more visible in logs.
 - **Manipulation prevention.** In business-critical flows, an unexpected field may represent an attempt to supply a value the server should be deriving (see Section 4.4.1.2). Silently ignoring it allows the request to succeed, which confirms to the attacker that the attempt went unnoticed. Rejection removes that confirmation.
