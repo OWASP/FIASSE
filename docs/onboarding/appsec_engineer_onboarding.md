@@ -1,14 +1,58 @@
 # Application Security Engineer Onboarding: How I Use FIASSE in My Day-to-Day Work
 
-As an application security engineer I understand that my best leverage comes from helping teams create [securable software](../framework/S2.1.0.md), not from testing alone. FIASSE gives me a way to do that in practical, developer-sensitive ways. I make sure I understand the [requirements and acceptance criteria](../framework/S4.1.2.md) that shape a feature so that I can help them define the [security requirements](../framework/S4.1.2.md) and [security acceptance criteria](../framework/S4.1.2.md) that make the work testable and verifiable.
+As an application security engineer, I understand that my best leverage comes from helping teams *create* [securable software](../framework/S2.1.0.md), not from testing alone. FIASSE is a deliberate departure from traditional AppSec operating patterns that overemphasize downstream triage and ticket routing. I still use those activities when needed, but I prioritize influencing software while it is still being designed and built.
 
-I spend time on [threat modeling](../framework/S4.2.0.md) and [threat awareness](../framework/S4.2.0.md) because they help me focus on what can actually go wrong in the system being built. I look for [trust boundaries](../framework/S4.3.0.md), risky inputs, and the places where a team needs stronger control over data and process execution. I do not shovel raw line-level fixes on development. Instead I work with the software engineers to find design-level solutions. I use it to shape the system better and I feed it back into the threat model. That keeps my work connected to the architecture instead of detached from it.
+## How My AppSec Operating Model Changes in FIASSE
 
-I want the feedback I give to be useful to engineers, so I avoid [shoveling left](../framework/S6.1.0.md). I frame findings in engineering terms, show the path from the issue to the risk, and give developers something they can act on. I respect the developer workflow. I value [merge review](../framework/S5.2.0.md) integrate tooling to give automated feedback while the change is still small. My goal is to improve the code and the decision-making around it.
+### 1. Triage Strategy Changes
 
-I pay attention to the SSEM attributes because they give me a consistent way to evaluate whether a system can stay defensible over time. I look for [Analyzability](../framework/S3.2.1.md#3211-analyzability), [Modifiability](../framework/S3.2.1.md#3212-modifiability), [Testability](../framework/S3.2.1.md#3213-testability), [Observability](../framework/S3.2.1.md#3214-observability), and the trustworthiness qualities that make security properties durable. I also care about [dependency management](../framework/S4.5.0.md) and [dependency stewardship](../framework/S4.6.0.md) because libraries and services can become security liabilities over time even if they looked fine when introduced. FIASSE pushes me to measure more than vulnerability counts. I look for whether the system is being shaped so that security can be maintained as the code, the team, and the threat landscape change.
+In traditional programs, triage often centers on large findings queues. In FIASSE, I still triage findings, but my first question is broader: what engineering condition allowed this class of issue to appear?
 
-I accept that application security is not about proving developers wrong. It is about helping them build with clearer expectations, better feedback, and fewer surprises. When I work from that mindset, I can support the team in a way that makes security a natural part of engineering rather than a separate phase. FIASSE influences my approach by giving me a practical way to improve outcomes upstream, where design, requirements, and implementation decisions still have room to change.
+- I map findings to missing or weak [security requirements](../framework/S4.1.2.md) and [security acceptance criteria](../framework/S4.1.2.md).
+- I group repeated findings into design and process patterns rather than treating each item as a disconnected defect.
+- I use [merge review](../framework/S5.2.0.md) to keep remediation close to the change that introduced risk.
+
+### 2. Risk Communication Pattern Changes
+
+I communicate risk in engineering terms developers can act on quickly. I avoid [shoveling left](../framework/S6.1.0.md) by using a strict format:
+
+- What is wrong (clear technical issue)
+- Which SSEM attribute is at risk (for example [Integrity](../framework/S3.2.3.md#3232-integrity) or [Modifiability](../framework/S3.2.1.md#3212-modifiability))
+- What business impact is plausible
+- What engineering decision is needed now
+- What verification proves we are done
+
+### 3. Escalation Triggers Change
+
+I escalate when the issue is no longer a local code fix and requires broader decisions.
+
+- The same flaw class recurs across teams or services.
+- A [trust boundary](../framework/S4.3.0.md) is being violated in a business-critical flow.
+- Required [security acceptance criteria](../framework/S4.1.2.md) are missing or cannot be met before merge.
+- A dependency risk requires platform, architecture, or governance intervention ([dependency stewardship](../framework/S4.6.0.md)).
+
+### 4. Handoff Loops with Product and Platform Change
+
+FIASSE uses explicit handoff loops so security input stays actionable and preserves developer velocity.
+
+- Product loop: convert threat insights into requirement language and acceptance criteria.
+- Platform loop: turn recurring control needs into reusable guardrails, libraries, and defaults.
+- Engineering loop: apply and verify decisions in code and [merge review](../framework/S5.2.0.md).
+- Security loop closure: confirm outcomes through tests, telemetry, and updated threat models.
+
+## FIASSE Security Input Flow (Velocity-Preserving)
+
+I use a strict flow that prioritizes the earliest point of influence and keeps security from becoming a late gate.
+
+1. **L1 - Product requirements (pre-generation):** inject security into [requirements and acceptance criteria](../framework/S4.1.2.md) before implementation.
+2. **L2 - Generation time:** ensure implementation aligns to defined outcomes and core SSEM qualities ([SSEM overview](../framework/S3.0.0.md)).
+3. **L3 - Commit/PR time:** perform intelligent remediation during [merge review](../framework/S5.2.0.md), not after release.
+4. **L4 - Deployment time:** validate business-logic behavior at [trust boundaries](../framework/S4.3.0.md) and resilient coding expectations ([resilient coding](../framework/S4.4.0.md)).
+5. **L5 - Runtime:** use [Observability](../framework/S3.2.1.md#3214-observability) and [Transparency](../framework/S2.5.0.md) signals to detect drift and feed corrections back to earlier layers.
+
+I pay attention to the SSEM attributes because they give me a consistent way to evaluate whether a system can stay defensible over time. I look for [Analyzability](../framework/S3.2.1.md#3211-analyzability), [Modifiability](../framework/S3.2.1.md#3212-modifiability), [Testability](../framework/S3.2.1.md#3213-testability), [Observability](../framework/S3.2.1.md#3214-observability), and the trustworthiness qualities that make security properties durable.
+
+FIASSE influences my approach by making security a native input to software engineering, not a separate phase. I focus on clear expectations, high-signal feedback, and predictable handoffs that improve outcomes without stalling delivery.
 
 ## Quick Read Path
 

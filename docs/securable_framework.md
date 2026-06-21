@@ -20,6 +20,9 @@ This document describes the Framework for Integrating Application Security into 
     - [2.3. Security Mission: Reducing Material Impact](#23-security-mission-reducing-material-impact)
     - [2.4. Aligning Security with Development](#24-aligning-security-with-development)
     - [2.5. The Transparency Principle](#25-the-transparency-principle)
+      - [Transparency and Maintainability](#transparency-and-maintainability)
+      - [Transparency and Trustworthiness](#transparency-and-trustworthiness)
+      - [Transparency Tactics](#transparency-tactics)
     - [2.6. The Principle of Least Astonishment](#26-the-principle-of-least-astonishment)
   - [3. The Securable Software Engineering Model (SSEM)](#3-the-securable-software-engineering-model-ssem)
     - [3.1. Model Overview and Design Language](#31-model-overview-and-design-language)
@@ -190,15 +193,15 @@ Relying exclusively on external tooling for transparency produces a reactive pos
 
 Each SSEM attribute is demonstrated through transparency in some form. Note that transparency operates within the bound set by Confidentiality: visibility is extended only to authorized parties.
 
-**Transparency and Maintainability**
+#### Transparency and Maintainability
 
 A transparent system is easier to debug and understand. When developers can trace data flow, state changes, and decision logic through structured logs and metrics, they can diagnose deficiencies and assess the effects of changes with greater speed and accuracy. This directly supports the system's maintainability across its lifecycle.
 
-**Transparency and Trustworthiness**
+#### Transparency and Trustworthiness
 
 Transparency is the mechanism that makes Accountability possible. To uniquely trace an action to an entity, a clear, immutable, and auditable trail of that action must exist. Authenticity is similarly reinforced when authentication and authorization events are transparently logged, enabling verification and investigation. This verifiable behavior is the foundation of Trustworthiness.
 
-**Transparency Tactics**
+#### Transparency Tactics
 
 Engineering transparency into a system is an investment that benefits both security and operational stability. Practical tactics include:
 
@@ -499,6 +502,8 @@ The choice between log-only and log-and-reject should be made deliberately, base
 ##### 4.4.1.2. The Isolated Integrity Principle
 
 Isolation in this principle refers specifically to isolation of authority: integrity-critical facts must be controlled by server-side logic and data sources that clients cannot set, override, or indirectly bias.
+
+> Ask: Could an untrusted caller directly set or indirectly bias this integrity-critical value?
 
 Any value critical to the integrity of a system's state or business logic must be established in a trusted context that is safely isolated from client control, and derived from authoritative server-side sources. It must never be accepted directly from a client. This establishes a single source of truth for what is real and authoritative, rather than adopting the unknown integrity of client-supplied data.
 
