@@ -47,7 +47,7 @@ I use a strict flow that prioritizes the earliest point of influence and keeps s
 1. **L1 - Product requirements (pre-generation):** inject security into [requirements and acceptance criteria](../framework/S4.1.2.md) before implementation.
 2. **L2 - Generation time:** ensure implementation aligns to defined outcomes and core SSEM qualities ([SSEM overview](../framework/S3.0.0.md)).
 3. **L3 - Commit/PR time:** perform intelligent remediation during [merge review](../framework/S5.2.0.md), not after release.
-4. **L4 - Deployment time:** validate business-logic behavior at [trust boundaries](../framework/S4.3.0.md) and resilient coding expectations ([resilient coding](../framework/S4.4.0.md)).
+4. **L4 - Deployment time:** verify business-logic behavior at [trust boundaries](../framework/S4.3.0.md), including canonical parsing behavior for untrusted input, and resilient coding expectations ([resilient coding](../framework/S4.4.0.md)).
 5. **L5 - Runtime:** use [Observability](../framework/S3.2.1.md#3214-observability) and [Transparency](../framework/S2.5.0.md) signals to detect drift and feed corrections back to earlier layers.
 
 I pay attention to the SSEM attributes because they give me a consistent way to evaluate whether a system can stay defensible over time. I look for [Analyzability](../framework/S3.2.1.md#3211-analyzability), [Modifiability](../framework/S3.2.1.md#3212-modifiability), [Testability](../framework/S3.2.1.md#3213-testability), [Observability](../framework/S3.2.1.md#3214-observability), and the trustworthiness qualities that make security properties durable.

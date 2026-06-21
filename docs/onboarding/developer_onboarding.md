@@ -10,15 +10,15 @@ I apply FIASSE across the key phases of a feature or fix:
 Before I write code, I confirm that [requirements and acceptance criteria](../framework/S4.1.2.md) include security expectations, not just happy-path functionality. I ask: What are the security acceptance criteria for this feature? This is where I save the most rework because expectations are clear before I build.
 
 ### During Implementation:
-I [identify trust boundaries and risky inputs](../framework/S4.3.0.md). Trust boundaries are where the level of trust or control changes between components, networks, or users. For example, when data travels from one trusted server to another across the Internet (the Internet being untrusted). For each boundary, I [canonicalize inputs](../framework/S4.4.1.md) by validating and normalizing them to expected type, format, length, and range before processing. For example:
+I [identify trust boundaries and risky inputs](../framework/S4.3.0.md). Trust boundaries are where the level of trust or control changes between components, networks, or users. For example, when data travels from one trusted server to another across the Internet (the Internet being untrusted). For each boundary, I [canonicalize inputs](../framework/S4.4.1.md) by parsing untrusted data into a typed canonical structure that enforces expected type, format, length, and range before processing. For example:
 
-- An API endpoint receives a quantity parameter. I validate it's a positive integer before using it in calculations (not accepting it as the user specified it).
+- An API endpoint receives a quantity parameter. I parse it as a positive integer at the boundary and reject the request if parsing fails, then use the parsed value in calculations (not accepting it as the user specified it).
 - A database query receives a user ID. I confirm it belongs to the authenticated user before returning associated data.
 
 I also consider what error handling and [Observability](../framework/S3.2.1.md#3214-observability) would help make this feature easier to troubleshoot and maintain if something goes wrong: structured logs at trust boundaries, clear error states, and recovery paths.
 
 ### During Code Review:
-I write code so that I can understand it when I come back later to make changes. This is [Analyzability](../framework/S3.2.1.md#3211-analyzability): clear naming, minimal cyclomatic complexity, and no unnecessary duplication. When reviewing code, I look for: Can I quickly trace data flow? Can I find where validation happens? Are trust boundaries obvious?
+I write code so that I can understand it when I come back later to make changes. This is [Analyzability](../framework/S3.2.1.md#3211-analyzability): clear naming, minimal cyclomatic complexity, and no unnecessary duplication. When reviewing code, I look for: Can I quickly trace data flow? Can I find where parsing and boundary checks happen? Are trust boundaries obvious?
 
 I make sure there are no [hidden side effects](../framework/S2.6.0.md). I write code so that I am confident I can make changes later without unintended consequences—this is [Modifiability](../framework/S3.2.1.md#3212-modifiability). For example, I do not change part of the system to silently perform a new operation from within a method that already has a clearly defied single purpose.
 
