@@ -83,6 +83,7 @@ This document describes the Framework for Integrating Application Security into 
       - [A.3.1. Availability](#a31-availability)
       - [A.3.2. Integrity](#a32-integrity)
       - [A.3.3. Resilience](#a33-resilience)
+    - [A.4. Scoring and Enhancement Suggestions](#a4-scoring-and-enhancement-suggestions)
 
 ---
 
@@ -919,3 +920,18 @@ Measuring the attributes defined by SSEM quantifies and evaluates the securable 
 
 - **Defensive coding practices review:** Assessment of code for input validation, output encoding, and robust error handling.
 - **Incident response plan effectiveness:** Review of how well the system and team recover from security incidents or operational failures.
+
+### A.4. Scoring and Enhancement Suggestions
+
+Where teams choose to combine SSEM indicators into a composite score, the score should be treated as a directional management aid, not as a statement of assurance, compliance, or absolute security. A score can help compare a system against itself over time and can help surface the weakest attributes first, but it should not be used to imply that the codebase is "secure" or that a single number captures the system's securable posture.
+
+Scoring works best when it is paired with concrete enhancement suggestions that are specific to the attribute being measured. Those suggestions should be:
+
+- **Attribute-specific:** Tie each recommendation to a named SSEM attribute or sub-attribute so the team knows what quality is being improved.
+- **Actionable:** State the next engineering step, not just the deficiency. For example, "add boundary validation for external input" is more useful than "improve input handling."
+- **Evidence-based:** Explain which metric, review finding, or observed behavior triggered the suggestion.
+- **Comparable over time:** Report deltas against prior scans so teams can see whether a change improved or degraded the relevant attribute.
+- **Context-aware:** Distinguish between a systemic weakness and a local exception so teams do not optimize for the score at the expense of the architecture.
+- **Human-reviewed when material:** For high-impact systems or significant drops in score, require a reviewer to confirm that the suggested change is appropriate before it becomes a development commitment.
+
+The most useful scoring outputs therefore include three parts: the score itself, the rationale for the score, and a short list of prioritized changes that would improve the underlying attribute. This preserves the educational value of the framework while avoiding the false precision that can occur when a composite score is mistaken for a complete security judgment.
