@@ -179,6 +179,8 @@ A common misconception frames the gap between Security and Development as inhere
 
 True alignment between security and development requires a return to first principles. This is the value of **First Principle Alignment**. Rather than imposing security-centric jargon and processes that may slow or interrupt development, FIASSE uses well-established software engineering terms to describe securable code attributes. The SSEM properties, including Analyzability, Modifiability, Testability, and Confidentiality, are concepts developers already work with. Using this shared vocabulary fosters understanding and empowers engineers to address security considerations with confidence, without requiring years of dedicated security experience.
 
+That shared vocabulary can also be expressed as concrete rules: the practical grammar of securable software. Rules are useful because they make expectations explicit, help newcomers start from a safe baseline, and give automation something consistent to check. They are not absolutes. Experienced engineers may bend or break a rule when context requires it, provided they understand the principle behind the rule, can explain why the exception is warranted, and can show that the alternative still satisfies the underlying engineering intent.
+
 This also requires that the expectation of mindset is calibrated correctly. The idea that all programmers should think like attackers or act as penetration testers to eliminate security problems overlooks a critical distinction: understanding how systems can be compromised is not the same as knowing how to build them to be secured. It is not reasonable for business value creation to be secondary to security. There is a significant difference between identifying a vulnerability and implementing a robust, scalable engineering solution to address it. Relying solely on an adversarial mindset does not scale.
 
 Alignment requires specific participation from AppSec professionals early in the Software Development Lifecycle (SDLC), particularly during requirements gathering and feature planning. When security engages at those stages, developers gain the context and expectations they need to build securable software as a natural part of their workflow. This is the value of **Participation over Assessment**: shaping the system as it is being built is more effective than evaluating it after the fact, and it lets security expertise act where it produces the most leverage.
@@ -263,6 +265,8 @@ The attributes are organized into three primary categories:
 SSEM is not a rigid framework. It is a flexible model that adapts to various software engineering practices and emphasizes inherent qualities of software that contribute directly to security. This allows it to scale without requiring security to adopt complex processes that may conflict with development workflows.
 
 By defining these attributes in engineering terms, SSEM creates a common design language. It equips security professionals to surface context-specific considerations, and it provides developers with the conceptual tools to discuss and reason about security using vocabulary already familiar to them. A shared design language can bring together a culture of quality across diversely skilled teams, focused on common goals rather than isolated compliance checkboxes. This cultural alignment directly influences a product's internal structure to reflect these technical values.
+
+From those attributes flow practical rules and coding patterns, which serve as the entry point for daily work. The rules are the part most teams can apply quickly and consistently; the attributes and principles remain the reason those rules exist and the basis for judging when an exception is justified.
 
 ### 3.2. Core Securable Attributes
 
@@ -454,6 +458,8 @@ One approach to maintaining flexibility while preserving control is strict input
 ### 4.4. Resilient Coding
 
 Resilience refers to an application's ability to continue running predictably, even under unfavorable circumstances or load. At the code level, this is achieved through defensive coding practices that enforce predictable execution.
+
+The following are foundational rules for resilient coding. They provide a reliable default for building securable software, especially for teams that are still learning the model or for automation that needs concrete guidance. They are guides, not immutable laws: experienced engineers may adapt or break a rule when a different implementation better serves the principle, as long as they can explain and defend that choice.
 
 Practical defensive coding focuses on:
 
@@ -676,6 +682,8 @@ The security team's effectiveness is limited by software quality. SSEM makes thi
 ### 7.2. Senior Software Engineers
 
 Senior software engineers are crucial to any Application Security program's success, their value increasing as AI-assisted development becomes standard. AI tools generate code at scale but lack judgment, unable to evaluate design decisions, trust boundaries, or whether generated implementations meet security intent. The ability to make those assessments, grounded in SSEM attributes and established engineering principles, is a key differentiator.
+
+Senior engineers know the rules and the principles that justify them. That is what lets them distinguish a true exception from a shortcut, and it is why they can safely relax a rule when the architecture or threat model makes a different choice more appropriate. They do not ignore rules casually; they document the reasoning, preserve accountability, and make the exception legible to the rest of the team.
 
 Security professionals should collaborate closely with senior engineers in design activities, treating them as primary technical partners for FIASSE adoption.
 
