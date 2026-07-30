@@ -144,10 +144,10 @@ FIASSE is not an assurance framework. It does not measure the maturity of a secu
 
 FIASSE is oriented by four core values. Framed in the spirit of the Agile Manifesto, each expresses a relative preference: both sides have worth, but when choices must be made, FIASSE favors the left.
 
-- **Securable Attributes over Security Controls**: prefer the engineering qualities that let a system be built and keep defensible over security controls put in after-the-fact to make up for weaknesses.
+- **Securable Attributes over Security Controls**: prefer the engineering qualities that let a system be built and kept defensible over security controls put in after the fact to make up for weaknesses.
 - **Participation over Assessment**: prefer structured engagement between security and development throughout the lifecycle over evaluation performed after the work is done.
-- **First Principle Alignment**: prefer grounding in established software engineering first principles over security-specific jargon or adversarial heuristics.
-- **Business Alignment**: prefer security that sustains the organization's value creation over security pursued as an end in itself.
+- **Engineering First Principles over Security Jargon**: prefer grounding in established software engineering first principles over security-specific jargon or adversarial heuristics.
+- **Business Value over Security Activity**: prefer security that sustains the organization's value creation over security pursued as an end in itself.
 
 > **On Terminology: Controls, Features, and Attributes**
 >
@@ -173,7 +173,7 @@ The securable paradigm emphasizes three organizing ideas:
 - **Evolutionary Security**: Security measures must evolve alongside the software and its operating environment.
 - **Continuous Improvement**: Security is an iterative process that requires ongoing attention and refinement.
 
-All three are governed by the **Business Alignment** value (Section 2): adaptive resilience, evolutionary security, and continuous improvement are judged by how well they sustain the organization's value creation, not by how much security activity they generate.
+All three are governed by **Business Value over Security Activity** (Section 2): adaptive resilience, evolutionary security, and continuous improvement are judged by how well they sustain the organization's value creation, not by how much security activity they generate.
 
 Development teams that internalize this paradigm build systems capable of maintaining their protective qualities as the system evolves, rather than becoming brittle and insecure over time.
 
@@ -183,7 +183,7 @@ Authentication illustrates this paradigm applied to a specific system mechanism.
 
 In a business context, the primary directive of software engineering is expressed in this framework as: **resiliently add computing value.** Each word is load-bearing. *Computing value* is the useful capability the software delivers — the reason the business funds its construction. *Add* reflects that delivery is continuous: value accrues change by change, not release by release. *Resiliently* is the constraint on how: each change must leave the system able to withstand the change, stress, and attack that will follow it.
 
-The directive excludes two familiar failure modes. Value added without resilience is capability the business will lose later, with interest, when the system cannot absorb the next threat or requirement. Resilience pursued without adding value is security as an end in itself, which the Business Alignment value rejects. Software that meets functional requirements while sustaining its securable qualities — Analyzability, Modifiability, and Testability among them — satisfies both halves of the directive.
+The directive excludes two familiar failure modes. Value added without resilience is capability the business will lose later, with interest, when the system cannot absorb the next threat or requirement. Resilience pursued without adding value is security as an end in itself, which **Business Value over Security Activity** rejects. Software that meets functional requirements while sustaining its securable qualities — Analyzability, Modifiability, and Testability among them — satisfies both halves of the directive.
 
 Software Engineering is the broader discipline of designing, developing, and maintaining software in a systematic and organized way [ISO-24765]. Security is not a test appended at the end of this process; it is an intrinsic component of well-engineered software that contributes directly to a product's ability to deliver value reliably and sustainably.
 
@@ -203,7 +203,7 @@ This has two consequences for how security is applied. First, investment in engi
 
 A common misconception frames the gap between Security and Development as inherently problematic. The two disciplines are complementary, not adversarial: development adds value, and security works to reduce the risk of losing that value. The analogy to Accounting and Operations is apt: both serve the business from distinct vantage points without one disrupting the other's core function. Security should not need to disrupt the value-adding operation.
 
-True alignment between security and development requires a return to first principles. This is the value of **First Principle Alignment**. Rather than imposing security-centric jargon and processes that may slow or interrupt development, FIASSE uses well-established software engineering terms to describe securable code attributes. The SSEM properties, including Analyzability, Modifiability, Testability, and Confidentiality, are concepts developers already work with. Using this shared vocabulary fosters understanding and empowers engineers to address security considerations with confidence, without requiring years of dedicated security experience.
+True alignment between security and development requires a return to first principles. This is the value of **Engineering First Principles over Security Jargon**. Rather than imposing security-centric jargon and processes that may slow or interrupt development, FIASSE uses well-established software engineering terms to describe securable code attributes. The SSEM properties, including Analyzability, Modifiability, Testability, and Confidentiality, are concepts developers already work with. Using this shared vocabulary fosters understanding and empowers engineers to address security considerations with confidence, without requiring years of dedicated security experience.
 
 This also requires that the expectation of mindset is calibrated correctly. The idea that all programmers should think like attackers or act as penetration testers to eliminate security problems overlooks a critical distinction: understanding how systems can be compromised is not the same as knowing how to build them to be secured. It is not reasonable for business value creation to be secondary to security. There is a significant difference between identifying a vulnerability and implementing a robust, scalable engineering solution to address it. Relying solely on an adversarial mindset does not scale.
 
