@@ -15,6 +15,7 @@ FIASSE (pronounced /feiz/) is vendor-independent and is written for Software Eng
 - [2.4 Aligning Security with Development](./S2.4.0.md): Shared vocabulary over security jargon; why "think like an attacker" does not scale as a development mandate.
 - [2.5. The Transparency Principle](./S2.5.0.md): TBD
 - [2.6. The Principle of Least Astonishment](./S2.6.0.md): TBD
+- [2.7. The Principle of Least Astonishment](./S2.7.0.md): TBD
 - [3. The Securable Software Engineering Model (SSEM)](./S3.0.0.md): The model that expresses securable attributes in engineering terms.
 - [3.1 Model Overview and Design Language](./S3.1.0.md): SSEM as design language, not a compliance checklist.
 - [3.2 Core Securable Attributes](./S3.2.0.md): Maintainability, Trustworthiness, and Reliability as the three pillars of securable software.
@@ -42,12 +43,25 @@ FIASSE (pronounced /feiz/) is vendor-independent and is written for Software Eng
 - [6.1.1. Ineffective Vulnerability Reporting](./S6.1.1.md): TBD
 - [6.1.2. Pitfalls of Exploit-First Training](./S6.1.2.md): TBD
 - [6.2. Strategic Use of Security Output](./S6.2.0.md): TBD
+- [6.2.1. Ineffective Vulnerability Reporting](./S6.2.1.md): TBD
+- [6.2.2. Pitfalls of Exploit-First Training](./S6.2.2.md): TBD
+- [6.3. Strategic Use of Security Output](./S6.3.0.md): TBD
 - [7. Roles and Responsibilities](./S7.0.0.md): How security teams, senior engineers, developing engineers, and product owners each participate.
 - [7.1. The Role of the Security Team](./S7.1.0.md): TBD
+- [7.1.1. The strategic case for the shift](./S7.1.1.md): TBD
+- [7.1.2. Capacity relief through agentic AppSec](./S7.1.2.md): TBD
+- [7.1.3. Transition, not switchover](./S7.1.3.md): TBD
+- [7.1.4. Business-leadership alignment is a precondition](./S7.1.4.md): TBD
+- [7.1.5. Staffing implications.](./S7.1.5.md): TBD
 - [7.2. Senior Software Engineers](./S7.2.0.md): TBD
 - [7.3. Developing Software Engineers](./S7.3.0.md): TBD
 - [7.4. Product Owners and Managers](./S7.4.0.md): TBD
 - [8. Organizational Adoption of FIASSE](./S8.0.0.md): A practical, non-rigid path for introducing FIASSE into an organization.
+- [8.1. Degraded-Mode Adoption](./S8.1.0.md): TBD
+- [8.1.1. Compensate with agentic assistance](./S8.1.1.md): TBD
+- [8.1.2. Invest in the prerequisite first](./S8.1.2.md): TBD
+- [8.1.3. Adopt partially with named gaps](./S8.1.3.md): TBD
+- [8.2. Indicators of Adoption Effectiveness](./S8.2.0.md): TBD
 - [9. Conclusion](./S9.0.0.md): The central shift and the starting point for adoption.
 - [10. References](./S10.0.0.md): Source material and further reading.
 
