@@ -15,7 +15,7 @@ All generated code must exhibit the ten Securable Software Engineering Model (SS
 
 ### Reliability
 - **Availability** — Design for graceful degradation and fault tolerance. Protect against resource exhaustion and denial-of-service conditions. Components must fail without taking the system down.
-- **Integrity** — Apply the **Derived Integrity Principle**: never accept client-supplied values for server-authoritative facts (prices, roles, permissions, state). Derive them server-side from a trusted source. Manage state transitions through internal state machines. Use cryptographic validation for data at rest and in transit.
+- **Integrity** — Apply the **Isolated Integrity Principle**: never accept client-supplied values for server-authoritative facts (prices, roles, permissions, state). Derive them server-side in an isolated trusted context. Manage state transitions through internal state machines. Use cryptographic validation for data at rest and in transit.
 - **Resilience** — Write defensively. Validate, canonicalize, and sanitize all input at trust boundaries. Encode all output destined for other systems or interpreters. Use strong typing. Handle errors explicitly, failing to a known safe state without leaking internals. Acquire and release resources deterministically. Avoid dangerous constructs (string-concatenated queries, `eval()`, deserialization of untrusted data); where unavoidable, encapsulate behind a narrow interface.
 
 ### Boundary Control (apply at every trust boundary)
