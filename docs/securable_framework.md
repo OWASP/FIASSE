@@ -53,7 +53,7 @@ FIASSE is not an assurance framework, a maturity model, or a replacement for con
     - [4.3. The Boundary Control Principle](#43-the-boundary-control-principle)
     - [4.4. Resilient Coding](#44-resilient-coding)
       - [4.4.1. Canonical Input Handling](#441-canonical-input-handling)
-        - [4.4.1.1. The Request Surface Minimization Principle](#4411-the-request-surface-minimization-principle)
+        - [4.4.1.1. The Canonical Parsing Principle](#4411-the-canonical-parsing-principle)
         - [4.4.1.2. The Derived Integrity Principle](#4412-the-derived-integrity-principle)
     - [4.5. Dependency Management](#45-dependency-management)
     - [4.6. Dependency Stewardship](#46-dependency-stewardship)
@@ -81,10 +81,10 @@ FIASSE is not an assurance framework, a maturity model, or a replacement for con
     - [8.1. Degraded-Mode Adoption](#81-degraded-mode-adoption)
       - [8.1.1. Compensate with agentic assistance](#811-compensate-with-agentic-assistance)
       - [8.1.2. Invest in the prerequisite first](#812-invest-in-the-prerequisite-first)
-      - [8.1.3. Adopt partially with named gaps](#813-adopt-partially-with-named-gaps)
+      - [8.1.3. Adopt partially with named gaps](#813-adopt-partially-with-named-gaps)
     - [8.2. Indicators of Adoption Effectiveness](#82-indicators-of-adoption-effectiveness)
       - [8.2.1 Leading indicators](#821-leading-indicators)
-      - [8.2.2 Lagging indicators](#822-lagging-indicators)
+      - [8.2.2 Lagging indicators](#822-lagging-indicators)
       - [8.2.4 Distinguishing framework failure from adoption failure](#824-distinguishing-framework-failure-from-adoption-failure)
   - [9. Conclusion](#9-conclusion)
   - [10. References](#10-references)
@@ -210,7 +210,8 @@ This also requires that the expectation of mindset is calibrated correctly. The 
 
 Alignment requires specific participation from AppSec professionals early in the Software Development Lifecycle (SDLC), particularly during requirements gathering and feature planning. When security engages at those stages, developers gain the context and expectations they need to build securable software as a natural part of their workflow. This is the value of **Participation over Assessment**: shaping the system as it is being built is more effective than evaluating it after the fact, and it lets security expertise act where it produces the most leverage.
 
-The upstream engagement produces effects that are visible in the downstream assurance metrics leadership already tracks. Requirements that describe security expectations explicitly, implemented consistently across a change, yield lower findings. It also creates fixes that stay fixed, and consistent turnaround from finding to durable remediation. FIASSE does not ask leadership to replace metrics. It indicates that the metrics be downstream indicators of upstream health. When findings recur, fixes regress, or turnaround stalls, the cause is typically in the requirements or the engineering practice, not in the security testing that surfaced them.
+The upstream engagement produces effects that are visible in the downstream assurance metrics leadership already tracks. Requirements that describe security expectations explicitly, implemented consistently across a change, yield lower findings. It also creates fixes that stay fixed, and consistent turnaround from finding to durable remediation. FIASSE does not ask leadership to replace metrics. It indicates that the metrics be downstream indicators of upstream health. When findings recur, fixes regress, or turnaround stalls, the cause is typically in the requirements or the engineering practice, not in the security testing that surfaced them.
+
 
 ### 2.6. The Transparency Principle
 
@@ -239,7 +240,8 @@ Engineering transparency into a system is an investment that benefits both secur
 - Expose health and performance metrics through instrumentation. Key operational signals such as authentication failures, input handling error counts, and memory and CPU utilization provide real-time insight into system behavior through a standardized API.
 - Log events at trust boundaries. Include the outcome of validation, sanitization, or transformation steps outside normal expectations. Debug-level logging of all boundary events is useful during development and incident analysis.
 
-Transparency and the Principle of Least Astonishment (Section 2.7) work in concert: transparent systems tend to be astonishment-free because their operations are visible and understandable. Together, these properties reduce cognitive load on maintenance teams and increase the speed at which security concerns can be identified and addressed.
+Transparency and the Principle of Least Astonishment (Section 2.7) work in concert: transparent systems tend to be astonishment-free because their operations are visible and understandable. Together, these properties reduce cognitive load on maintenance teams and increase the speed at which security concerns can be identified and addressed.
+
 
 ### 2.7. The Principle of Least Astonishment
 
@@ -511,15 +513,24 @@ Input handling is a critical aspect of resilient coding. The most effective appr
 
 In some platforms, it may be beneficial to signal that an input value has been fully handled by passing it as a contextualized object rather than a scalar value after validation. If this pattern is used, document and communicate it to the team.
 
-##### 4.4.1.1. The Request Surface Minimization Principle
+##### 4.4.1.1. The Canonical Parsing Principle
 
-One tactic for resilient input handling is to avoid assuming that the entire request or envelope is intended to be processed. This encourages developers to access specific named values within a request rather than processing all values indiscriminately. This approach has allowed developers to avoid certain categories of injection attack and is a sound sanitization tactic generally. It also preserves resilience by ignoring out-of-scope values rather than attempting to handle them.
+At trust boundaries, treat external input as untrusted data that must be parsed into a canonical internal type before business logic runs. This follows the "Parse, don't validate" approach: instead of passing around loosely typed data and repeatedly checking it, perform one strict parse step at the boundary and fail closed if parsing does not succeed.
 
-A security benefit of this approach is that the system can analyze requests for payload anomalies, fraud indicators, or probing behavior without disrupting normal application operation. Because the application only processes the values it expects, unexpected fields or values are observable as deviations rather than noise embedded in processing logic.
+In this model, the resulting data structure is proof that required invariants hold ("Data Structure as Proof"). If code receives a parsed `CreateOrderRequest`, then required fields, type constraints, format rules, and boundary checks were already enforced by the parser. Core logic can then operate on trustworthy structures rather than reinterpreting raw request envelopes.
+
+A practical boundary workflow is:
+
+- Define an explicit input schema per operation, not a generic "accept anything" envelope.
+- Parse only expected fields into a typed structure.
+- Optionally reject the request when parsing fails or when forbidden/unknown fields are present, based on policy.
+- Log parse failures and schema deviations with actionable context.
+
+This approach reduces injection risk, prevents accidental propagation of malformed input, and improves analyzability because input handling behavior is centralized and deterministic.
 
 Requests that deviate from expectation should be logged at minimum. The log entry should capture enough context to be useful in retrospect: the specific deviation observed, the request source, a timestamp, and any relevant session or user identity. A bare count or a generic "unexpected input" message does not support meaningful analysis.
 
-In sensitive contexts, log-and-reject is the more defensible posture, and in some cases the correct one. The reasons to prefer rejection over silent discard are:
+In sensitive contexts, parse-fail-and-reject is the more defensible posture, and in some cases the correct one. The reasons to prefer rejection over silent discard are:
 
 - **Reconnaissance detection.** Unexpected fields are frequently a sign that a client is probing the API surface: testing parameter names, injecting out-of-band values, or mapping the system's behavior. Rejecting the request raises the cost of this activity and makes the behavior more visible in logs.
 - **Manipulation prevention.** In business-critical flows, an unexpected field may represent an attempt to supply a value the server should be deriving (see Section 4.4.1.2). Silently ignoring it allows the request to succeed, which confirms to the attacker that the attempt went unnoticed. Rejection removes that confirmation.
@@ -651,7 +662,8 @@ The catalogs themselves (NIST SP 800-53, ISO/IEC 27001 Annex A, PCI DSS, and the
 
 **The control-as-protection fallacy** reads the documented existence of a control as a property of the software. Many controls are properly satisfied outside the application — platform, network, process, or inheritance. That is sound assurance practice and corrosive engineering shorthand: a protection provided by the environment defends the code only in that environment, and even correctly-external controls leave residual obligations inside the code. For example the fact that the code should accept identity only from the trusted boundary and fail closed when the upstream protection is absent may go unspecified because "the control is handled." Unallocated security controls fail in another way: each team assumes the other owns them. Software is defensible only when the code's share of every relevant control is specified, implemented, and verifiable.
 
-The requirements process supplies what the catalog deliberately omits. *Allocation*: decide and record which layer satisfies each control, including the code's residual share. *Specification*: express that share as observable behavior with acceptance criteria. ASVS is a ready-made requirements library at this altitude, so much translation is selection rather than authorship. *Adequacy*: assessment verifies that a control exists and operates, not that it suffices against this product's threat model; the catalog is a floor, never a ceiling. The expectations follow. Security brings controls forward, participates in requirements — correcting at its source the friction Sections 2.5 and 5.1 describe — and owns the control-to-requirement mapping. Product weighs; the business funds. Development implements to specification, keeps the verifying tests green, and answers a control-shaped demand that arrives without criteria by requesting the requirement, not inferring one. The payoff is symmetric: development receives specifications instead of insinuations, and security receives audit evidence assembled from living tests. This point-in-time attestation is a state; a requirement under test is a property.
+The requirements process supplies what the catalog deliberately omits. *Allocation*: decide and record which layer satisfies each control, including the code's residual share. *Specification*: express that share as observable behavior with acceptance criteria. ASVS is a ready-made requirements library at this altitude, so much translation is selection rather than authorship. *Adequacy*: assessment verifies that a control exists and operates, not that it suffices against this product's threat model; the catalog is a floor, never a ceiling. The expectations follow. Security brings controls forward, participates in requirements — correcting at its source the friction Sections 2.5 and 5.1 describe — and owns the control-to-requirement mapping. Product weighs; the business funds. Development implements to specification, keeps the verifying tests green, and answers a control-shaped demand that arrives without criteria by requesting the requirement, not inferring one. The payoff is symmetric: development receives specifications instead of insinuations, and security receives audit evidence assembled from living tests. This point-in-time attestation is a state; a requirement under test is a property.
+
 
 The corrective discipline is the first FIASSE value (Section 2). A control describes a protection. A requirement specifies behavior. A feature delivers it. Evidence proves it. Mistaking a control for a requirement burdens developers with inference; mistaking it for a feature dresses software in paper. Catalogs make software defensible in exactly one way: as input to the code creation process, translated on the way in.
 
@@ -799,7 +811,8 @@ FIASSE does not require a rigid adoption sequence, but organizations benefit fro
 
 ### 8.1. Degraded-Mode Adoption
 
-Where the readiness assessment (Step 1) identifies a prerequisite gap like sparse requirements process, thin senior engineer bench, or engineering culture that does not yet support substantive merge reviews and mentorship. FIASSE is still adoptable, but the adoption must be shaped around the gap rather than proceeding as if the prerequisite were present.
+Where the readiness assessment (Step 1) identifies a prerequisite gap like sparse requirements process, thin senior engineer bench, or engineering culture that does not yet support substantive merge reviews and mentorship. FIASSE is still adoptable, but the adoption must be shaped around the gap rather than proceeding as if the prerequisite were present.
+
 
 Three degraded-mode options are supplied here, and they are not mutually exclusive:
 
@@ -809,17 +822,21 @@ Agentic AppSec tooling (Step 5) and AI-assisted development can compensate for a
 
 #### 8.1.2. Invest in the prerequisite first
 
-Where the prerequisite gap is large and the organization has appetite for it, the honest path is to invest in the prerequisite before or alongside FIASSE adoption. Requirements-process work, engineering culture work, and senior hiring are legitimate FIASSE-adjacent investments, and framing them as such makes them fundable. Section 2.4's claim that quality is the limiting factor for security applies here: FIASSE cannot compensate for a floor of engineering practice that is too low to build on.
+Where the prerequisite gap is large and the organization has appetite for it, the honest path is to invest in the prerequisite before or alongside FIASSE adoption. Requirements-process work, engineering culture work, and senior hiring are legitimate FIASSE-adjacent investments, and framing them as such makes them fundable. Section 2.4's claim that quality is the limiting factor for security applies here: FIASSE cannot compensate for a floor of engineering practice that is too low to build on.
 
-#### 8.1.3. Adopt partially with named gaps
 
-Where full adoption is out of reach, adopt the parts of FIASSE that the prerequisites do support and name the parts that are on hold. A team with a strong senior bench but no requirements process can start with merge-review threat awareness and SSEM vocabulary in code review, and defer requirements integration until the process exists. A team with a functioning requirements process but a thin bench can start with requirements integration and defer the mentorship-heavy practices. Naming the gaps prevents the partial adoption from being mistaken for full adoption, which is what protects the framework's indicators (Section 8.2) from being read against the wrong baseline.
+#### 8.1.3. Adopt partially with named gaps
+
+
+Where full adoption is out of reach, adopt the parts of FIASSE that the prerequisites do support and name the parts that are on hold. A team with a strong senior bench but no requirements process can start with merge-review threat awareness and SSEM vocabulary in code review, and defer requirements integration until the process exists. A team with a functioning requirements process but a thin bench can start with requirements integration and defer the mentorship-heavy practices. Naming the gaps prevents the partial adoption from being mistaken for full adoption, which is what protects the framework's indicators (Section 8.2) from being read against the wrong baseline.
+
 
 Degraded-mode adoption is a legitimate posture, not a failure to adopt. What is not legitimate is claiming full adoption while operating without the prerequisites; that produces the pattern where FIASSE gets blamed for outcomes that were structurally out of its reach.
 
 ### 8.2. Indicators of Adoption Effectiveness
 
-FIASSE does not replace the assurance metrics organizations already track. It expects those metrics to move as a downstream effect of upstream engagement (Section 2.5). The indicators below let a team distinguish "the framework is producing the effect it claims" from "adoption is not producing the effect and something needs to change."
+FIASSE does not replace the assurance metrics organizations already track. It expects those metrics to move as a downstream effect of upstream engagement (Section 2.5). The indicators below let a team distinguish "the framework is producing the effect it claims" from "adoption is not producing the effect and something needs to change."
+
 
 #### 8.2.1 Leading indicators
 
@@ -831,7 +848,8 @@ Should be visible within one to two quarters of good-faith adoption.
 - Merge review conversations reference SSEM attributes as design language rather than security jargon.
 - The volume of security escalations arising from merge reviews declines as expectations shift upstream.
 
-#### 8.2.2 Lagging indicators
+#### 8.2.2 Lagging indicators
+
 
 Should be visible within one to two years of good-faith adoption.
 
