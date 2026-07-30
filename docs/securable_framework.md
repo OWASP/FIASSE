@@ -244,7 +244,7 @@ Transparency and the Principle of Least Astonishment (Section 2.7) work in conce
 
 ### 2.7. The Principle of Least Astonishment
 
-The Principle of Least Astonishment (POLA) holds that systems should behave in ways that are intuitive and predictable to users, developers, and administrators. When a system diverges from reasonable expectations through unexpected behavior, hidden side effects, or unintuitive interfaces, it becomes harder to understand, reason about, and secure.
+The Principle of Least Astonishment (POLA) holds that systems should behave in ways that are intuitive and predictable to users, developers, and administrators — a descendant of the classic design principle of psychological acceptability [Saltzer1975]. When a system diverges from reasonable expectations through unexpected behavior, hidden side effects, or unintuitive interfaces, it becomes harder to understand, reason about, and secure.
 
 POLA is particularly relevant to securable software for three reasons:
 
@@ -305,7 +305,7 @@ The following attributes are the building blocks of securable software. They are
 
 **Definition:** "The degree of effectiveness and efficiency with which it is possible to assess the impact on a product or system of an intended change to one or more of its parts, or to diagnose a product for deficiencies or causes of failures, or to identify parts to be modified" [ISO-25010, §4.2.7.3]. In practical terms, Analyzability is the ability to locate the cause of a behavior within the code. Code must be understandable to find and fix vulnerabilities; Analyzability directly determines the speed and accuracy of vulnerability remediation.
 
-Contributing factors:
+Contributing factors [Heitlager2007]:
 
 - **Volume (Lines of Code):** Overall size of the codebase.
 - **Duplication:** Percentage of duplicated code.
@@ -353,7 +353,7 @@ Observability must be achieved through instrumentation and auditing built into t
 
 #### 3.2.2. Trustworthiness
 
-**Definition:** "Ability to meet stakeholder expectations in a verifiable way" [ISO-27000]. A trustworthy system operates within defined levels of trust and meets specified security properties in a manner that can be demonstrated rather than assumed. Rather than focusing on overlaid security controls, FIASSE emphasizes the inherent code qualities that enable trustworthiness: strong architectural design, clear trust boundaries, and well-defined areas of flexibility.
+**Definition:** "Ability to meet stakeholder expectations in a verifiable way" [ISO-5723]. A trustworthy system operates within defined levels of trust and meets specified security properties in a manner that can be demonstrated rather than assumed. Rather than focusing on overlaid security controls, FIASSE emphasizes the inherent code qualities that enable trustworthiness: strong architectural design, clear trust boundaries, and well-defined areas of flexibility.
 
 Key attributes contributing to trustworthiness include:
 
@@ -491,7 +491,7 @@ Practical defensive coding focuses on:
 - **Avoidance and isolation of risky operations:** Certain programming constructs introduce disproportionate risk and should be avoided where alternatives exist. String concatenation used to construct queries or commands, deserialization of untrusted data, and dynamic execution constructs such as `eval()` are common examples. Where such operations cannot be avoided, they must be encapsulated behind a well-defined, narrow interface and isolated from the rest of the application so that their risk surface is bounded and their behavior is auditable.
 - **Safe memory and resource management:** Acquiring resources explicitly and releasing them reliably, regardless of execution path. This includes file handles, database connections, network sockets, and allocated memory. Failing to release resources introduces availability risk and, in some environments, exploitable memory conditions. Use language-provided constructs (such as `try-with-resources`, `using` blocks, or RAII patterns) to ensure deterministic cleanup. Avoid holding resources longer than necessary, and prefer scoped allocation where the language supports it.
 - **Graceful and secure failure:** When a component encounters an error it cannot recover from, it must fail in a way that is safe, not just visible. Graceful failure means the application transitions to a known, controlled state rather than an undefined one. Secure failure means the error path does not leak internal state, stack traces, or implementation details to untrusted parties. Error messages presented externally should be generic; detailed diagnostic information should be captured in internal logs only. A failure that exposes system internals to an attacker is not graceful, regardless of how cleanly the exception is caught.
-- **Least privilege operation at the code level:** Code should request and hold only the permissions it needs for the specific operation it is performing, and for no longer than that operation requires. This applies to database access (request read access when write is not needed), filesystem operations (scope access to the specific path required), API calls (request only the scopes the operation requires), and thread or process privileges (drop elevated permissions as soon as they are no longer needed). Least privilege at the code level limits the blast radius of a compromised component and reduces the set of actions an attacker can take if they gain control of execution within that component.
+- **Least privilege operation at the code level:** Code should request and hold only the permissions it needs for the specific operation it is performing, and for no longer than that operation requires. This applies to database access (request read access when write is not needed), filesystem operations (scope access to the specific path required), API calls (request only the scopes the operation requires), and thread or process privileges (drop elevated permissions as soon as they are no longer needed). Least privilege at the code level limits the blast radius of a compromised component and reduces the set of actions an attacker can take if they gain control of execution within that component [Saltzer1975].
 
 These are verifiable items that AppSec can assess during review.
 
@@ -507,7 +507,7 @@ In some platforms, it may be beneficial to signal that an input value has been f
 
 ##### 4.4.1.1. The Canonical Parsing Principle
 
-At trust boundaries, treat external input as untrusted data that must be parsed into a canonical internal type before business logic runs. This follows the "Parse, don't validate" approach: instead of passing around loosely typed data and repeatedly checking it, perform one strict parse step at the boundary and fail closed if parsing does not succeed.
+At trust boundaries, treat external input as untrusted data that must be parsed into a canonical internal type before business logic runs. This follows the "Parse, don't validate" approach [King2019]: instead of passing around loosely typed data and repeatedly checking it, perform one strict parse step at the boundary and fail closed if parsing does not succeed.
 
 In this model, the resulting data structure is proof that required invariants hold ("Data Structure as Proof"). If code receives a parsed `CreateOrderRequest`, then required fields, type constraints, format rules, and boundary checks were already enforced by the parser. Core logic can then operate on trustworthy structures rather than reinterpreting raw request envelopes.
 
@@ -634,7 +634,7 @@ Merge reviews are also an appropriate venue for practicing threat awareness at t
 
 ### 5.3. Early Integration: Planning and Requirements
 
-FIASSE advocates for integrating security at the earliest stages of development, particularly during planning and requirements definition. This ensures security is a foundational design element rather than a retrofit. Addressing vulnerabilities at the design phase costs a fraction of what it costs to address them in production [Boehm1981].
+FIASSE advocates for integrating security at the earliest stages of development, particularly during planning and requirements definition. This ensures security is a foundational design element rather than a retrofit. Security expectations set at design time never enter the remediation queue at all; once a flaw ships, industry data puts the average time from finding to fix at 252 days [Veracode-SoSS-2025].
 
 The primary mechanism for early integration is active security team participation in requirements gathering, as described in Section 4.1.2. By contributing Security Features, Threat Scenarios, and Security Acceptance Criteria to the requirements process, the security team ensures that security expectations are explicit, testable, and integrated into the development workflow from the start.
 
@@ -653,7 +653,6 @@ The catalogs themselves (NIST SP 800-53, ISO/IEC 27001 Annex A, PCI DSS, and the
 **The control-as-protection fallacy** reads the documented existence of a control as a property of the software. Many controls are properly satisfied outside the application — platform, network, process, or inheritance. That is sound assurance practice and corrosive engineering shorthand: a protection provided by the environment defends the code only in that environment, and even correctly-external controls leave residual obligations inside the code. For example the fact that the code should accept identity only from the trusted boundary and fail closed when the upstream protection is absent may go unspecified because "the control is handled." Unallocated security controls fail in another way: each team assumes the other owns them. Software is defensible only when the code's share of every relevant control is specified, implemented, and verifiable.
 
 The requirements process supplies what the catalog deliberately omits. *Allocation*: decide and record which layer satisfies each control, including the code's residual share. *Specification*: express that share as observable behavior with acceptance criteria. ASVS is a ready-made requirements library at this altitude, so much translation is selection rather than authorship. *Adequacy*: assessment verifies that a control exists and operates, not that it suffices against this product's threat model; the catalog is a floor, never a ceiling. The expectations follow. Security brings controls forward, participates in requirements — correcting at its source the friction Sections 2.5 and 5.1 describe — and owns the control-to-requirement mapping. Product weighs; the business funds. Development implements to specification, keeps the verifying tests green, and answers a control-shaped demand that arrives without criteria by requesting the requirement, not inferring one. The payoff is symmetric: development receives specifications instead of insinuations, and security receives audit evidence assembled from living tests. This point-in-time attestation is a state; a requirement under test is a property.
-
 
 The corrective discipline is the first FIASSE value (Section 2). A control describes a protection. A requirement specifies behavior. A feature delivers it. Evidence proves it. Mistaking a control for a requirement burdens developers with inference; mistaking it for a feature dresses software in paper. Catalogs make software defensible in exactly one way: as input to the code creation process, translated on the way in.
 
@@ -849,8 +848,6 @@ Should be visible within one to two years of good-faith adoption.
 
 Where leading indicators are not moving after two quarters of good-faith adoption effort, the failure is in adoption: the readiness assessment (Step 1) likely missed a prerequisite gap, or the AppSec role shift (Section 7.1) has not received the business-leadership backing it requires. Where leading indicators have moved but lagging indicators do not follow within the stated windows, the failure is in the framework's causal claim for that team, and the team is owed an honest reassessment rather than a longer runway. FIASSE is not exempt from the burden of showing it produces the effect it claims; naming the criteria for that showing is part of what makes it a framework rather than a manifesto.
 
-Regardless of organizational size, domain, or technology stack, the path to better security outcomes runs through the same place: engineers who understand what securable software looks like, teams that have the vocabulary to reason about it, and leaders who create the conditions for it to be built. FIASSE provides the structure to get there. The investment is in engineering culture, and the return compounds over time.
-
 ---
 
 ## 9. Conclusion
@@ -865,23 +862,29 @@ For security professionals: the leverage point is earlier and further upstream t
 
 For Product Owners: the security posture of your product is a product decision. Every scope cut that removes input validation, every sprint that defers dependency maintenance, and every story accepted without security acceptance criteria is a decision with a security consequence. FIASSE literacy makes those consequences visible before they become incidents. The adoption steps in Section 8 provide a concrete starting point.
 
-Securability is not a destination. It is a discipline that begins with the next line of code written or generated, the next requirement authored, the next merge reviewed. Start there.
+Regardless of organizational size, domain, or technology stack, the path to better security outcomes runs through the same place: engineers who understand what securable software looks like, teams that have the vocabulary to reason about it, and leaders who create the conditions for it to be built. The investment is in engineering culture, and the return compounds over time.
+
+There is no static state of secure. Securability is a discipline that begins with the next line of code written or generated, the next requirement authored, the next merge reviewed. Start there.
 
 ---
 
 ## 10. References
 
-[Boehm1981] Boehm, B.W., "Software Engineering Economics", Prentice-Hall, 1981. ISBN 0-13-822122-7.
+[Heitlager2007] Heitlager, I., Kuipers, T., and Visser, J., "A Practical Model for Measuring Maintainability", Proceedings of the 6th International Conference on the Quality of Information and Communications Technology (QUATIC 2007), IEEE, 2007.
 
 [Howard] Howard, R., "Cybersecurity First Principles: A Reboot of Strategy and Tactics", Wiley, 2023. ISBN 978-1-394-17308-2.
 
 [ISO-24765] ISO/IEC/IEEE 24765:2017, "Systems and software engineering - Vocabulary". International Organization for Standardization.
 
-[ISO-25010] ISO/IEC 25010:2011, "Systems and software engineering - Systems and software Quality Requirements and Evaluation (SQuaRE) - System and software quality models". International Organization for Standardization.
+[ISO-25010] ISO/IEC 25010:2011, "Systems and software engineering - Systems and software Quality Requirements and Evaluation (SQuaRE) - System and software quality models". International Organization for Standardization. Superseded by ISO/IEC 25010:2023; quoted definitions follow the 2011 edition.
 
 [ISO-27000] ISO/IEC 27000:2018, "Information technology - Security techniques - Information security management systems - Overview and vocabulary". International Organization for Standardization.
 
+[ISO-5723] ISO/IEC TS 5723:2022, "Trustworthiness - Vocabulary". International Organization for Standardization.
+
 [Kalman1960] Kalman, R.E., "On the general theory of control systems", Proceedings of the 1st IFAC Congress, Moscow, Butterworths, London, 1960, pp. 481–492.
+
+[King2019] King, A., "Parse, Don't Validate", 2019. <https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/>.
 
 [LINDDUN] DistriNet Research Unit, KU Leuven, "LINDDUN Privacy Threat Modeling". <https://linddun.org/>.
 
@@ -889,9 +892,13 @@ Securability is not a destination. It is a discipline that begins with the next 
 
 [PASTA] UcedaVelez, T. and Morana, M.M., "Risk Centric Threat Modeling: Process for Attack Simulation and Threat Analysis". Wiley, 2015. ISBN 978-0-470-50096-5.
 
+[Saltzer1975] Saltzer, J.H. and Schroeder, M.D., "The Protection of Information in Computer Systems", Proceedings of the IEEE, 63(9), 1975, pp. 1278–1308.
+
 [STRIDE] Shostack, A., "Threat Modeling: Designing for Security", Wiley, 2014. ISBN 978-1-118-80999-0.
 
 [TM-Manifesto] Braiterman, Z. et al., "Threat Modeling Manifesto". <https://www.threatmodelingmanifesto.org/>.
+
+[Veracode-SoSS-2025] Veracode, "State of Software Security 2025: A New View of Maturity", 2025. <https://www.veracode.com/resources/analyst-reports/state-of-software-security-2025/>.
 
 ---
 
@@ -900,6 +907,8 @@ Securability is not a destination. It is a discipline that begins with the next 
 Measuring the attributes defined by SSEM quantifies and evaluates the securable qualities of software. The following approaches cover each core attribute and provide actionable indicators to guide improvement.
 
 ### A.1. Measuring Maintainability
+
+The quantitative metrics in this section draw on the SIG maintainability model [Heitlager2007].
 
 #### A.1.1. Analyzability
 
