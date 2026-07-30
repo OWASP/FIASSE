@@ -2,9 +2,9 @@
 
 ## Abstract
 
-This document describes the Framework for Integrating Application Security into Software Engineering (FIASSE), a vendor-independent framework that embeds application security into the software engineering discipline, and its core component, the Securable Software Engineering Model (SSEM). SSEM provides a design language grounded in established software engineering terminology, defining inherent security attributes, organized under Maintainability, Trustworthiness, and Reliability, that characterize securable software. Together they enable development teams to resiliently add computing value while reducing the probability of material impact from cyber events across the lifespan of the system.
+Application security has invested heavily in finding weaknesses in software after it is written, and comparatively little in the discipline of creating software that is securable to begin with. This document describes the Framework for Integrating Application Security into Software Engineering (FIASSE), a vendor-independent framework for that neglected stage: the construction of the code itself. Its core component, the Securable Software Engineering Model (SSEM), provides a design language grounded in established software engineering terminology, defining inherent security attributes, organized under Maintainability, Trustworthiness, and Reliability, that development teams build toward as they resiliently add computing value while reducing the probability of material impact from cyber events.
 
-FIASSE is not an assurance framework, a maturity model, or a replacement for control catalogs or vulnerability metrics. It intends to address how security requirements are implemented in software so that the assurance and compliance work built around the code has sound material to work with.
+FIASSE is not an assurance framework, a maturity model, or a replacement for control catalogs or vulnerability metrics. Testing and verification remain valid measures of current defensive posture; constructing securable software is what relieves the pressure on them, leaving find-and-fix work with less to find and better material to fix.
 
 ---
 
