@@ -60,6 +60,7 @@ FIASSE (pronounced /feiz/) is vendor-independent and is written for Software Eng
 - [8.1. Degraded-Mode Adoption](./S8.1.0.md): TBD
 - [8.1.1. Compensate with agentic assistance](./S8.1.1.md): TBD
 - [8.1.2. Invest in the prerequisite first](./S8.1.2.md): TBD
+- [8.1.3. Adopt partially with named gaps](./S8.1.3.md): TBD
 - [8.2. Indicators of Adoption Effectiveness](./S8.2.0.md): TBD
 - [9. Conclusion](./S9.0.0.md): The central shift and the starting point for adoption.
 - [10. References](./S10.0.0.md): Source material and further reading.
