@@ -211,7 +211,6 @@ Alignment requires specific participation from AppSec professionals early in the
 
 The upstream engagement produces effects that are visible in the downstream assurance metrics leadership already tracks. Requirements that describe security expectations explicitly, implemented consistently across a change, yield lower findings. It also creates fixes that stay fixed, and consistent turnaround from finding to durable remediation. FIASSE does not ask leadership to replace metrics. It indicates that the metrics be downstream indicators of upstream health. When findings recur, fixes regress, or turnaround stalls, the cause is typically in the requirements or the engineering practice, not in the security testing that surfaced them.
 
-
 ### 2.6. The Transparency Principle
 
 Transparency is the principle of designing a system so that its internal state and behavior are observable and understandable to authorized parties. It is a foundational engineering strategy that underpins several core SSEM attributes, enabling trust and simplifying analysis. Transparency is about providing clear, contextualized visibility into how the system operates, makes decisions, and handles data.
@@ -240,7 +239,6 @@ Engineering transparency into a system is an investment that benefits both secur
 - Log events at trust boundaries. Include the outcome of validation, sanitization, or transformation steps outside normal expectations. Debug-level logging of all boundary events is useful during development and incident analysis.
 
 Transparency and the Principle of Least Astonishment (Section 2.7) work in concert: transparent systems tend to be astonishment-free because their operations are visible and understandable. Together, these properties reduce cognitive load on maintenance teams and increase the speed at which security concerns can be identified and addressed.
-
 
 ### 2.7. The Principle of Least Astonishment
 
@@ -798,7 +796,6 @@ FIASSE does not require a rigid adoption sequence, but organizations benefit fro
 
 Where the readiness assessment (Step 1) identifies a prerequisite gap — a sparse requirements process, a thin senior engineer bench, or an engineering culture that does not yet support substantive merge reviews and mentorship — FIASSE is still adoptable, but the adoption must be shaped around the gap rather than proceeding as if the prerequisite were present.
 
-
 Three degraded-mode options are supplied here, and they are not mutually exclusive:
 
 #### 8.1.1. Compensate with Agentic Assistance
@@ -809,19 +806,15 @@ Agentic AppSec tooling (Step 5) and AI-assisted development can compensate for a
 
 Where the prerequisite gap is large and the organization has appetite for it, the honest path is to invest in the prerequisite before or alongside FIASSE adoption. Requirements-process work, engineering culture work, and senior hiring are legitimate FIASSE-adjacent investments, and framing them as such makes them fundable. Section 2.4's claim that quality is the limiting factor for security applies here: FIASSE cannot compensate for a floor of engineering practice that is too low to build on.
 
-
 #### 8.1.3. Adopt Partially with Named Gaps
 
-
 Where full adoption is out of reach, adopt the parts of FIASSE that the prerequisites do support and name the parts that are on hold. A team with a strong senior bench but no requirements process can start with merge-review threat awareness and SSEM vocabulary in code review, and defer requirements integration until the process exists. A team with a functioning requirements process but a thin bench can start with requirements integration and defer the mentorship-heavy practices. Naming the gaps prevents the partial adoption from being mistaken for full adoption, which is what protects the framework's indicators (Section 8.2) from being read against the wrong baseline.
-
 
 Degraded-mode adoption is a legitimate posture, not a failure to adopt. What is not legitimate is claiming full adoption while operating without the prerequisites; that produces the pattern where FIASSE gets blamed for outcomes that were structurally out of its reach.
 
 ### 8.2. Indicators of Adoption Effectiveness
 
 FIASSE does not replace the assurance metrics organizations already track. It expects those metrics to move as a downstream effect of upstream engagement (Section 2.5). The indicators below let a team distinguish "the framework is producing the effect it claims" from "adoption is not producing the effect and something needs to change."
-
 
 #### 8.2.1. Leading Indicators
 
@@ -834,7 +827,6 @@ Should be visible within one to two quarters of good-faith adoption.
 - The volume of security escalations arising from merge reviews declines as expectations shift upstream.
 
 #### 8.2.2. Lagging Indicators
-
 
 Should be visible within one to two years of good-faith adoption.
 

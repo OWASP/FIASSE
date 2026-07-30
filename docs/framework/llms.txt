@@ -15,6 +15,9 @@ FIASSE (pronounced /feiz/) is vendor-independent and is written for Software Eng
 - [2.4 Aligning Security with Development](./S2.4.0.md): Shared vocabulary over security jargon; why "think like an attacker" does not scale as a development mandate.
 - [2.5. The Transparency Principle](./S2.5.0.md): TBD
 - [2.6. The Principle of Least Astonishment](./S2.6.0.md): TBD
+- [2.6.1. Transparency and Maintainability](./S2.6.1.md): TBD
+- [2.6.2. Transparency and Trustworthiness](./S2.6.2.md): TBD
+- [2.6.3. Transparency Tactics](./S2.6.3.md): TBD
 - [2.7. The Principle of Least Astonishment](./S2.7.0.md): TBD
 - [3. The Securable Software Engineering Model (SSEM)](./S3.0.0.md): The model that expresses securable attributes in engineering terms.
 - [3.1 Model Overview and Design Language](./S3.1.0.md): SSEM as design language, not a compliance checklist.
@@ -62,6 +65,9 @@ FIASSE (pronounced /feiz/) is vendor-independent and is written for Software Eng
 - [8.1.2. Invest in the prerequisite first](./S8.1.2.md): TBD
 - [8.1.3. Adopt partially with named gaps](./S8.1.3.md): TBD
 - [8.2. Indicators of Adoption Effectiveness](./S8.2.0.md): TBD
+- [8.2.1. Leading Indicators](./S8.2.1.md): TBD
+- [8.2.2. Lagging Indicators](./S8.2.2.md): TBD
+- [8.2.3. Distinguishing Framework Failure from Adoption Failure](./S8.2.3.md): TBD
 - [9. Conclusion](./S9.0.0.md): The central shift and the starting point for adoption.
 - [10. References](./S10.0.0.md): Source material and further reading.
 
