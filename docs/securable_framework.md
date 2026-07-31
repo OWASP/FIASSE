@@ -60,9 +60,17 @@ FIASSE is not an assurance framework, a maturity model, or a replacement for con
   - [5. Integrating Security into Development Processes](#5-integrating-security-into-development-processes)
     - [5.1. Natively Extending Development Processes](#51-natively-extending-development-processes)
     - [5.2. The Role of Merge Reviews](#52-the-role-of-merge-reviews)
+      - [5.2.1. The Securability Report](#521-the-securability-report)
+      - [5.2.2. The Advisory Default](#522-the-advisory-default)
+      - [5.2.3. Gating as a Policy Decision](#523-gating-as-a-policy-decision)
+      - [5.2.4. The Audit Trail](#524-the-audit-trail)
+      - [5.2.5. Posture over Pass Rates](#525-posture-over-pass-rates)
     - [5.3. Early Integration: Planning and Requirements](#53-early-integration-planning-and-requirements)
   - [6. Common AppSec Anti-Patterns](#6-common-appsec-anti-patterns)
     - [6.1. Security Controls in the Code Creation Process](#61-security-controls-in-the-code-creation-process)
+      - [6.1.1. The Control-as-Requirement Fallacy](#611-the-control-as-requirement-fallacy)
+      - [6.1.2. The Control-as-Protection Fallacy](#612-the-control-as-protection-fallacy)
+      - [6.1.3. The Requirements Process as the Corrective](#613-the-requirements-process-as-the-corrective)
     - [6.2. The "Shoveling Left" Phenomenon](#62-the-shoveling-left-phenomenon)
       - [6.2.1. Ineffective Vulnerability Reporting](#621-ineffective-vulnerability-reporting)
       - [6.2.2. Pitfalls of Exploit-First Training](#622-pitfalls-of-exploit-first-training)
@@ -383,7 +391,7 @@ These mechanisms provide assurance that entities are genuine and accountable for
 
 > **On Authorization**
 >
-> SSEM has no Authorization attribute by design. Authorization is not a property code can simply have; it is a security feature. It exists only where the operating context demands it, since single-user software has nothing to authorize, and like any other feature it must be gathered as a requirement, shaped in architecture and design, and implemented against acceptance criteria (Section 4.1.2). Expecting it to be present without having specified it is the control-as-requirement fallacy examined in Section 6.1. That section's worked example, AC-3, is precisely an authorization control translated into an implementable requirement. What SSEM supplies is everything a sound authorization feature depends on to stay defensible: Authenticity establishes who the actor is, Confidentiality and Integrity bound what may be seen and changed, and Accountability makes each authorization decision traceable. The feature is contextual; the attributes that make it securable are not.
+> SSEM has no Authorization attribute by design. Authorization is not a property code can simply have; it is a security feature. It exists only where the operating context demands it, since single-user software has nothing to authorize, and like any other feature it must be gathered as a requirement, shaped in architecture and design, and implemented against acceptance criteria (Section 4.1.2). Expecting it to be present without having specified it is the control-as-requirement fallacy examined in Section 6.1.1. That section's worked example, AC-3, is precisely an authorization control translated into an implementable requirement. What SSEM supplies is everything a sound authorization feature depends on to stay defensible: Authenticity establishes who the actor is, Confidentiality and Integrity bound what may be seen and changed, and Accountability makes each authorization decision traceable. The feature is contextual; the attributes that make it securable are not.
 
 #### 3.2.3. Reliability
 
@@ -630,11 +638,27 @@ While software engineering lacks the formal mentorship structures of some other 
 
 Teams should treat merge reviews as guardrails, not gates. The goal is to grow the FIASSE mindset within the team and to make the review process a positive experience for developers, without introducing unnecessary friction or delay.
 
-Code review through merge requests is an effective technique for identifying security vulnerabilities early in the development process [OWASP-CRG]. Automated scans can surface known or common issues, but they cannot interpret the context of a change or understand the architecture of the system. Human review brings that context to bear.
+Merge reviews are also an appropriate venue for practicing threat awareness at the code level: asking "What can go wrong?" within the bounded scope of a changeset makes it easier to identify risks and vulnerabilities that might be harder to isolate in a larger system review. Findings that reveal design-level concerns should be escalated into the formal threat model rather than addressed solely as code-level fixes. Sections 5.2.1 through 5.2.5 define the mechanism that makes the guardrail concrete.
 
-The collaborative nature of merge reviews allows for the sharing of insight and expertise, and provides a fresh perspective that individual developers may lose through familiarity with their own code. When FIASSE-trained security professionals participate, they contribute insights that over time elevate the broader team's understanding of SSEM attributes and their implications.
+#### 5.2.1. The Securability Report
 
-Merge reviews are also an appropriate venue for practicing threat awareness at the code level: asking "What can go wrong?" within the bounded scope of a changeset makes it easier to identify risks and vulnerabilities that might be harder to isolate in a larger system review. Findings that reveal design-level concerns should be escalated into the formal threat model rather than addressed solely as code-level fixes.
+Every merge produces an informational report. Code review through merge requests is an effective technique for identifying security vulnerabilities early in the development process [OWASP-CRG]; the report is that review's instrument. Automated analysis supplies its base: scanning results and securability signals scoped to the changeset. Automation can surface known or common issues, but it cannot interpret the context of a change or understand the architecture of the system. Review brings that context to bear, adding an assessment expressed in SSEM vocabulary where the change warrants it. The report is generated unconditionally and blocks nothing by default. This is what allows securable review to scale where whole-application security review could not: automation runs on every change, while attention goes where the report and the change's risk profile direct it.
+
+#### 5.2.2. The Advisory Default
+
+The report's first job is to make the securability consequences of a change visible at the moment the change is cheapest to discuss. Read this way it is a teaching instrument: the place developing engineers see SSEM reasoning applied to their own code, and where review comments become transferable patterns rather than one-off corrections. The collaborative nature of the review carries the rest. It allows the sharing of insight and expertise, and provides a fresh perspective that individual developers may lose through familiarity with their own code. When FIASSE-trained security professionals participate, they contribute insights that over time elevate the broader team's understanding of SSEM attributes and their implications.
+
+#### 5.2.3. Gating as a Policy Decision
+
+A team, with its product owner and security partnership, may elevate designated finding classes, components, or risk thresholds to blocking status. Wherever gating is enabled, an override path must exist. Exercising the override is not a failure of the mechanism; it is the mechanism completing: the business retains the authority to accept vulnerable code, and the override records who accepted what, and why (Accountability, Section 3.2.2.2).
+
+#### 5.2.4. The Audit Trail
+
+Performed at the merge, the mechanism produces a structured audit trail as a by-product of ordinary work. Findings are logged with each report. Each gating decision point is logged, and where an override is exercised, the approval or denial is captured. Every entry is timestamped, attributable, and reviewable. This trail is what proof-based compliance consumes: placed in SBOM attestations, it demonstrates that security expectations were evaluated on every change and that acceptance decisions were made by a named authority. The evidence maps directly onto obligations under the EU Cyber Resilience Act and the practices of NIST SP 800-218 (SSDF), and it arrives without a separate evidence-gathering exercise because the mechanism generated it while the work was being done. This is Section 6.1's principle extended from tests to process: attestation assembled from living records rather than reconstructed after the fact.
+
+#### 5.2.5. Posture over Pass Rates
+
+What the organization manages is the resulting security posture over time, not the pass rate of individual merges. A recurring override on the same finding class is not a compliance failure to be enforced harder at the merge; it is a signal pointing upstream: a requirements gap or a securability gap to be addressed where it originates (Section 4.1.2).
 
 ### 5.3. Early Integration: Planning and Requirements
 
@@ -652,9 +676,15 @@ Four artifacts collapse into the single word "control." A **catalog control** is
 
 The catalogs themselves (NIST SP 800-53, ISO/IEC 27001 Annex A, PCI DSS, and their equivalents) are legitimate, valuable, and a rich input to requirements gathering: security brings a relevant control forward as context, and product and development shape a concrete requirement with explicit buy-in. Every failure below occurs in their application, where the catalogs were always designed to require translation.
 
-**The control-as-requirement fallacy** treats a catalog item as a specification the programmer should already know to build. The ecosystem invites the conflation: PCI DSS names its controls "requirements," and 800-53's "controls" span policy to mechanism. Hence the weight of the terminology note in Section 2. When translation is skipped, development receives items that look like requirements but were never gathered as requirements: never scoped, never funded, never given acceptance criteria. The programmer is expected to infer an implementation, but a catalog control cannot support the inference; it is deliberately implementation-agnostic and system-scoped. "Enforce approved authorizations" (AC-3) is not verifiable against a codebase as written; the auditor reads it one way, the programmer inferred another, and the friction lands on development instead of on the missing process. Translated, the same control becomes a requirement: *every request to a document endpoint verifies the authenticated caller's permission on that document server-side; unauthorized requests return 403 and are logged with the caller's identity*. Development implements that as an authorization check in the document service, and a passing test against those criteria is the audit evidence. The control told no one what to build; the requirement did.
+#### 6.1.1. The Control-as-Requirement Fallacy
 
-**The control-as-protection fallacy** reads the documented existence of a control as a property of the software. Many controls are properly satisfied outside the application: platform, network, process, or inheritance. That is sound assurance practice and corrosive engineering shorthand: a protection provided by the environment defends the code only in that environment, and even correctly-external controls leave residual obligations inside the code. For example the fact that the code should accept identity only from the trusted boundary and fail closed when the upstream protection is absent may go unspecified because "the control is handled." Unallocated security controls fail in another way: each team assumes the other owns them. Software is defensible only when the code's share of every relevant control is specified, implemented, and verifiable.
+The control-as-requirement fallacy treats a catalog item as a specification the programmer should already know to build. The ecosystem invites the conflation: PCI DSS names its controls "requirements," and 800-53's "controls" span policy to mechanism. Hence the weight of the terminology note in Section 2. When translation is skipped, development receives items that look like requirements but were never gathered as requirements: never scoped, never funded, never given acceptance criteria. The programmer is expected to infer an implementation, but a catalog control cannot support the inference; it is deliberately implementation-agnostic and system-scoped. "Enforce approved authorizations" (AC-3) is not verifiable against a codebase as written; the auditor reads it one way, the programmer inferred another, and the friction lands on development instead of on the missing process. Translated, the same control becomes a requirement: *every request to a document endpoint verifies the authenticated caller's permission on that document server-side; unauthorized requests return 403 and are logged with the caller's identity*. Development implements that as an authorization check in the document service, and a passing test against those criteria is the audit evidence. The control told no one what to build; the requirement did.
+
+#### 6.1.2. The Control-as-Protection Fallacy
+
+The control-as-protection fallacy reads the documented existence of a control as a property of the software. Many controls are properly satisfied outside the application: platform, network, process, or inheritance. That is sound assurance practice and corrosive engineering shorthand: a protection provided by the environment defends the code only in that environment, and even correctly-external controls leave residual obligations inside the code. For example the fact that the code should accept identity only from the trusted boundary and fail closed when the upstream protection is absent may go unspecified because "the control is handled." Unallocated security controls fail in another way: each team assumes the other owns them. Software is defensible only when the code's share of every relevant control is specified, implemented, and verifiable.
+
+#### 6.1.3. The Requirements Process as the Corrective
 
 The requirements process supplies what the catalog deliberately omits. *Allocation*: decide and record which layer satisfies each control, including the code's residual share. *Specification*: express that share as observable behavior with acceptance criteria. ASVS is a ready-made requirements library at this altitude, so much translation is selection rather than authorship. *Adequacy*: assessment verifies that a control exists and operates, not that it suffices against this product's threat model; the catalog is a floor, never a ceiling. The expectations follow. Security brings controls forward, participates in requirements (correcting at its source the friction Sections 2.5 and 5.1 describe), and owns the control-to-requirement mapping. Product weighs; the business funds. Development implements to specification, keeps the verifying tests green, and answers a control-shaped demand that arrives without criteria by requesting the requirement, not inferring one. The payoff is symmetric: development receives specifications instead of insinuations, and security receives audit evidence assembled from living tests. This point-in-time attestation is a state; a requirement under test is a property.
 
@@ -691,7 +721,7 @@ Scanning and testing tools are valuable for understanding current security postu
 
 Fix requests must not circumvent the processes software engineers rely on. Bypassing established workflows leads to misunderstandings and mistakes. AppSec should not expect developers to act on security findings without clear, actionable information and the opportunity to work through their standard processes.
 
-This section is the **Actionable Security Intelligence Principle** (Section 6.1) applied to tool output. Scanner results, penetration test findings, and monitoring signals are raw material, and the principle holds that they become useful only when converted into specific, engineering-grounded direction tied to requirements, acceptance criteria, and the team's existing workflow. Treating security output as finished intelligence rather than input to it produces the same breakdown the Shoveling Left discussion describes, just arriving through a different channel.
+This section is the **Actionable Security Intelligence Principle** (Section 6.2) applied to tool output. Scanner results, penetration test findings, and monitoring signals are raw material, and the principle holds that they become useful only when converted into specific, engineering-grounded direction tied to requirements, acceptance criteria, and the team's existing workflow. Treating security output as finished intelligence rather than input to it produces the same breakdown the Shoveling Left discussion describes, just arriving through a different channel.
 
 ---
 
@@ -717,7 +747,7 @@ The shift is strategically necessary regardless. Security expertise applied at t
 
 #### 7.1.2. Capacity Relief Through Agentic AppSec
 
-The transition is made feasible by agentic AppSec tooling: AI-assisted security analysis, triage, and pattern detection operating on the code and its changes. These capabilities take on the mechanical portion of the reviewer role, allowing human security expertise to be redirected upstream without leaving the downstream unattended. Adopting agentic tooling deliberately, as a capacity-relief mechanism tied to a role shift, is different from adopting it as another scanner producing findings to route into backlogs. The former enables the strategic move this section describes; the latter reproduces the Shoveling Left pattern (Section 6.2) at higher volume.
+The transition is made feasible by agentic AppSec tooling: AI-assisted security analysis, triage, and pattern detection operating on the code and its changes. These capabilities take on the mechanical portion of the reviewer role, allowing security expertise to be redirected upstream without leaving the downstream unattended. Adopting agentic tooling deliberately, as a capacity-relief mechanism tied to a role shift, is different from adopting it as another scanner producing findings to route into backlogs. The former enables the strategic move this section describes; the latter reproduces the Shoveling Left pattern (Section 6.2) at higher volume.
 
 #### 7.1.3. Transition, Not Switchover
 
@@ -733,11 +763,11 @@ Some security staff will make the transition and some will not. The skills requi
 
 ### 7.2. Senior Software Engineers
 
-Senior software engineers are crucial to any Application Security program's success, their value increasing as AI-assisted development becomes standard. AI tools generate code at scale, and agentic tooling can analyze it at matching scale, but neither owns an outcome: their output is input to engineering judgment, not a substitute for it. Evaluating design decisions, setting trust boundaries, and deciding whether an implementation meets security intent remain human responsibilities, grounded in SSEM attributes and established engineering principles. Exercising those responsibilities is the senior engineer's key differentiator.
+Senior software engineers are crucial to any Application Security program's success, their value increasing as AI-assisted development becomes standard. AI tools generate code at scale, and agentic tooling can analyze it at matching scale, but neither owns an outcome: their output is input to engineering judgment, not a substitute for it. Evaluating design decisions, setting trust boundaries, and deciding whether an implementation meets security intent remain software engineer responsibilities, grounded in SSEM attributes and established engineering principles. Exercising those responsibilities is the senior engineer's key differentiator.
 
 Security professionals should collaborate closely with senior engineers in design activities, treating them as primary technical partners for FIASSE adoption.
 
-Senior engineers apply the question "What can go wrong?" at every stage of development, from initial design through merge review, including AI-generated code. They drive the creation of Security Requirements, Acceptance Criteria, and Threat Scenarios that inform both human implementation and AI-assisted generation.
+Senior engineers apply the question "What can go wrong?" at every stage of development, from initial design through merge review, including AI-generated code. They drive the creation of Security Requirements, Acceptance Criteria, and Threat Scenarios that inform both manual implementation and AI-assisted generation.
 
 As AI-assisted development becomes routine, senior engineers craft and maintain prompt engineering standards that embed SSEM attributes and securable coding expectations into generation workflows.
 
@@ -806,7 +836,7 @@ Three degraded-mode options are supplied here, and they are not mutually exclusi
 
 #### 8.1.1. Compensate with Agentic Assistance
 
-Agentic AppSec tooling (Step 5) and AI-assisted development can compensate for a thin senior bench by expanding the throughput that would otherwise consume senior engineers' scarce hours: information sharing across teams, summary code analysis at merge time, and automated security testing on every change. What agentic assistance does not replace is the judgment the bench exists to provide. Design evaluation, trust-boundary decisions, and mentorship remain human work (Section 7.2). This is a live strategic option, not a future consideration. It does not eliminate the need for the senior bench, but it reduces the depth required for FIASSE to begin producing value. The organization still owes itself an investment plan for growing the bench over time.
+Agentic AppSec tooling (Step 5) and AI-assisted development can compensate for a thin senior bench by expanding the throughput that would otherwise consume senior engineers' scarce hours: information sharing across teams, summary code analysis at merge time, and automated security testing on every change. What agentic assistance does not replace is the judgment the bench exists to provide. Design evaluation, trust-boundary decisions, and mentorship remain manual work (Section 7.2). This is a live strategic option, not a future consideration. It does not eliminate the need for the senior bench, but it reduces the depth required for FIASSE to begin producing value. The organization still owes itself an investment plan for growing the bench over time.
 
 #### 8.1.2. Invest in the Prerequisite First
 
@@ -1054,6 +1084,6 @@ Scoring works best when it is paired with concrete enhancement suggestions that 
 - **Evidence-based:** Explain which metric, review finding, or observed behavior triggered the suggestion.
 - **Comparable over time:** Report deltas against prior scans so teams can see whether a change improved or degraded the relevant attribute.
 - **Context-aware:** Distinguish between a systemic weakness and a local exception so teams do not optimize for the score at the expense of the architecture.
-- **Human-reviewed when material:** For high-impact systems or significant drops in score, require a reviewer to confirm that the suggested change is appropriate before it becomes a development commitment.
+- **Reviewed when material:** For high-impact systems or significant drops in score, require a reviewer to confirm that the suggested change is appropriate before it becomes a development commitment.
 
 The most useful scoring outputs therefore include three parts: the score itself, the rationale for the score, and a short list of prioritized changes that would improve the underlying attribute. This preserves the educational value of the framework while avoiding the false precision that can occur when a composite score is mistaken for a complete security judgment.
