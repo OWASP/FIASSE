@@ -203,11 +203,11 @@ AppSec's role extends beyond formal buy-in and metrics: it encompasses enabling 
 
 ### 2.4. The Quality-Security Relationship
 
-Several OWASP projects acknowledge that security cannot exceed software quality. The qualities that make software easy to understand, change, test, and observe are the same qualities that make it possible to secure. Where those qualities are absent, security expertise runs into a hard ceiling: vulnerabilities cannot be located efficiently, fixes introduce new defects, testing cannot confirm the fix holds, and the system's behavior under attack cannot be observed with enough fidelity to respond. Every security intervention downstream of the code (scanning, review, testing, incident response) is bounded by what the code itself makes possible.
+Security cannot exceed software quality [McGraw2006]. The relationship is now codified in measurement standards: ISO/IEC 5055 defines security as one of four structural quality characteristics measurable directly from source code, alongside reliability, performance efficiency, and maintainability [ISO-5055]. The qualities that make software easy to understand, change, test, and observe are the same qualities that make it possible to secure, and empirical studies show the same code properties predict where vulnerabilities occur [Shin2011]. Where those qualities are absent, security expertise runs into a hard ceiling: vulnerabilities cannot be located efficiently, fixes introduce new defects, testing cannot confirm the fix holds, and the system's behavior under attack cannot be observed with enough fidelity to respond. Every security intervention downstream of the code (scanning, review, testing, incident response) is bounded by what the code itself makes possible.
 
-The ceiling claim is scoped to the code. Some threats never touch the codebase: stolen credentials and social engineering are governed by other disciplines, and no engineering quality prevents them. Configuration sits partly inside the scope. The code determines what must be configured, what the defaults are, and how comprehensible the options remain, so carefully constructed software narrows the surface on which misconfiguration can occur and fails safe when it does [Saltzer1975]. Within that scope, the ceiling is definitive. Unmaintainable code cannot be analyzed, cannot absorb a fix, and cannot verify one. It is not securable at any level of downstream effort, and there is no static state of secure for it to fall back on.
+The ceiling claim is scoped to the code. Some threats never touch the codebase: stolen credentials and social engineering are governed by other disciplines, and no engineering quality prevents them. Configuration sits partly inside the scope. The code determines what must be configured, what the defaults are, and how comprehensible the options remain [Yin2011][Green2016], so carefully constructed software narrows the surface on which misconfiguration can occur and fails safe when it does [Saltzer1975][CISA-SbD2023]. Within that scope, the ceiling is definitive. Unmaintainable code cannot be analyzed, cannot absorb a fix, and cannot verify one. It is not securable at any level of downstream effort, and there is no static state of secure for it to fall back on.
 
-This has two consequences for how security is applied. First, investment in engineering quality is a security investment. The return is not immediate but it compounds because every subsequent security activity operates on a better substrate. Second, security teams working against low-quality code will produce disappointing results regardless of tooling, expertise, or effort. The ceiling is set by the code, not by the security function. Section 7.1 returns to this point when discussing the security team's role and its limits.
+This has two consequences for how security is applied. First, investment in engineering quality is a security investment [Krasner2022]. The return is not immediate but it compounds because every subsequent security activity operates on a better substrate. Second, security teams working against low-quality code will produce disappointing results regardless of tooling, expertise, or effort. The ceiling is set by the code, not by the security function. Section 7.1 returns to this point when discussing the security team's role and its limits.
 
 ### 2.5. Aligning Security with Development
 
@@ -898,6 +898,10 @@ There is no static state of secure. Securability is a discipline that begins wit
 
 ## 10. References
 
+[CISA-SbD2023] CISA and international partners, "Shifting the Balance of Cybersecurity Risk: Principles and Approaches for Secure by Design Software", updated edition, October 2023. <https://www.cisa.gov/resources-tools/resources/secure-by-design>.
+
+[Green2016] Green, M. and Smith, M., "Developers Are Not the Enemy! The Need for Usable Security APIs", IEEE Security & Privacy, 14(5), 2016, pp. 40–46.
+
 [Heitlager2007] Heitlager, I., Kuipers, T., and Visser, J., "A Practical Model for Measuring Maintainability", Proceedings of the 6th International Conference on the Quality of Information and Communications Technology (QUATIC 2007), IEEE, 2007.
 
 [Howard] Howard, R., "Cybersecurity First Principles: A Reboot of Strategy and Tactics", Wiley, 2023. ISBN 978-1-394-17308-2.
@@ -908,13 +912,19 @@ There is no static state of secure. Securability is a discipline that begins wit
 
 [ISO-27000] ISO/IEC 27000:2018, "Information technology - Security techniques - Information security management systems - Overview and vocabulary". International Organization for Standardization.
 
+[ISO-5055] ISO/IEC 5055:2021, "Information technology - Software measurement - Software quality measurement - Automated source code quality measures". International Organization for Standardization.
+
 [ISO-5723] ISO/IEC TS 5723:2022, "Trustworthiness - Vocabulary". International Organization for Standardization.
 
 [Kalman1960] Kalman, R.E., "On the general theory of control systems", Proceedings of the 1st IFAC Congress, Moscow, Butterworths, London, 1960, pp. 481–492.
 
 [King2019] King, A., "Parse, Don't Validate", 2019. <https://lexi-lambda.github.io/blog/2019/11/05/parse-don-t-validate/>.
 
+[Krasner2022] Krasner, H., "The Cost of Poor Software Quality in the US: A 2022 Report", Consortium for Information and Software Quality (CISQ), 2022. <https://www.it-cisq.org/the-cost-of-poor-quality-software-in-the-us-a-2022-report/>.
+
 [LINDDUN] DistriNet Research Unit, KU Leuven, "LINDDUN Privacy Threat Modeling". <https://linddun.org/>.
+
+[McGraw2006] McGraw, G., "Software Security: Building Security In", Addison-Wesley, 2006. ISBN 978-0-321-35670-3.
 
 [OWASP-CRG] OWASP Code Review Guide. <https://owasp.org/www-project-code-review-guide/>.
 
@@ -922,11 +932,15 @@ There is no static state of secure. Securability is a discipline that begins wit
 
 [Saltzer1975] Saltzer, J.H. and Schroeder, M.D., "The Protection of Information in Computer Systems", Proceedings of the IEEE, 63(9), 1975, pp. 1278–1308.
 
+[Shin2011] Shin, Y., Meneely, A., Williams, L., and Osborne, J.A., "Evaluating Complexity, Code Churn, and Developer Activity Metrics as Indicators of Software Vulnerabilities", IEEE Transactions on Software Engineering, 37(6), 2011, pp. 772–787.
+
 [STRIDE] Shostack, A., "Threat Modeling: Designing for Security", Wiley, 2014. ISBN 978-1-118-80999-0.
 
 [TM-Manifesto] Braiterman, Z. et al., "Threat Modeling Manifesto". <https://www.threatmodelingmanifesto.org/>.
 
 [Veracode-SoSS-2025] Veracode, "State of Software Security 2025: A New View of Maturity", 2025. <https://www.veracode.com/resources/analyst-reports/state-of-software-security-2025/>.
+
+[Yin2011] Yin, Z., Ma, X., Zheng, J., Zhou, Y., Bairavasundaram, L.N., and Pasupathy, S., "An Empirical Study on Configuration Errors in Commercial and Open Source Systems", Proceedings of the 23rd ACM Symposium on Operating Systems Principles (SOSP), 2011.
 
 ---
 
