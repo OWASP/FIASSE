@@ -642,7 +642,7 @@ Merge reviews are also an appropriate venue for practicing threat awareness at t
 
 #### 5.2.1. The Securability Report
 
-Every merge produces an informational report. Code review through merge requests is an effective technique for identifying security vulnerabilities early in the development process [OWASP-CRG]; the report is that review's instrument. Automated analysis supplies its base: scanning results and securability signals scoped to the changeset. Automation can surface known or common issues, but it cannot interpret the context of a change or understand the architecture of the system. Review brings that context to bear, adding an assessment expressed in SSEM vocabulary where the change warrants it. The report is generated unconditionally and blocks nothing by default. This is what allows securable review to scale where whole-application security review could not: automation runs on every change, while attention goes where the report and the change's risk profile direct it.
+Every merge produces an informational report. Code review through merge requests is an effective technique for identifying security vulnerabilities early in the development process [OWASP-CRG]; the report is that review's instrument. Automated analysis supplies its base: scanning results and securability signals scoped to the changeset. Automation can surface known or common issues, but it cannot interpret the context of a change or understand the architecture of the system. Review brings that context to bear, adding an assessment expressed in SSEM vocabulary where the change warrants it. The report is generated unconditionally and blocks nothing by default. This is what allows securable review to scale where whole-application security review could not: automation runs on every change, while reviewer attention goes where the report and the change's risk profile direct it.
 
 #### 5.2.2. The Advisory Default
 
@@ -763,7 +763,7 @@ Some security staff will make the transition and some will not. The skills requi
 
 ### 7.2. Senior Software Engineers
 
-Senior software engineers are crucial to any Application Security program's success, their value increasing as AI-assisted development becomes standard. AI tools generate code at scale, and agentic tooling can analyze it at matching scale, but neither owns an outcome: their output is input to engineering judgment, not a substitute for it. Evaluating design decisions, setting trust boundaries, and deciding whether an implementation meets security intent remain software engineer responsibilities, grounded in SSEM attributes and established engineering principles. Exercising those responsibilities is the senior engineer's key differentiator.
+Senior software engineers are crucial to any Application Security program's success, their value increasing as AI-assisted development becomes standard. AI tools generate code at scale, and agentic tooling can analyze it at matching scale, but neither owns an outcome: their output is input to engineering judgment, not a substitute for it. Evaluating design decisions, setting trust boundaries, and deciding whether an implementation meets security intent remain software engineering responsibilities, grounded in SSEM attributes and established engineering principles. Exercising those responsibilities is the senior engineer's key differentiator.
 
 Security professionals should collaborate closely with senior engineers in design activities, treating them as primary technical partners for FIASSE adoption.
 
@@ -836,7 +836,7 @@ Three degraded-mode options are supplied here, and they are not mutually exclusi
 
 #### 8.1.1. Compensate with Agentic Assistance
 
-Agentic AppSec tooling (Step 5) and AI-assisted development can compensate for a thin senior bench by expanding the throughput that would otherwise consume senior engineers' scarce hours: information sharing across teams, summary code analysis at merge time, and automated security testing on every change. What agentic assistance does not replace is the judgment the bench exists to provide. Design evaluation, trust-boundary decisions, and mentorship remain manual work (Section 7.2). This is a live strategic option, not a future consideration. It does not eliminate the need for the senior bench, but it reduces the depth required for FIASSE to begin producing value. The organization still owes itself an investment plan for growing the bench over time.
+Agentic AppSec tooling (Step 5) and AI-assisted development can compensate for a thin senior bench by expanding the throughput that would otherwise consume senior engineers' scarce hours: information sharing across teams, summary code analysis at merge time, and automated security testing on every change. What agentic assistance does not replace is the judgment the bench exists to provide. Design evaluation, trust-boundary decisions, and mentorship remain software engineering work (Section 7.2). This is a live strategic option, not a future consideration. It does not eliminate the need for the senior bench, but it reduces the depth required for FIASSE to begin producing value. The organization still owes itself an investment plan for growing the bench over time.
 
 #### 8.1.2. Invest in the Prerequisite First
 
