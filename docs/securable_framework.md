@@ -197,6 +197,8 @@ AppSec's role extends beyond formal buy-in and metrics: it encompasses enabling 
 
 Several OWASP projects acknowledge that security cannot exceed software quality. The qualities that make software easy to understand, change, test, and observe are the same qualities that make it possible to secure. Where those qualities are absent, security expertise runs into a hard ceiling — vulnerabilities cannot be located efficiently, fixes introduce new defects, testing cannot confirm the fix holds, and the system's behavior under attack cannot be observed with enough fidelity to respond. Every security intervention downstream of the code (scanning, review, testing, incident response) is bounded by what the code itself makes possible.
 
+The ceiling claim is scoped to the code. Some threats never touch the codebase: stolen credentials and social engineering are governed by other disciplines, and no engineering quality prevents them. Configuration sits partly inside the scope. The code determines what must be configured, what the defaults are, and how comprehensible the options remain, so carefully constructed software narrows the surface on which misconfiguration can occur and fails safe when it does [Saltzer1975]. Within that scope, the ceiling is definitive. Unmaintainable code cannot be analyzed, cannot absorb a fix, and cannot verify one. It is not securable at any level of downstream effort, and there is no static state of secure for it to fall back on.
+
 This has two consequences for how security is applied. First, investment in engineering quality is a security investment. The return is not immediate but it compounds because every subsequent security activity operates on a better substrate. Second, security teams working against low-quality code will produce disappointing results regardless of tooling, expertise, or effort. The ceiling is set by the code, not by the security function. Section 7.1 returns to this point when discussing the security team's role and its limits.
 
 ### 2.5. Aligning Security with Development
@@ -378,6 +380,10 @@ Implementing Authenticity involves:
 - Comprehensive logging and auditing to trace actions back to their origin.
 
 These mechanisms provide assurance that entities are genuine and accountable for their actions.
+
+> **On Authorization**
+>
+> SSEM has no Authorization attribute by design. Authorization is not a property code can simply have; it is a security feature. It exists only where the operating context demands it, since single-user software has nothing to authorize, and like any other feature it must be gathered as a requirement, shaped in architecture and design, and implemented against acceptance criteria (Section 4.1.2). Expecting it to be present without having specified it is the control-as-requirement fallacy examined in Section 6.1. That section's worked example, AC-3, is precisely an authorization control translated into an implementable requirement. What SSEM supplies is everything a sound authorization feature depends on to stay defensible: Authenticity establishes who the actor is, Confidentiality and Integrity bound what may be seen and changed, and Accountability makes each authorization decision traceable. The feature is contextual; the attributes that make it securable are not.
 
 #### 3.2.3. Reliability
 
@@ -727,7 +733,7 @@ Some security staff will make the transition and some will not. The skills requi
 
 ### 7.2. Senior Software Engineers
 
-Senior software engineers are crucial to any Application Security program's success, their value increasing as AI-assisted development becomes standard. AI tools generate code at scale but lack judgment, unable to evaluate design decisions, trust boundaries, or whether generated implementations meet security intent. The ability to make those assessments, grounded in SSEM attributes and established engineering principles, is a key differentiator.
+Senior software engineers are crucial to any Application Security program's success, their value increasing as AI-assisted development becomes standard. AI tools generate code at scale, and agentic tooling can analyze it at matching scale, but neither owns an outcome: their output is input to engineering discernment, not a substitute for it. Evaluating design decisions, setting trust boundaries, and deciding whether an implementation meets security intent remain software engineering responsibilities, grounded in SSEM attributes and established software engineering principles. Exercising those responsibilities is the senior engineer's key differentiator.
 
 Security professionals should collaborate closely with senior engineers in design activities, treating them as primary technical partners for FIASSE adoption.
 
@@ -800,7 +806,7 @@ Three degraded-mode options are supplied here, and they are not mutually exclusi
 
 #### 8.1.1. Compensate with Agentic Assistance
 
-Agentic AppSec tooling (Step 5) and AI-assisted development can compensate for a thin senior bench by expanding the review, analysis, and mentorship capacity that would otherwise depend on senior software engineers. This is a live strategic option, not a future consideration. It does not eliminate the need for the senior bench, but it reduces the depth required for FIASSE to begin producing value. The organization still owes itself an investment plan for growing the bench over time.
+Agentic AppSec tooling (Step 5) and AI-assisted development can compensate for a thin senior bench by expanding the throughput that would otherwise consume senior engineers' scarce hours: information sharing across teams, summary code analysis at merge time, and automated security testing on every change. What agentic assistance does not replace is the judgment the bench exists to provide. Design evaluation, trust-boundary decisions, and mentorship remain human work (Section 7.2). This is a live strategic option, not a future consideration. It does not eliminate the need for the senior bench, but it reduces the depth required for FIASSE to begin producing value. The organization still owes itself an investment plan for growing the bench over time.
 
 #### 8.1.2. Invest in the Prerequisite First
 
