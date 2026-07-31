@@ -40,11 +40,17 @@ FIASSE (pronounced /feiz/) is vendor-independent and is written for Software Eng
 - [5. Integrating Security into Development Processes](./S5.0.0.md): Extending existing workflows rather than bolting on security processes.
 - [5.1. Natively Extending Development Processes](./S5.1.0.md): TBD
 - [5.2. The Role of Merge Reviews](./S5.2.0.md): TBD
+- [5.2.1. The Securability Report](./S5.2.1.md): TBD
+- [5.2.2. The Advisory Default](./S5.2.2.md): TBD
+- [5.2.3. Gating as a Policy Decision](./S5.2.3.md): TBD
+- [5.2.4. The Audit Trail](./S5.2.4.md): TBD
+- [5.2.5. Posture over Pass Rates](./S5.2.5.md): TBD
 - [5.3. Early Integration: Planning and Requirements](./S5.3.0.md): TBD
 - [6. Common AppSec Anti-Patterns](./S6.0.0.md): "Shoveling Left," ineffective vulnerability reporting, and exploit-first training.
 - [6.1. The "Shoveling Left" Phenomenon](./S6.1.0.md): TBD
 - [6.1.1. Ineffective Vulnerability Reporting](./S6.1.1.md): TBD
 - [6.1.2. Pitfalls of Exploit-First Training](./S6.1.2.md): TBD
+- [6.1.3. The Requirements Process as the Corrective](./S6.1.3.md): TBD
 - [6.2. Strategic Use of Security Output](./S6.2.0.md): TBD
 - [6.2.1. Ineffective Vulnerability Reporting](./S6.2.1.md): TBD
 - [6.2.2. Pitfalls of Exploit-First Training](./S6.2.2.md): TBD
