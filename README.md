@@ -75,9 +75,9 @@ The [OWASP FIASSE](https://owasp.org/www-project-fiasse/) project is part of the
 
 This framework is focused on Securable Software Engineering and is complemented by other OWASP projects:
 
-- Assurance verification: [OWASP Application Security Verification Standard (ASVS)](https://owasp.org/www-project-application-security-verification-standard/)
+- Security feature verification: [OWASP Application Security Verification Standard (ASVS)](https://owasp.org/www-project-application-security-verification-standard/)
 - Assurance maturity: [OWASP Software Assurance Maturity Model (SAMM)](https://owasp.org/www-project-software-assurance-maturity-model/)
-- Product security capabilities: [OWASP Product Security Capability Framework (PSCF)](https://owasp.org/www-project-product-security-capability-framework/)
+- Product security compliance: [OWASP Product Security Capability Framework (PSCF)](https://owasp.org/www-project-product-security-capability-framework/)
 
 OWASP also hosts numerous projects that document security requirements and features, such as [OWASP Mobile Application Security](https://mas.owasp.org/). The [OWASP Developer Guide](https://owasp.org/www-project-developer-guide/), which is a comprehensive resource for various other OWASP resources.
 
