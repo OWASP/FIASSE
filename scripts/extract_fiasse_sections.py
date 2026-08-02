@@ -427,9 +427,9 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  # Extract sections from FIASSE-RFC.md into data/FIASSE/ directory
+    # Extract sections from docs/securable_framework.md into data/FIASSE/ directory
   # (also syncs data/FIASSE/llms.txt if present)
-  python extract_fiasse_sections.py FIASSE-RFC.md data/FIASSE/
+    python extract_fiasse_sections.py docs/securable_framework.md data/FIASSE/
 
   # Combine sections from data/FIASSE/ into combined.md
   python extract_fiasse_sections.py --combine data/FIASSE/ combined.md
