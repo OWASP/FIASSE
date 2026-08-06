@@ -17,6 +17,7 @@ re-extracting.
 
 import argparse
 import re
+import sys
 from pathlib import Path
 from typing import Dict, List, Tuple
 
@@ -192,11 +193,11 @@ def find_docs_block_bounds(lines: List[str]) -> Tuple[int, int]:
     return start, end
 
 
-def update_llms_docs(llms_file: Path, sections_dir: Path) -> None:
+def update_llms_docs(llms_file: Path, sections_dir: Path) -> bool:
     """Rewrite the '## Docs' block of llms_file so entries match the S*.md files on disk."""
     if not llms_file.exists():
         log_status("INFO", "llms.txt not found; skipping Docs sync", path=str(llms_file))
-        return
+        return True
 
     section_files = sorted(
         [p for p in sections_dir.glob('*.md') if parse_section_id_from_filename(p.name)],
@@ -204,14 +205,14 @@ def update_llms_docs(llms_file: Path, sections_dir: Path) -> None:
     )
     if not section_files:
         log_status("WARN", "No section files found for llms.txt Docs sync", input=str(sections_dir))
-        return
+        return False
 
     try:
         with open(llms_file, 'r', encoding='utf-8') as f:
             original_content = f.read()
     except OSError as exc:
         log_status("ERROR", "Failed to read llms.txt", path=str(llms_file), reason=str(exc))
-        return
+        return False
 
     lines = original_content.split('\n')
     docs_start, docs_end = find_docs_block_bounds(lines)
@@ -221,7 +222,7 @@ def update_llms_docs(llms_file: Path, sections_dir: Path) -> None:
             "'## Docs' heading not found in llms.txt; skipping Docs sync",
             path=str(llms_file),
         )
-        return
+        return False
 
     existing_entries = parse_docs_entries(lines[docs_start + 1:docs_end])
 
@@ -259,14 +260,14 @@ def update_llms_docs(llms_file: Path, sections_dir: Path) -> None:
             path=str(llms_file),
             entries=len(new_entry_lines),
         )
-        return
+        return True
 
     try:
         with open(llms_file, 'w', encoding='utf-8') as f:
             f.write(new_content)
     except OSError as exc:
         log_status("ERROR", "Failed to write llms.txt", path=str(llms_file), reason=str(exc))
-        return
+        return False
 
     log_status(
         "INFO",
@@ -277,18 +278,19 @@ def update_llms_docs(llms_file: Path, sections_dir: Path) -> None:
         added=added,
         removed=removed,
     )
+    return True
 
 
-def extract_sections(input_file: Path, output_dir: Path):
+def extract_sections(input_file: Path, output_dir: Path) -> bool:
     """Extract sections from a single FIASSE RFC markdown file into separate files."""
     log_status("INFO", "Starting section extraction", input=str(input_file), output=str(output_dir))
     
     if not input_file.exists():
         log_status("ERROR", "Input file does not exist", input=str(input_file))
-        return
+        return False
     if not input_file.is_file():
         log_status("ERROR", "Input path is not a file", input=str(input_file))
-        return
+        return False
     
     # Read the source file
     try:
@@ -296,7 +298,7 @@ def extract_sections(input_file: Path, output_dir: Path):
             content = f.read()
     except OSError as exc:
         log_status("ERROR", "Failed to read input file", input=str(input_file), reason=str(exc))
-        return
+        return False
 
     log_status("INFO", "Source file loaded", bytes=len(content.encode('utf-8')), lines=content.count('\n') + 1)
     
@@ -305,7 +307,7 @@ def extract_sections(input_file: Path, output_dir: Path):
     
     if not sections:
         log_status("WARN", "No extractable sections were found", input=str(input_file))
-        return
+        return False
     
     # Create output directory if it doesn't exist
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -324,7 +326,7 @@ def extract_sections(input_file: Path, output_dir: Path):
             log_status("INFO", "Wrote section file", file=output_file.name, chars=len(section_content))
         except OSError as exc:
             log_status("ERROR", "Failed to write section file", file=str(output_file), reason=str(exc))
-            return
+            return False
     
     log_status(
         "INFO",
@@ -335,7 +337,7 @@ def extract_sections(input_file: Path, output_dir: Path):
     )
 
     # Keep the companion llms.txt in sync with the files that were just written.
-    update_llms_docs(output_dir / LLMS_FILENAME, output_dir)
+    return update_llms_docs(output_dir / LLMS_FILENAME, output_dir)
 
 
 def natural_sort_key(filename: str) -> Tuple:
@@ -360,13 +362,13 @@ def parse_section_id_from_filename(filename: str) -> str:
     return match.group(1) if match else None
 
 
-def combine_sections(input_dir: Path, output_file: Path):
+def combine_sections(input_dir: Path, output_file: Path) -> bool:
     """Combine section files from a directory into a single document."""
     log_status("INFO", "Starting section combine", input=str(input_dir), output=str(output_file))
     
     if not input_dir.exists() or not input_dir.is_dir():
         log_status("ERROR", "Input directory does not exist or is not a directory", input=str(input_dir))
-        return
+        return False
     
     # Get all .md files in the directory
     markdown_files = list(input_dir.glob('*.md'))
@@ -385,7 +387,7 @@ def combine_sections(input_dir: Path, output_file: Path):
     
     if not section_files:
         log_status("WARN", "No section files found to combine", input=str(input_dir))
-        return
+        return False
     
     # Combine all sections
     combined_content = []
@@ -401,7 +403,7 @@ def combine_sections(input_dir: Path, output_file: Path):
                 log_status("INFO", "Read section file", file=section_file.name, chars=len(content))
         except OSError as exc:
             log_status("ERROR", "Failed to read section file", file=str(section_file), reason=str(exc))
-            return
+            return False
     
     # Write combined output
     output_file.parent.mkdir(parents=True, exist_ok=True)
@@ -410,7 +412,7 @@ def combine_sections(input_dir: Path, output_file: Path):
             f.write('\n\n'.join(combined_content) + '\n')
     except OSError as exc:
         log_status("ERROR", "Failed to write combined output", output=str(output_file), reason=str(exc))
-        return
+        return False
     
     log_status(
         "INFO",
@@ -419,9 +421,10 @@ def combine_sections(input_dir: Path, output_file: Path):
         total_chars=total_chars_read,
         output=str(output_file),
     )
+    return True
 
 
-def main():
+def main() -> int:
     parser = argparse.ArgumentParser(
         description="Extract or combine FIASSE RFC section markdown files.",
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -466,24 +469,27 @@ Examples:
 
     args = parser.parse_args()
 
+    success = False
     try:
         if args.sync_llms:
             sections_dir = args.input
             if not sections_dir.is_dir():
                 parser.error(f"--sync-llms requires a section directory as input (got: {sections_dir})")
-            update_llms_docs(sections_dir / LLMS_FILENAME, sections_dir)
+            success = update_llms_docs(sections_dir / LLMS_FILENAME, sections_dir)
         elif args.combine:
             if args.output is None:
                 parser.error("--combine requires an output file")
-            combine_sections(args.input, args.output)
+            success = combine_sections(args.input, args.output)
         else:
             if args.output is None:
                 parser.error("extract mode requires an output directory")
-            extract_sections(args.input, args.output)
+            success = extract_sections(args.input, args.output)
     except Exception as exc:  # Last-resort guardrail for actionable troubleshooting output.
         log_status("ERROR", "Unhandled exception", error_type=type(exc).__name__, reason=str(exc))
         raise
 
+    return 0 if success else 1
+
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())
