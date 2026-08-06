@@ -1,0 +1,23 @@
+name: Check Skill Framework Sync
+
+on:
+  pull_request:
+    paths:
+      - "docs/framework/**"
+      - "skills/securable-code/**"
+
+jobs:
+  check-sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Verify bundled framework copies are up to date
+        run: python skills/securable-code/update-framework.py --check
