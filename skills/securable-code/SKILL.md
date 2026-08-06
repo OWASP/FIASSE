@@ -1,11 +1,13 @@
 ---
 name: securable-code
-description: Apply the FIASSE Securable Software Engineering Model (SSEM) while writing, generating, modifying, or reviewing code. Use for any application code change, even when security is not mentioned - new features, API endpoints or handlers, input parsing, validation, error handling, logging, authentication or session logic, data access, state management, concurrency, and dependency additions or upgrades. Routes to the framework section the code at hand needs.
+description: Deep dive into the FIASSE Securable Software Engineering Model (SSEM) for context-heavy, architecturally complex code work - designing or reviewing trust boundaries, authentication or authorization systems, multi-service data flows, dependency architecture, or any change where the securability implications are non-obvious and worth reading the source framework sections for. Not for routine or simple changes; use the lightweight `securability` skill for those. Routes to the specific framework section the code at hand needs.
 ---
 
 # Securable Code
 
 Securable code is built to remain defensible as threats and requirements change. There is no static state of secure. Each change must leave the code able to be analyzed, modified, tested, and observed, with control enforced at every trust boundary. While coding, keep asking: "What can go wrong?"
+
+This skill is the deep dive for architecturally complex or context-heavy work, where reading the source framework's own reasoning is worth the extra context. For routine changes, the `securability` skill covers the same attributes in a fraction of the space.
 
 ## Every change
 

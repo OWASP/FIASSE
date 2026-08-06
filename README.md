@@ -44,6 +44,15 @@ By clearly defining security's practical role within the development process, th
 - Bonus: Install the plugin matching your IDE or AI powered commandline-agent of choice (e.g. GitHub Copilot, Claude Code, OpenCode, etc.) and use the provided prompts to generate securable code. Look for "Securability Engineering" or "FIASSE" in the prompt library.
 - FIASSE is also included as part of the [OWASP Secure Agent Playbook](https://github.com/OWASP/secure-agent-playbook).
 
+## Skills for AI Coding Agents
+
+The [`skills/`](skills/) directory packages FIASSE/SSEM as ready-to-use skills for AI coding agents that support the [Agent Skills](https://code.claude.com/docs/en/skills) format (e.g. Claude Code). Copy the skill directory you need into your agent's skills path.
+
+- **[`securability`](skills/securability/SKILL.md)**: A compact, fully self-contained reference covering all ten SSEM attributes and the core principles (No Static State of Secure, Isolated Integrity, Canonical Input Handling, Boundary Control, Least Astonishment). Intended as the default for everyday code generation and review.
+- **[`securable-code`](skills/securable-code/SKILL.md)**: A deep-dive skill for context-heavy, architecturally complex work, such as trust boundary design, authentication systems, multi-service data flows, or dependency architecture. It routes to the specific bundled framework section (in `skills/securable-code/framework/`) relevant to the code at hand, trading extra context for the source framework's full reasoning.
+
+Use `securability` by default; reach for `securable-code` when the design decisions are non-obvious enough to warrant reading the framework itself.
+
 ## Summary
 
 This repository defines securable software as reliable, resilient and adaptable systems. It emphasizes that true security is an ongoing process, not a static achievement. It introduces the Securable Software Engineering Model (SSEM), which frames security as an inherent set of qualities of well-engineered software. To do this, it presents the attribute categories of Maintainability, Trustworthiness, and Reliability (which includes Resilience). FIASSE advocates for integrating security practices into the development workflow where they have the most impact. This moves from a "security as an afterthought" or a "shift left" approach to a proactive, collaborative model. The idea is that product owners, developers, and security professionals work together from the earliest stages of design, particularly through activities like security requirements definition, collaborative threat modeling, and acceptance criteria. This sets clear expectations for code activities and testing. Software engineers are given guidance on balancing flexibility and control. They are also given a definitive model for making security decisions. Ultimately, this empowers all stakeholders to contribute to building more robust, reliable, and inherently securable systems.
