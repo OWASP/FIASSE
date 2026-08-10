@@ -8,7 +8,7 @@
 
 TL;DR: please read the [DOC](docs/securable_framework.md). Explore [FIASSE website](https://fiasse.org). Visit [GitHub Discussions](https://github.com/OWASP/FIASSE/discussions) to contribute.
 
-This repository contains resources and materials for the OWASP Framework for Integrating Application Security into Software Engineering (FIASSE). FIASSE (pronounced /feiz/ like 'phase') promotes a **developer-centric, principled approach** to build **securable** software — recognizing that security is a dynamic, ongoing process like development. It introduces the Securable Software Engineering Model (SSEM) as a **common design language** that uses established software engineering terms to integrate security into software architecture, design, and engineering. Integrating security into the principals that mold the code itself. The framework aims to build resilient applications that withstand threats over time.
+This repository contains resources and materials for the OWASP Framework for Integrating Application Security into Software Engineering (FIASSE). FIASSE (pronounced /feiz/ like 'phase') promotes a **developer-centric, principled approach** to build **securable** software — recognizing that security is a dynamic, ongoing process like development. It introduces the Securable Software Engineering Model (SSEM) as a **common design language** that uses established software engineering terms to integrate security into software architecture, design, and engineering. Integrating security into the principles that mold the code itself. The framework aims to build resilient applications that withstand threats over time.
 
 ## Purpose
 
@@ -57,7 +57,7 @@ Use `securability` by default; reach for `securable-code` when the design decisi
 
 This repository defines securable software as reliable, resilient and adaptable systems. It emphasizes that true security is an ongoing process, not a static achievement. It introduces the Securable Software Engineering Model (SSEM), which frames security as an inherent set of qualities of well-engineered software. To do this, it presents the attribute categories of Maintainability, Trustworthiness, and Reliability (which includes Resilience). FIASSE advocates for integrating security practices into the development workflow where they have the most impact. This moves from a "security as an afterthought" or a "shift left" approach to a proactive, collaborative model. The idea is that product owners, developers, and security professionals work together from the earliest stages of design, particularly through activities like security requirements definition, collaborative threat modeling, and acceptance criteria. This sets clear expectations for code activities and testing. Software engineers are given guidance on balancing flexibility and control. They are also given a definitive model for making security decisions. Ultimately, this empowers all stakeholders to contribute to building more robust, reliable, and inherently securable systems.
 
-FIASSE differs from existing approaches by not requiring developers to become security experts or adopt an adversarial mindset. This approach aims to reduce the cognitive load on developers while ensuring that security can be confident that their concerns are addressed through specific attributes of code and software engineering processes.
+FIASSE differs from existing approaches by not requiring developers to become security experts or adopt an adversarial mindset. This approach aims to reduce the cognitive load on developers while ensuring that security practitioners can be confident that their concerns are addressed through specific attributes of code and software engineering processes.
 
 FIASSE intends to be open, approachable, and collaborative.
 
@@ -88,7 +88,7 @@ This framework is focused on Securable Software Engineering and is complemented 
 - Assurance maturity: [OWASP Software Assurance Maturity Model (SAMM)](https://owasp.org/www-project-software-assurance-maturity-model/)
 - Product security compliance: [OWASP Product Security Capability Framework (PSCF)](https://owasp.org/www-project-product-security-capability-framework/)
 
-OWASP also hosts numerous projects that document security requirements and features, such as [OWASP Mobile Application Security](https://mas.owasp.org/). The [OWASP Developer Guide](https://owasp.org/www-project-developer-guide/), which is a comprehensive resource for various other OWASP resources.
+OWASP also hosts numerous projects that document security requirements and features, such as [OWASP Mobile Application Security](https://mas.owasp.org/). The [OWASP Developer Guide](https://owasp.org/www-project-developer-guide/) is a comprehensive resource for various other OWASP resources.
 
 Another great resource for reference requirements and assurance practices is [OpenCRE](https://opencre.org/) which collects together and maps various security frameworks.
 
@@ -112,4 +112,4 @@ Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) - see the [LICENSE](lice
 
 This project is a collaborative effort by the OWASP community. We thank all contributors for their valuable input and dedication to improving software security.
 
-There is a [list of contributors](CONTRIBUTORS.md) who have participated in this project. Some early contributors that help shape the initial concepts and redteam the ideas.
+There is a [list of contributors](CONTRIBUTORS.md) who have participated in this project. Some early contributors helped shape the initial concepts and redteam the ideas.
