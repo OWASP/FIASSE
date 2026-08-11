@@ -8,7 +8,7 @@
 
 TL;DR: please read the [DOC](docs/securable_framework.md). Explore [FIASSE website](https://fiasse.org). Visit [GitHub Discussions](https://github.com/OWASP/FIASSE/discussions) to contribute.
 
-This repository contains resources and materials for the OWASP Framework for Integrating Application Security into Software Engineering (FIASSE). FIASSE (pronounced /feiz/ like 'phase') promotes a **developer-centric, principled approach** to build **securable** software — recognizing that security is a dynamic, ongoing process like development. It introduces the Securable Software Engineering Model (SSEM) as a **common design language** that uses established software engineering terms to integrate security into software architecture, design, and engineering. Integrating security into the principles that mold the code itself. The framework aims to build resilient applications that withstand threats over time.
+This repository contains resources and materials for the OWASP Framework for Integrating Application Security into Software Engineering (FIASSE). FIASSE (pronounced /feiz/ like 'phase') promotes a **developer-centric, principled approach** to build **securable** software — recognizing that security is a dynamic, ongoing process like development. It introduces the Securable Software Engineering Model (SSEM) as a **common design language** that uses established software engineering terms to integrate security into software architecture, design, and engineering by embedding security in the principles that shape the code itself. The framework aims to build resilient applications that withstand threats over time.
 
 ## Purpose
 
@@ -85,7 +85,7 @@ The [OWASP FIASSE](https://owasp.org/www-project-fiasse/) project is part of the
 This framework is focused on Securable Software Engineering and is complemented by other OWASP projects:
 
 - Security feature verification: [OWASP Application Security Verification Standard (ASVS)](https://owasp.org/www-project-application-security-verification-standard/)
-- Assurance maturity: [OWASP Software Assurance Maturity Model (SAMM)](https://owasp.org/www-project-software-assurance-maturity-model/)
+- Assurance maturity: [OWASP Software Assurance Maturity Model (SAMM)](https://owasp.org/www-project-samm/)
 - Product security compliance: [OWASP Product Security Capability Framework (PSCF)](https://owasp.org/www-project-product-security-capability-framework/)
 
 OWASP also hosts numerous projects that document security requirements and features, such as [OWASP Mobile Application Security](https://mas.owasp.org/). The [OWASP Developer Guide](https://owasp.org/www-project-developer-guide/) is a comprehensive resource for various other OWASP resources.
