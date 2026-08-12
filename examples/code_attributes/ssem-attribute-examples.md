@@ -18,7 +18,7 @@ Language convention: `❌ Without <Attribute>` shows a version that lacks the at
 
 ## Maintainability
 
-*"The degree of effectiveness and efficiency with which a product or system can be modified by the intended maintainers"* [RFC §3.2.1, ISO-25010] — evolved, corrected, and adapted to new threats *"without undue effort or the introduction of new vulnerabilities."*
+*"The degree of effectiveness and efficiency with which a product or system can be modified by the intended maintainers"* [RFC §3.2.1, ISO-25010]. It has been evolved, corrected, and adapted to new threats *"without undue effort or the introduction of new vulnerabilities."*
 
 ### 1. Analyzability
 
