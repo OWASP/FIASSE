@@ -580,11 +580,13 @@ A more advanced application of this principle involves JWTs (JSON Web Tokens). I
 
 The Isolated Integrity Principle is a direct application of the SSEM attribute of Integrity (Section 3.2.3.2): it ensures the system performs its intended function in an unimpaired manner, free from the manipulation that client-supplied data could otherwise introduce.
 
-### 4.5. Dependency Management
+### 4.5. Dependency Stewardship
 
-Dependency management begins before a library is introduced to the system. Each candidate dependency should be evaluated for fit with the system and its security values. This reflects the FIASSE mindset: understanding the implications of dependencies on the securable posture of the system is part of the engineering discipline.
+Dependency Stewardship: The ongoing application of SSEM attributes to the selection, integration, monitoring, and lifecycle management of all dependencies, with the goal of maintaining the securable posture of the system.
 
-One should apply SSEM principles to dependency selection and management. This involves considering:
+At the most fundamental level of Dependency Stewardship is the practice of dependency management. Dependency management involves selecting, evaluating, and updating third-party code. Stewardship carries the idea of maintaining the ongoing relationship with each dependency. In the context of this framework, we are particularly concerned about the dependencies securability and the impact it has on first-party code. A dependency that passes initial evaluation may become a liability: maintainers move on, codebases stagnate, reported issues go unaddressed, project direction diverges from the system's needs. The stewardship question is not only "Is this dependency acceptable today?" but "Will it remain a responsible, maintainable, and trustworthy part of this system?"
+
+Each candidate dependency should be evaluated for fit for the system. This reflects the FIASSE mindset: understanding the implications of dependencies on the securable posture of the system. To do this, asses SSEM principles against the dependency. This involves considering:
 
 - **Analyzability:** Understand each dependency's full scope, including transitive dependencies, its specific purpose within the application, and its potential attack surface. Maintain a clear inventory and a documented rationale for every included dependency.
 - **Modifiability:** Design code with loosely coupled dependencies to facilitate updates, patching, or replacement if a vulnerability is discovered, a dependency becomes obsolete, or a more secure alternative is identified.
@@ -592,27 +594,16 @@ One should apply SSEM principles to dependency selection and management. This in
 - **Trustworthiness:** Prefer dependencies originating from authenticated, verifiable developers and supported by a fully traceable delivery path, validated through trusted repository provenance.
 - **Reliability:** Assess how a dependency's functional drift or failure might affect system reliability and resilience, and develop the mitigations needed to address those risks.
 
-Not all shared resources are designed for use in systems that require SSEM attributes. Once FIASSE has been adopted, candidate dependencies should be evaluated in this way.
-
-Additional considerations:
-
+In practice:
 - Avoid unnecessary dependencies. Each one introduces ongoing maintenance requirements.
-- If no direct update resolves a known flaw, further analysis should be considered, including: contributing a fix, fork or write-your-own.
-- Organizations should maintain a clear policy for the use and maintenance of open-source dependencies, including processes for addressing vulnerabilities found within them though code changes in both first- and third-party code.
-- Relying solely on CVE (Common Vulnerabilities and Exposures) databases is insufficient. Understanding the intent and health of the library project is more important as it speaks to future securability.
-- Regularly updating dependencies is a fundamental maintenance tactic. Updates often include fixes for known bugs, including security vulnerabilities, and should be integrated into sprints and performed regularly.
+- Regularly updating dependencies is a fundamental maintenance tactic that bolsters security. Updates often include fixes for known bugs, including security vulnerabilities, and should be integrated into sprints and performed regularly.
+- When no direct update resolves a known flaw, analyze further: contribute a fix upstream, fork, or write your own.
+- Maintain a clear organizational policy for the use and maintenance of open-source dependencies, including remediating their vulnerabilities through changes in first- or third-party code.
+- Do not rely solely on CVE databases. The intent and health of a project speak more to future securability than its advisory history. No advisory announces the silent drift of a service, schema, or data source.
 
-### 4.6. Dependency Stewardship
+Not all shared resources are designed for systems that require SSEM attributes. Adopting one creates a relationship with the code and its maintainers, or with a service and its operator, and the team owns that relationship for as long as the dependency remains.
 
-**Dependency Stewardship:** The ongoing application of SSEM attributes to the selection, integration, monitoring, and lifecycle management of third-party dependencies, with the goal of maintaining the securable posture of the system independent of supply chain attestation mechanisms.
-
-Where dependency management addresses the mechanics of selecting, evaluating, and updating third-party code, dependency stewardship is the governing practice that treats the ongoing relationship with that code as a securable attribute of the product itself.
-
-The distinction matters because a dependency that passes an initial evaluation may become a liability over time. Maintainers may abandon the project, the codebase may stagnate, security issues may go unaddressed, or the project's direction may diverge from the system's needs. Stewardship asks not only "is this dependency acceptable today?" but: "Would this dependency be a responsible, maintainable, and trustworthy part of this system, now and over time?"
-
-The stewardship questions are the Section 4.5 selection criteria re-asked against time. Analyzability: is the inventory still honest? Has the dependency's scope grown beyond its recorded rationale, or its transitive tree beyond what the team has examined? Modifiability: has coupling accumulated since introduction, so that the exit which existed at selection no longer exists in practice? Testability: do the isolation seams still hold across the current test suite, or has the dependency leaked into code that can no longer be exercised without it? Authenticity and Integrity: does the project still demonstrate trustworthy maintenance behavior? The signals are active maintainers, consistent signed releases, and responsive handling of reported vulnerabilities. Resilience: is there a current answer, not a historical one, for what happens if the dependency is abandoned, compromised, or unavailable?
-
-Stewardship is not a one-time evaluation. It is a recurring responsibility that belongs on the agenda of sprint planning, architecture reviews, and merge reviews, not as a separate activity, but as a standing lens applied to the work already being reviewed. When a dependency is introduced, the team takes on a relationship with that code and its maintainers. That relationship warrants the same ongoing attention given to any other securable quality of the product.
+Further, using an out-of-process dependency introduces the possibility of functional drift which could subtly threaten the trustworthiness and reliability of the system. To address this, architecture and abstraction steps should be taken. For further direction on out-of-process dependencies, such as external APIs, managed services, identity providers and AI resources, refer to the related OWASP Security Verification Standard requirements catalog.
 
 ---
 
