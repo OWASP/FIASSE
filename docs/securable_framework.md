@@ -583,9 +583,9 @@ The Isolated Integrity Principle is a direct application of the SSEM attribute o
 
 Dependency Stewardship involves applying SSEM attributes to select, integrate, monitor, and manage all dependencies, ensuring a securable system posture.
 
-Dependency management sits at the core of Dependency Stewardship. Dependency management involves evaluating and updating third-party code. Stewardship carries the idea of maintaining an ongoing relationship with each dependency. Stewardship implies a long-term relationship with each dependency, with a focus on securability and its impact on first-party code. A dependency that passes initial evaluation can become a liability if functionality drifts, maintainers abandon it, codebases stagnate, and issues go unaddressed. The stewardship question is not only "Is this dependency acceptable today?" The stewardship question goes beyond "Is this dependency acceptable?" to "Will it remain reliable, maintainable, and trustworthy?"
+Dependency management sits at the core of Dependency Stewardship. Dependency management involves evaluating and updating third-party code. Stewardship implies a long-term relationship with each dependency, with a focus on securability and its impact on first-party code. A dependency that passes initial evaluation can become a liability if functionality drifts, maintainers abandon it, codebases stagnate, and issues go unaddressed. The stewardship question goes beyond "Is this dependency acceptable today?" to "Will it remain reliable, maintainable, and trustworthy?"
 
-Each candidate dependency should be evaluated for fit for the system. This reflects the FIASSE mindset: understanding the implications of dependencies on the securable posture of the system. To do this, assess SSEM principles against the dependency. Assess each SSEM principle:
+Each candidate dependency should be evaluated for fit for the system. This reflects the FIASSE mindset: understanding the implications of dependencies on the securable posture of the system. Assess each SSEM attribute against the dependency:
 
 - **Analyzability:** Understand each dependency's full scope, its purpose, and potential attack surface. Maintain a clear inventory and documented rationale.
 - **Modifiability:** Design code with loosely coupled dependencies to facilitate updates or replacement.
@@ -594,7 +594,7 @@ Each candidate dependency should be evaluated for fit for the system. This refle
 - **Reliability:** Assess how a dependency's failure might affect system reliability and resilience, and develop mitigations.
 
 In practice:
-- Avoid unnecessary dependencies. - Avoid unnecessary dependencies, which introduce ongoing maintenance requirements.
+- Avoid unnecessary dependencies, which introduce ongoing maintenance requirements.
 - Regularly updating dependencies is a fundamental maintenance tactic that bolsters security. Updates often include fixes for known bugs, including security vulnerabilities, and should be integrated into sprints and performed regularly.
 - Analyzing further when direct updates don't resolve known flaws. Decide whether to contribute a fix upstream, fork, or write your own.
 - Maintaining a clear organizational policy for open-source dependencies, including remediating vulnerabilities through changes in first- or third-party code.
