@@ -581,28 +581,28 @@ The Isolated Integrity Principle is a direct application of the SSEM attribute o
 
 ### 4.5. Dependency Stewardship
 
-Dependency Stewardship: The ongoing application of SSEM attributes to the selection, integration, monitoring, and lifecycle management of all dependencies, with the goal of maintaining the securable posture of the system.
+Dependency Stewardship involves applying SSEM attributes to select, integrate, monitor, and manage all dependencies, ensuring a securable system posture.
 
-At the most fundamental level of Dependency Stewardship is the practice of dependency management. Dependency management involves selecting, evaluating, and updating third-party code. Stewardship carries the idea of maintaining the ongoing relationship with each dependency. In the context of this framework, we are particularly concerned about the dependencies securability and the impact it has on first-party code. A dependency that passes initial evaluation may become a liability: maintainers move on, codebases stagnate, reported issues go unaddressed, project direction diverges from the system's needs. The stewardship question is not only "Is this dependency acceptable today?" but "Will it remain a responsible, maintainable, and trustworthy part of this system?"
+Dependency management sits at the core of Dependency Stewardship. Dependency management involves evaluating and updating third-party code. Stewardship carries the idea of maintaining an ongoing relationship with each dependency. Stewardship implies a long-term relationship with each dependency, with a focus on securability and its impact on first-party code. A dependency that passes initial evaluation can become a liability if functionality drifts, maintainers abandon it, codebases stagnate, and issues go unaddressed. The stewardship question is not only "Is this dependency acceptable today?" The stewardship question goes beyond "Is this dependency acceptable?" to "Will it remain reliable, maintainable, and trustworthy?"
 
-Each candidate dependency should be evaluated for fit for the system. This reflects the FIASSE mindset: understanding the implications of dependencies on the securable posture of the system. To do this, asses SSEM principles against the dependency. This involves considering:
+Each candidate dependency should be evaluated for fit for the system. This reflects the FIASSE mindset: understanding the implications of dependencies on the securable posture of the system. To do this, assess SSEM principles against the dependency. Assess each SSEM principle:
 
-- **Analyzability:** Understand each dependency's full scope, including transitive dependencies, its specific purpose within the application, and its potential attack surface. Maintain a clear inventory and a documented rationale for every included dependency.
-- **Modifiability:** Design code with loosely coupled dependencies to facilitate updates, patching, or replacement if a vulnerability is discovered, a dependency becomes obsolete, or a more secure alternative is identified.
-- **Testability:** Ensure dependencies can be effectively managed during testing through mocking, stubbing, or version pinning, and that their integration points are robustly testable.
-- **Trustworthiness:** Prefer dependencies originating from authenticated, verifiable developers and supported by a fully traceable delivery path, validated through trusted repository provenance.
-- **Reliability:** Assess how a dependency's functional drift or failure might affect system reliability and resilience, and develop the mitigations needed to address those risks.
+- **Analyzability:** Understand each dependency's full scope, its purpose, and potential attack surface. Maintain a clear inventory and documented rationale.
+- **Modifiability:** Design code with loosely coupled dependencies to facilitate updates or replacement.
+- **Testability:** Ensure dependencies can be tested and have robust integration points.
+- **Trustworthiness:** Prefer dependencies from authenticated, verifiable developers with a fully traceable delivery path, validated through trusted repository provenance.
+- **Reliability:** Assess how a dependency's failure might affect system reliability and resilience, and develop mitigations.
 
 In practice:
-- Avoid unnecessary dependencies. Each one introduces ongoing maintenance requirements.
+- Avoid unnecessary dependencies. - Avoid unnecessary dependencies, which introduce ongoing maintenance requirements.
 - Regularly updating dependencies is a fundamental maintenance tactic that bolsters security. Updates often include fixes for known bugs, including security vulnerabilities, and should be integrated into sprints and performed regularly.
-- When no direct update resolves a known flaw, analyze further: contribute a fix upstream, fork, or write your own.
-- Maintain a clear organizational policy for the use and maintenance of open-source dependencies, including remediating their vulnerabilities through changes in first- or third-party code.
-- Do not rely solely on CVE databases. The intent and health of a project speak more to future securability than its advisory history. No advisory announces the silent drift of a service, schema, or data source.
+- Analyzing further when direct updates don't resolve known flaws. Decide whether to contribute a fix upstream, fork, or write your own.
+- Maintaining a clear organizational policy for open-source dependencies, including remediating vulnerabilities through changes in first- or third-party code.
+- Do not rely solely on CVE databases. A project's intent and health speak more to future securability than its advisory history. No advisory announces the silent drift of a service, or data source.
 
-Not all shared resources are designed for systems that require SSEM attributes. Adopting one creates a relationship with the code and its maintainers, or with a service and its operator, and the team owns that relationship for as long as the dependency remains.
+Not all shared resources are designed for systems requiring SSEM attributes. Adopting one creates a relationship with the code and its maintainers, or with a service and its operator, which the team owns for as long as the dependency remains.
 
-Further, using an out-of-process dependency introduces the possibility of functional drift which could subtly threaten the trustworthiness and reliability of the system. To address this, architecture and abstraction steps should be taken. For further direction on out-of-process dependencies, such as external APIs, managed services, identity providers and AI resources, refer to the related OWASP Security Verification Standard requirements catalog.
+Out-of-process dependencies introduce functional drift, threatening trustworthiness and reliability. Address this by taking architecture and abstraction steps. For further direction on out-of-process dependencies, such as external APIs, managed services, identity providers, and AI resources, refer to the related OWASP Security Verification Standard requirements catalog.
 
 ---
 
