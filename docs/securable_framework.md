@@ -583,7 +583,8 @@ The Isolated Integrity Principle is a direct application of the SSEM attribute o
 
 Dependency Stewardship involves applying SSEM attributes to select, integrate, monitor, and manage all dependencies, ensuring a securable system posture.
 
-Dependency management sits at the core of Dependency Stewardship. It involves evaluating and updating third-party code, while stewardship implies a long-term relationship with each dependency, focusing on its securability and impact on first-party code. A dependency that passes initial evaluation can become a liability if functionality drifts, maintainers abandon it, codebases stagnate, and issues go unaddressed. The stewardship question is not only "Is this dependency acceptable today?" but also "Will it remain reliable, maintainable, and trustworthy?"
+Dependency management sits at the core of Dependency Stewardship. It involves evaluating and updating third-party code, while stewardship implies a long-term relationship with each dependency, focusing on its securability and impact on first-party code. A dependency that passes initial evaluation can become a liability if functionality drifts, maintainers abandon it, codebases stagnate, and issues go unaddressed. The stewardship question is not only "Is this dependency acceptable today?" but also "Will it remain reliable, maintainable, and trustworthy?"
+
 
 Each candidate dependency should be evaluated for fit with the system by assessing the relevant SSEM attributes:
 
@@ -594,7 +595,7 @@ Each candidate dependency should be evaluated for fit with the system by assessi
 - **Trustworthiness:** Prefer dependencies from authenticated, verifiable developers with a fully traceable delivery path, validated through trusted repository provenance.
 - **Reliability:** Assess how a dependency's failure might affect system reliability and resilience, and develop mitigations.
 
-In practice:
+- Avoid unnecessary dependencies, which introduce ongoing maintenance requirements.
 - Avoid unnecessary dependencies. - Avoid unnecessary dependencies, which introduce ongoing maintenance requirements.
 - Regularly updating dependencies is a fundamental maintenance tactic that bolsters security. Updates often include fixes for known bugs, including security vulnerabilities, and should be integrated into sprints and performed regularly.
 - Analyzing further when direct updates don't resolve known flaws. Decide whether to contribute a fix upstream, fork, or write your own.
