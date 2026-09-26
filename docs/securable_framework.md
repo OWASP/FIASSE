@@ -121,7 +121,7 @@ Organizations invest significantly in secure coding initiatives and security tes
 
 Generative AI tools for code generation have added a new dimension to this challenge. These tools can accelerate development, but they also risk propagating insecure patterns if not guided by sound engineering principles. Ensuring AI-generated code is securable requires the same foundational approach as any other code.
 
-A more fundamental problem also persists: many well-intentioned strategies, including the prevalent "shift left" movement, have produced disappointing results in practice, failing to produce lasting change in the software being built. The failure is not in the timing. Integrating security earlier is sound. The problem is the pattern of delivering training and testing outputs in forms that developers cannot act on within their normal engineering focus. A key question underlies all of these challenges: how can development teams consistently produce securable code without requiring developers to acquire deep security expertise?
+Many well-intentioned strategies, including the prevalent "shift left" movement, have failed to produce lasting changes in software. Integrating security earlier is a sound concept. The challenge is delivering security intelligence that developers act on within the bounds of sound software engineering. Best practices are not enough. So, how can teams consistently produce securable code without requiring every developer to become a security specialist?
 
 ### 1.2. Document Purpose and Scope
 
@@ -141,9 +141,9 @@ This document covers the following topics:
 - The roles of engineering and security personnel in adopting FIASSE (Section 7)
 - The evolution of FIASSE in response to emerging trends and strategies for organizational adoption (Section 8)
 
-This document is intended for Software Engineers, Application Security professionals, Product Security Engineers, engineering managers, and anyone involved in software development who seeks to improve application security outcomes. Within security organizations, FIASSE serves as a unifying framework: SSEM supplies the technical language and measurable attributes that support development practices to address security concerns, while the framework's emphasis on business alignment and clear expectations enables security teams to translate strategic objectives into actionable development requirements.
+This document is intended for Software Engineers, Application Security professionals, Product Security Engineers, engineering managers, and others involved in software development. Within security organizations, FIASSE provides a paved road: SSEM supplies the technical language and measurable attributes, while FIASSE's emphasis on business alignment and clear expectations helps security teams translate their own strategic objectives into development requirements.
 
-FIASSE is not an assurance framework. It does not measure the maturity of a security program, as maturity models such as BSIMM, OpenSAMM, and NIST SSDF do. It does not replace control catalogs such as NIST 800-53, ISO 27001 Annex A, or PCI DSS; those catalogs describe verification of requirements and protective actions taken largely outside the code under construction, and they retain their proper place in risk management, assurance, and external evaluation. It does not replace vulnerability counts, penetration-test findings, or other assurance metrics which remain valid measurements of the software's current defensive posture. FIASSE operates in cooperation with all of these. Its concern is how security requirements are implemented in the code under construction, how security expertise is applied to that implementation, and how development flow is preserved while security expectations are met. When FIASSE is adopted well, the expected effect is that existing assurance metrics improve. It also results in reduced findings churn, more durable fixes, and faster turnaround.
+FIASSE complements assurance approaches; it does not replace them. It does not measure security-program maturity, as models such as BSIMM, OpenSAMM, and NIST SSDF do. Nor does it replace control catalogs such as NIST 800-53, ISO 27001 Annex A, or PCI DSS, which support risk management, assurance, and external evaluation. Vulnerability counts and penetration-test findings remain useful measures of a system's defensive posture. FIASSE focuses on implementing security requirements in code, applying security expertise to that work, and preserving development flow. Effective adoption should improve existing assurance metrics, reduce findings churn, produce more durable fixes, and shorten remediation time.
 
 ---
 
@@ -172,7 +172,7 @@ The sections that follow develop these values as the foundational principles of 
 
 The term "securable" reflects a fundamental reality: there is no static state of "secure." A system declared secure today may be vulnerable tomorrow because of a newly discovered exploit, a dependency update, a configuration change, or a shift in the threat environment. Security is not a property a system permanently possesses; it is a capacity the system must be designed to sustain. The securable paradigm recognizes this and redirects the engineering goal accordingly: rather than asking "is it secure?", teams ask "is it built so that security can be maintained?"
 
-Software exists in a continuously evolving threat landscape. New vulnerabilities emerge, attack vectors shift, business requirements change, and dependencies are updated. What is adequate today may be insufficient tomorrow. This reality requires a shift away from pursuing an illusory state of perfect security and toward building software with inherent qualities that allow it to adapt to and withstand evolving threats.
+Threats, requirements, and dependencies change over time. Software needs qualities that let teams adapt it as those conditions change.
 
 The securable paradigm emphasizes three organizing ideas:
 
@@ -192,7 +192,7 @@ In a business context, the primary directive of software engineering is expresse
 
 The directive excludes two familiar failure modes. Value added without resilience is capability the business will lose later, with interest, when the system cannot absorb the next threat or requirement. Resilience pursued without adding value is security as an end in itself, which **Business Value over Security Activity** rejects. Software that meets functional requirements while sustaining its securable qualities (Analyzability, Modifiability, and Testability among them) satisfies both halves of the directive.
 
-Software Engineering is the broader discipline of designing, developing, and maintaining software in a systematic and organized way [ISO-24765]. Security is not a test appended at the end of this process; it is an intrinsic component of well-engineered software that contributes directly to a product's ability to deliver value reliably and sustainably.
+Software Engineering is the discipline of designing, developing, and maintaining software systematically [ISO-24765]. Security belongs in that work and helps software continue to deliver value reliably.
 
 ### 2.3. Security Mission: Reducing Material Impact
 
@@ -212,17 +212,17 @@ This has two consequences for how security is applied. First, investment in engi
 
 A common misconception frames the gap between Security and Development as inherently problematic. The two disciplines are complementary, not adversarial: development adds value, and security works to reduce the risk of losing that value. The analogy to Accounting and Operations is apt: both serve the business from distinct vantage points without one disrupting the other's core function. Security should not need to disrupt the value-adding operation.
 
-True alignment between security and development requires a return to first principles. This is the value of **Engineering First Principles over Security Jargon**. Rather than imposing security-centric jargon and processes that may slow or interrupt development, FIASSE uses well-established software engineering terms to describe securable code attributes. The SSEM properties, including Analyzability, Modifiability, Testability, and Confidentiality, are concepts developers already work with. Using this shared vocabulary fosters understanding and empowers engineers to address security considerations with confidence, without requiring years of dedicated security experience.
+Alignment between security and development depends on **Engineering First Principles over Security Jargon**. FIASSE uses established software engineering terms to describe securable code attributes, including Analyzability, Modifiability, Testability, and Confidentiality. Developers can use this shared vocabulary to address security considerations without years of dedicated security experience.
 
-This also requires that the expectation of mindset is calibrated correctly. The idea that all programmers should think like attackers or act as penetration testers to eliminate security problems overlooks a critical distinction: understanding how systems can be compromised is not the same as knowing how to build them to be secured. It is not reasonable for business value creation to be secondary to security. There is a significant difference between identifying a vulnerability and implementing a robust, scalable engineering solution to address it. Relying solely on an adversarial mindset does not scale.
+Expectations for how developers think about security must be calibrated. Understanding how a system can be compromised is different from knowing how to build and maintain it. Developers need engineering guidance for addressing security issues; relying on every programmer to act as a penetration tester does not scale or serve the business's value-creation goals.
 
 Alignment requires specific participation from AppSec professionals early in the Software Development Lifecycle (SDLC), particularly during requirements gathering and feature planning. When security engages at those stages, developers gain the context and expectations they need to build securable software as a natural part of their workflow. This is the value of **Participation over Assessment**: shaping the system as it is being built is more effective than evaluating it after the fact, and it lets security expertise act where it produces the most leverage.
 
-The upstream engagement produces effects that are visible in the downstream assurance metrics leadership already tracks. Requirements that describe security expectations explicitly, implemented consistently across a change, yield lower findings. It also creates fixes that stay fixed, and consistent turnaround from finding to durable remediation. FIASSE does not ask leadership to replace metrics. It indicates that the metrics be downstream indicators of upstream health. When findings recur, fixes regress, or turnaround stalls, the cause is typically in the requirements or the engineering practice, not in the security testing that surfaced them.
+Upstream engagement should improve the assurance metrics leadership already tracks. Explicit security expectations, implemented consistently across a change, should reduce findings, make fixes more durable, and shorten remediation time. FIASSE treats these metrics as indicators of upstream health, not as measures to replace. Recurring findings, regressions, or slow remediation often point to gaps in requirements or engineering practice rather than in the testing that exposed them.
 
 ### 2.6. The Transparency Principle
 
-Transparency is the principle of designing a system so that its internal state and behavior are observable and understandable to authorized parties. It is a foundational engineering strategy that underpins several core SSEM attributes, enabling trust and simplifying analysis. Transparency is about providing clear, contextualized visibility into how the system operates, makes decisions, and handles data.
+Transparency means designing systems so authorized parties can understand internal state and behavior. It supports several SSEM attributes by making system operations, decisions, and data handling visible in context.
 
 Relying exclusively on external tooling for transparency produces a reactive posture. A system that is transparent by design, through structured logging, instrumentation, and clear audit trails, is easier to analyze, maintain, and secure from the outset.
 
@@ -275,9 +275,9 @@ Adhering to POLA during design and implementation produces systems that are more
 
 ### 3.1. Model Overview and Design Language
 
-Section 2.5 established that true alignment between security and development requires shared vocabulary: security-centric jargon imposed on engineers creates friction, while terms already native to software engineering create common ground. SSEM is the practical expression of that principle. It provides a design language built from established software engineering terms to define the attributes that make software securable (see Section 2.1). Where Section 2.5 identifies the need and Section 2.1 explains why securability matters as a concept, SSEM makes both operational: each attribute is something a team can define goals for, measure against, and improve incrementally. By grounding security attributes in familiar engineering vocabulary, SSEM allows software engineers to integrate security considerations as a natural part of their development work, and enables security professionals to evaluate how existing code meets security expectations and where improvement is warranted.
+FIASSE aligns security and development through shared software engineering vocabulary (Section 2.5). SSEM applies that principle by defining the attributes that make software securable (Section 2.1). Teams can set goals for each attribute, assess systems against them, and improve incrementally. Developers use these terms in their work, while security professionals use them to assess code against security expectations.
 
-The central shift SSEM enables is a change in the question asked during security assessment. Rather than a binary "Is it secure?" evaluation, the focus becomes: "Do we meet our defined goals for this particular securable attribute?" This framing is actionable, measurable, and compatible with iterative development.
+SSEM changes the question asked during security assessment. Teams assess whether the system meets defined goals for each securable attribute instead of making a binary "Is it secure?" judgment. This question supports measurable, iterative improvement.
 
 SSEM is designed to:
 
@@ -296,17 +296,17 @@ The attributes are organized into three primary categories:
 | Testability         | Authenticity        | Resilience      |
 | Observability       |                     |                 |
 
-SSEM is not a rigid framework. It is a flexible model that adapts to various software engineering practices and emphasizes inherent qualities of software that contribute directly to security. This allows it to scale without requiring security to adopt complex processes that may conflict with development workflows.
+SSEM adapts to different software engineering practices and emphasizes software qualities that contribute to security. It can scale without requiring processes that conflict with development workflows.
 
-By defining these attributes in engineering terms, SSEM creates a common design language. It equips security professionals to surface context-specific considerations, and it provides developers with the conceptual tools to discuss and reason about security using vocabulary already familiar to them. A shared design language can bring together a culture of quality across diversely skilled teams, focused on common goals rather than isolated compliance checkboxes. This cultural alignment directly influences a product's internal structure to reflect these technical values.
+Teams can use SSEM attributes to discuss context-specific security concerns and make design decisions around shared quality goals. This gives security professionals and developers a common basis for shaping the product's structure.
 
 ### 3.2. Core Securable Attributes
 
-The following attributes are the building blocks of securable software. They are not abstract concepts; each represents a tangible characteristic that contributes directly to a system's overall security and resilience. By building toward these attributes, developers proactively construct systems that are easier to secure and protect as the threat landscape evolves.
+The following attributes describe qualities that contribute to a system's security and resilience. Building toward them makes software easier to assess and adapt as threats change.
 
 #### 3.2.1. Maintainability
 
-**Definition:** "The degree of effectiveness and efficiency with which a product or system can be modified by the intended maintainers" [ISO-25010]. In the context of SSEM, Maintainability means software can be evolved, corrected, and adapted to new threats or requirements without undue effort or the introduction of new vulnerabilities. This focus on ease of modification is central to securable software, as it directly supports the ability to respond to the dynamic threat landscape described in Section 2.1.
+**Definition:** "The degree of effectiveness and efficiency with which a product or system can be modified by the intended maintainers" [ISO-25010]. In SSEM, Maintainability means maintainers can evolve, correct, and adapt software to new threats or requirements without undue effort or introducing vulnerabilities.
 
 ##### 3.2.1.1. Analyzability
 
@@ -360,7 +360,7 @@ Observability must be achieved through instrumentation and auditing built into t
 
 #### 3.2.2. Trustworthiness
 
-**Definition:** "Ability to meet stakeholder expectations in a verifiable way" [ISO-5723]. A trustworthy system operates within defined levels of trust and meets specified security properties in a manner that can be demonstrated rather than assumed. Rather than focusing on overlaid security controls, FIASSE emphasizes the inherent code qualities that enable trustworthiness: strong architectural design, clear trust boundaries, and well-defined areas of flexibility.
+**Definition:** "Ability to meet stakeholder expectations in a verifiable way" [ISO-5723]. A trustworthy system meets defined security properties in ways that can be demonstrated. FIASSE focuses on code qualities that support trustworthiness, including sound architecture, clear trust boundaries, and controlled flexibility.
 
 Key attributes contributing to trustworthiness include:
 
@@ -406,7 +406,7 @@ For security, Availability means the system is designed to resist attacks like D
 
 **Definition:** "Property of accuracy and completeness" [ISO-27000, §3.36]. In SSEM, Integrity applies at two levels. **System integrity** is the property that the system performs its intended function in an unimpaired manner, free from unauthorized manipulation of its code, configuration, or runtime behavior. **Data integrity** is the property that data has not been changed, destroyed, or lost through unauthorized action, accidental modification, or transmission error.
 
-Implementing Integrity involves measures such as cryptographic hashing, checksums, and access controls to prevent unauthorized modification or corruption. Emphasizing Integrity at a fundamental level ensures that trust in the system extends to all its components, not just isolated parts. Integrity encompasses more than preventing unauthorized changes; it also ensures the system operates correctly and consistently in the face of potential threats or failures.
+Integrity measures such as cryptographic hashes, checksums, and access controls help prevent unauthorized modification and corruption. Integrity also concerns whether the system continues to perform its intended function under threats or failure.
 
 ##### 3.2.3.3. Resilience
 
@@ -427,27 +427,27 @@ Strategies for building resilient systems include:
 
 ### 4.1. Establishing Clear Expectations
 
-Clear expectations are foundational to building securable products. AppSec maximizes its impact by setting those expectations early and in terms that integrate naturally into development workflows. This requires alignment with the business processes involved in producing software.
+AppSec has the greatest impact when it sets clear expectations early and in terms that fit development workflows and business processes.
 
 #### 4.1.1. Proactive Communication
 
-Development teams should hear about new testing initiatives and security programs affecting their products from the security team directly, before the first findings arrive. Demonstrating a new tool to the engineers who will live with its output builds collaboration and surfaces the key contacts that partnership depends on; regular synchronization points then keep that support visible and the momentum real. For AppSec professionals working this way, communication is not a soft skill layered onto the role. It is how the role functions.
+The security team should tell development teams about new testing initiatives and security programs before findings arrive. Demonstrating a tool to the engineers who will use its output helps establish collaboration and identify key contacts. Regular check-ins keep the partnership active. For AppSec professionals, communication is part of the work.
 
 #### 4.1.2. Integrating Security into Requirements
 
-Active AppSec participation in formal requirements gathering moves security from a post-development review to an integral component of the product, aligning it with productivity rather than positioning it as a gate.
+Active AppSec participation in requirements gathering brings security into product development before review and helps it fit the team's workflow.
 
 Key deliverables include:
 
 - **Security Features:** Specific security capabilities that must be implemented, such as authentication mechanisms, encryption requirements, or access controls.
 - **Threat Scenarios:** Descriptions of potential misuse cases or attack paths relevant to the feature being developed, used to identify necessary controls.
-- **Security Acceptance Criteria:** Specific, testable conditions a feature must satisfy to be considered secure. These criteria allow QA to perform security testing by verifying requirements. Implementation completeness against defined acceptance criteria is a measurable security outcome: a feature that satisfies all its security criteria provides a verifiable basis for confidence that is absent when criteria were never defined.
+- **Security Acceptance Criteria:** Testable conditions a feature must satisfy. QA can verify these conditions during security testing. Implementation completeness against defined criteria provides a measurable basis for confidence in the feature.
 
-Embedding security into foundational design decisions through requirements makes attributes like Trustworthiness, Integrity, and Resilience more reliably realized. Development teams can address security concerns as part of their standard workflow, making requirements an often underutilized but powerful tool for security.
+Requirements bring security into design decisions and help teams address Trustworthiness, Integrity, and Resilience within their standard workflow.
 
-Incomplete requirements are the dominant root cause of security gaps in application code. Decades of AppSec practitioner observation indicate that the great majority of application vulnerabilities trace to either security expectations that were never specified, or specified expectations that were implemented inconsistently across a change. Where security expectations are absent from the requirements that developers work from, the resulting implementation is not deficient by error, it is deficient by design. The gap exists not because developers failed to secure the code, but because no one specified what secure looked like for that feature.
+Incomplete requirements are a major source of security gaps in application code. AppSec practitioners often trace vulnerabilities to expectations that were omitted or implemented inconsistently [NEEDS: source for this claim]. When requirements omit a security expectation, developers cannot be expected to infer what the feature must do. The resulting gap belongs in the requirements process, not with developers for failing to guess.
 
-Not every vulnerability class traces to requirements. The common and consequential injection classes sit outside that case, as do supply-chain compromises in which a trusted dependency later betrays that trust, cryptographic protocol weaknesses that emerge over time, and truly novel flaws that only comprehensive testing can surface. FIASSE addresses these residuals through other means: Resilience (Section 3.2.3.3) for graceful behavior in the face of the unexpected, Dependency Stewardship (Section 4.5) for the ongoing trust relationship with third-party code, and Observability (Section 3.2.1.4) for detecting the anomalous behavior that novel classes tend to produce before they are named.
+Requirements do not address every vulnerability class. Injection, supply-chain compromise, evolving cryptographic weaknesses, and novel flaws require other practices. FIASSE addresses these through Resilience (Section 3.2.3.3), Dependency Stewardship (Section 4.5), and Observability (Section 3.2.1.4), respectively.
 
 ### 4.2. Threat Modeling
 
@@ -581,9 +581,9 @@ The Isolated Integrity Principle is a direct application of the SSEM attribute o
 
 ### 4.5. Dependency Stewardship
 
-Dependency Stewardship involves applying SSEM attributes to select, integrate, monitor, and manage all dependencies, ensuring a securable system posture.
+Dependency Stewardship applies SSEM attributes when teams select, integrate, monitor, and maintain dependencies.
 
-Dependency management sits at the core of Dependency Stewardship. Dependency management involves evaluating and updating third-party code. Stewardship implies a long-term relationship with each dependency, with a focus on securability and its impact on first-party code. A dependency that passes initial evaluation can become a liability if functionality drifts, maintainers abandon it, codebases stagnate, and issues go unaddressed. The stewardship question goes beyond "Is this dependency acceptable today?" to "Will it remain reliable, maintainable, and trustworthy?"
+Stewardship considers each dependency's effect on first-party code over the life of the relationship. Initial review is not enough: functionality can drift, maintainers can leave, and issues can go unaddressed. Teams should ask whether a dependency will remain reliable, maintainable, and trustworthy.
 
 Each candidate dependency should be evaluated for fit for the system. This reflects the FIASSE mindset: understanding the implications of dependencies on the securable posture of the system. Assess each SSEM attribute against the dependency:
 
@@ -595,8 +595,8 @@ Each candidate dependency should be evaluated for fit for the system. This refle
 
 In practice:
 - Avoid unnecessary dependencies, which introduce ongoing maintenance requirements.
-- Regularly updating dependencies is a fundamental maintenance tactic that bolsters security. Updates often include fixes for known bugs, including security vulnerabilities, and should be integrated into sprints and performed regularly.
-- Analyzing further when direct updates don't resolve known flaws. Decide whether to contribute a fix upstream, fork, or write your own.
+- Update dependencies regularly to receive bug and security fixes. Include this work in sprints.
+- Investigate further when updates do not resolve known flaws. Decide whether to contribute a fix upstream, fork, or write your own.
 - Maintaining a clear organizational policy for open-source dependencies, including remediating vulnerabilities through changes in first- or third-party code.
 - Do not rely solely on CVE databases. A project's intent and health speak more to future securability than its advisory history. No advisory announces the silent drift of a service, or data source.
 
@@ -610,33 +610,33 @@ Out-of-process dependencies introduce functional drift, threatening trustworthin
 
 ### 5.1. Natively Extending Development Processes
 
-A key principle for reducing friction and preparing development teams effectively is to integrate security into existing workflows rather than imposing separate, external security gates. This requires understanding current practices and extending them with purpose.
+Integrate security into existing workflows to reduce friction. Start by understanding current practices, then extend them where needed instead of imposing separate security gates.
 
-Security teams often occupy a reviewer position. While assurance activities matter, earlier engagement in requirements gathering, architecture, and design is more impactful and avoids positioning security as an adversary to the teams it needs to collaborate with. Security positioned as a partner is better informed and better placed to provide value.
+Security teams often focus on review. Earlier participation in requirements, architecture, and design gives them context and helps them work as partners with development.
 
-Security teams carry responsibilities beyond assurance and development partnership, including maintaining defensive infrastructure, operating detection tooling, and coordinating incident response. These functions run continuously and independently of the development lifecycle. When software is built to the standard FIASSE describes, it reduces the burden on all three: fewer exploitable surfaces produce fewer incidents to detect and contain. These parallel responsibilities do not contradict FIASSE's integration model; they are the functions that benefit most directly when the software being defended is built to a securable standard.
+Security teams also maintain defensive infrastructure, operate detection tools, and coordinate incident response. These functions run continuously alongside development. Software built to the FIASSE standard can reduce their workload by limiting exploitable surfaces and the incidents they must detect and contain.
 
 Beyond the reviewer role, security can offer strategic extensions to development activities:
 
 - **Architecture:** Incorporate security implications into architectural considerations. For example, throttling and DDoS protection help preserve business integrity.
 - **Predefined checklists:** Develop flexible checklists that incorporate SSEM attributes and security considerations applicable across different contexts.
-- **Usability:** Frame usability not just as aesthetics but as a foundation for trust. Clear error messages, intuitive permissions management, and predictable interface behavior all contribute to a more secure user experience.
+- **Usability:** Treat usability as part of trust. Clear error messages, intuitive permission management, and predictable interfaces contribute to a more secure user experience.
 
 ### 5.2. The Role of Merge Reviews
 
-While software engineering lacks the formal mentorship structures of some other engineering disciplines, the merge review (or pull request review) serves as a critical point for guidance, validation, and knowledge transfer. For security, this is where securable code review can scale effectively. It functions as an agile training ground where developers learn from peers in a constructive environment. SSEM attributes provide a concrete and shared basis for these reviews.
+The merge review (or pull request review) gives teams a regular place for guidance, validation, and knowledge transfer. SSEM attributes provide a shared basis for reviewing securability and help developers learn from one another.
 
 Teams should treat merge reviews as guardrails, not gates. The goal is to grow the FIASSE mindset within the team and to make the review process a positive experience for developers, without introducing unnecessary friction or delay.
 
-Merge reviews are also an appropriate venue for practicing threat awareness at the code level: asking "What can go wrong?" within the bounded scope of a changeset makes it easier to identify risks and vulnerabilities that might be harder to isolate in a larger system review. Findings that reveal design-level concerns should be escalated into the formal threat model rather than addressed solely as code-level fixes. Sections 5.2.1 through 5.2.5 define the mechanism that makes the guardrail concrete.
+Merge reviews are also a practical venue for code-level threat awareness. Asking "What can go wrong?" about a changeset can reveal risks that are hard to isolate in a larger review. Escalate design-level concerns to the formal threat model. Sections 5.2.1 through 5.2.5 define how the review guardrail works.
 
 #### 5.2.1. The Securability Report
 
-Every merge produces an informational report. Code review through merge requests is an effective technique for identifying security vulnerabilities early in the development process [OWASP-CRG]; the report is that review's instrument. Automated analysis supplies its base: scanning results and securability signals scoped to the changeset. Automation can surface known or common issues, but it cannot interpret the context of a change or understand the architecture of the system. Review brings that context to bear, adding an assessment expressed in SSEM vocabulary where the change warrants it. The report is generated unconditionally and blocks nothing by default. This is what allows securable review to scale where whole-application security review could not: automation runs on every change, while reviewer attention goes where the report and the change's risk profile direct it.
+Every merge produces an informational report. Merge-request code review can identify vulnerabilities early [OWASP-CRG]. The report combines scan results and changeset-scoped securability signals with reviewer assessment in SSEM terms. Automation can surface known issues, while reviewers interpret the change in its architectural context. The report is generated for every merge and blocks nothing by default. Automation covers each change; reviewers focus on the changes and findings that warrant attention.
 
 #### 5.2.2. The Advisory Default
 
-The report's first job is to make the securability consequences of a change visible at the moment the change is cheapest to discuss. Read this way, it is a teaching instrument: the place where developing engineers see SSEM reasoning applied to their own code, and where review comments become transferable patterns rather than one-off corrections. The collaborative nature of the review carries the rest. It allows the sharing of insight and expertise, and provides a fresh perspective that individual developers may lose through familiarity with their own code. When FIASSE-trained security professionals participate, they contribute insights that over time elevate the broader team's understanding of SSEM attributes and their implications.
+The report makes the securability consequences of a change visible while they are still easy to discuss. It also gives developing engineers examples of SSEM reasoning applied to their code. Reviewers share expertise and provide a fresh perspective; FIASSE-trained security professionals can help the team deepen its understanding of SSEM attributes over time.
 
 #### 5.2.3. Gating as a Policy Decision
 
@@ -644,7 +644,7 @@ A team, with its product owner and security partnership, may elevate designated 
 
 #### 5.2.4. The Audit Trail
 
-Performed at the merge, the mechanism produces a structured audit trail as a by-product of ordinary work. Findings are logged with each report. Each gating decision point is logged, and where an override is exercised, the approval or denial is captured. Every entry is timestamped, attributable, and reviewable. This trail is what proof-based compliance consumes: placed in SBOM attestations, it demonstrates that security expectations were evaluated on every change and that acceptance decisions were made by a named authority. The evidence maps directly onto obligations under the EU Cyber Resilience Act and the practices of NIST SP 800-218 (SSDF), and it arrives without a separate evidence-gathering exercise because the mechanism generated it while the work was being done. This is Section 6.1's principle extended from tests to process: attestation assembled from living records rather than reconstructed after the fact.
+The merge process produces a structured audit trail as part of ordinary work. Reports record findings and gating decisions, including approvals or denials of overrides. Each entry is timestamped, attributable, and reviewable. These records can support SBOM attestations by documenting that teams evaluated security expectations on each change and recorded acceptance decisions. This extends Section 6.1's principle from tests to process: attestations draw on records created during development.
 
 #### 5.2.5. Posture over Pass Rates
 
@@ -652,7 +652,7 @@ What the organization manages is the resulting security posture over time, not t
 
 ### 5.3. Early Integration: Planning and Requirements
 
-FIASSE advocates for integrating security at the earliest stages of development, particularly during planning and requirements definition. This ensures security is a foundational design element rather than a retrofit. Security expectations set at design time never enter the remediation queue at all; once a flaw ships, industry data puts the average time from finding to fix at 252 days [Veracode-SoSS-2025].
+FIASSE integrates security during planning and requirements definition, before implementation. Security expectations set at design time do not enter the remediation queue; once a flaw ships, the average time from finding to fix is 252 days [Veracode-SoSS-2025].
 
 The primary mechanism for early integration is active security team participation in requirements gathering, as described in Section 4.1.2. By contributing Security Features, Threat Scenarios, and Security Acceptance Criteria to the requirements process, the security team ensures that security expectations are explicit, testable, and integrated into the development workflow from the start.
 
@@ -731,17 +731,17 @@ The security team's effectiveness is limited by software quality. SSEM makes thi
 
 #### 7.1.1. The Strategic Case for the Shift
 
-The role described above, security engaging upstream in requirements and design rather than downstream in review and testing, is not the norm in most organizations today. The shift toward it will meet resistance. The resistance is predictable: security careers are often built on finding-bugs work, security team charters are often written around gate-keeping activities, and business leadership has been trained to measure security through vulnerability counts and audit outcomes only, rather than through partnership indicators. Recognizing this is a precondition to changing it.
+In most organizations, security still focuses downstream on review and testing. Moving upstream into requirements and design may meet resistance. Security careers and team charters often center on finding bugs and gatekeeping, while leadership commonly measures security through vulnerability counts and audit outcomes. Recognizing these incentives helps teams plan the transition.
 
 The shift is strategically necessary regardless. Security expertise applied at the requirements and design stages produces more leverage per hour than the same expertise applied to post-implementation review; the framework's premise is that this leverage is where security's remaining capacity should be invested. In an environment where AI-assisted development multiplies the volume of code produced, the option of scaling gate-keeping to keep up with generation does not exist. The security function either moves upstream or falls further behind.
 
 #### 7.1.2. Capacity Relief Through Agentic AppSec
 
-The transition is made feasible by agentic AppSec tooling: AI-assisted security analysis, triage, and pattern detection operating on the code and its changes. These capabilities take on the mechanical portion of the reviewer role, allowing security expertise to be redirected upstream without leaving the downstream unattended. Adopting agentic tooling deliberately, as a capacity-relief mechanism tied to a role shift, is different from adopting it as another scanner producing findings to route into backlogs. The former enables the strategic move this section describes; the latter reproduces the Shoveling Left pattern (Section 6.2) at higher volume.
+Agentic AppSec tooling can make this transition feasible. AI-assisted analysis, triage, and pattern detection can handle mechanical review tasks, freeing security expertise for upstream work while maintaining downstream coverage. Tie adoption to this role shift; otherwise, the tooling may reproduce the Shoveling Left pattern (Section 6.2) at higher volume.
 
 #### 7.1.3. Transition, Not Switchover
 
-Security teams making this shift operate in dual mode during the transition. They continue to perform assurance activities the business depends on while progressively taking on requirements and design participation. The gate-keeping role is not abandoned before the participation role is established; the participation role is grown into as capacity is freed by agentic tooling and by the maturation of upstream practices. Attempting to switch cold produces a gap that erodes the security team's standing before the new role has a chance to demonstrate value.
+During the transition, security teams continue assurance activities while gradually taking part in requirements and design. They should build the participation role as agentic tooling and mature upstream practices free capacity, rather than abandoning assurance before that capacity exists.
 
 #### 7.1.4. Business-Leadership Alignment Is a Precondition
 
@@ -749,11 +749,11 @@ The security team cannot make this shift alone. Business leadership must fund it
 
 #### 7.1.5. Staffing Implications
 
-Some security staff will make the transition and some will not. The skills required for effective participation in requirements and design work, engineering literacy, product-domain fluency, comfort with ambiguity, and willingness to influence rather than gate are not the same as the skills that made a strong reviewer or tester (which are still needed). This is a hiring, development, and retention question that leadership must plan for openly rather than discover as attrition. Staff who prefer the reviewer role are not failing; the role they were hired into is changing, and the organization must handle that change with the same care it would apply to any other significant restructure.
+Some security staff will make the transition and some will not. Upstream work calls for engineering literacy, product knowledge, comfort with ambiguity, and the ability to influence without gatekeeping. Reviewer and tester skills remain necessary. Leadership should plan for hiring, development, and retention as roles change, and support staff who prefer to remain reviewers or testers.
 
 ### 7.2. Senior Software Engineers
 
-Senior software engineers are crucial to any Application Security program's success, and their value increases as AI-assisted development becomes standard. AI tools generate code at scale, and agentic tooling can analyze it at matching scale, but neither owns an outcome: their output is input to engineering judgment, not a substitute for it. Evaluating design decisions, setting trust boundaries, and deciding whether an implementation meets security intent remain software engineering responsibilities, grounded in SSEM attributes and established engineering principles. Exercising those responsibilities is the senior engineer's key differentiator.
+Senior software engineers remain central to Application Security as AI-assisted development becomes standard. AI tools generate and analyze code at scale, but engineers remain accountable for outcomes. Evaluating designs, setting trust boundaries, and checking implementations against security intent require engineering judgment grounded in SSEM attributes and established principles.
 
 Security professionals should collaborate closely with senior engineers in design activities, treating them as primary technical partners for FIASSE adoption.
 
@@ -820,13 +820,13 @@ FIASSE does not require a rigid adoption sequence, but organizations benefit fro
 
 ### 8.1. Degraded-Mode Adoption
 
-The readiness assessment (Step 1) may identify a prerequisite gap: a sparse requirements process, a thin senior engineer bench, or an engineering culture that does not yet support substantive merge reviews and mentorship. FIASSE is still adoptable in that situation, but the adoption must be shaped around the gap rather than proceeding as if the prerequisite were present.
+The readiness assessment (Step 1) may identify a prerequisite gap, such as a sparse requirements process, a thin senior engineer bench, or an engineering culture that does not support substantive merge reviews and mentorship. FIASSE can still be adopted, but the approach must account for the gap.
 
 Three degraded-mode options are supplied here, and they are not mutually exclusive:
 
 #### 8.1.1. Compensate with Agentic Assistance
 
-Agentic AppSec tooling (Step 5) and AI-assisted development can compensate for a thin senior bench by expanding the throughput that would otherwise consume senior engineers' scarce hours: information sharing across teams, summary code analysis at merge time, and automated security testing on every change. What agentic assistance does not replace is the judgment the bench exists to provide. Design evaluation, trust-boundary decisions, and mentorship remain software engineering work (Section 7.2). This is a live strategic option, not a future consideration. It does not eliminate the need for the senior bench, but it reduces the depth required for FIASSE to begin producing value. The organization still owes itself an investment plan for growing the bench over time.
+Agentic AppSec tooling (Step 5) and AI-assisted development can reduce the review workload on a thin senior bench through information sharing, merge-time code analysis, and automated testing. They do not replace engineering judgment: design evaluation, trust-boundary decisions, and mentorship remain software engineering work (Section 7.2). This approach can help FIASSE produce value sooner, but the organization still needs a plan to grow its senior bench.
 
 #### 8.1.2. Invest in the Prerequisite First
 
@@ -864,7 +864,7 @@ Should be visible within one to two years of good-faith adoption.
 
 #### 8.2.3. Distinguishing Framework Failure from Adoption Failure
 
-Where leading indicators are not moving after two quarters of good-faith adoption effort, the failure is in adoption: the readiness assessment (Step 1) likely missed a prerequisite gap, or the AppSec role shift (Section 7.1) has not received the business-leadership backing it requires. Where leading indicators have moved but lagging indicators do not follow within the stated windows, the failure is in the framework's causal claim for that team, and the team is owed an honest reassessment rather than a longer runway. FIASSE is not exempt from the burden of showing it produces the effect it claims; naming the criteria for that showing is part of what makes it a framework rather than a manifesto.
+If leading indicators have not moved after two quarters of good-faith adoption, review whether the readiness assessment (Step 1) missed a prerequisite gap or whether the AppSec role shift (Section 7.1) lacks business-leadership support. If leading indicators improve but lagging indicators do not follow within the stated windows, reassess FIASSE's causal claim for that team. FIASSE must demonstrate the effects it claims; these criteria make that assessment possible.
 
 ---
 
@@ -872,17 +872,15 @@ Where leading indicators are not moving after two quarters of good-faith adoptio
 
 Organizations invest in secure coding initiatives and security testing, yet application security outcomes remain difficult to improve at scale. The root cause is structural. Security expertise has not been applied where it produces the most value, and developers have not been given explicit, engineering-grounded expectations for what securable software looks like. FIASSE exists to change that.
 
-The central shift FIASSE asks for is a change in how security is applied. Securable software is software whose engineering qualities allow it to remain defensible as the system evolves and the threat landscape changes. That shift changes how engineers build, how security teams engage with development, and gives leaders the grounding to make more informed decisions about risk and investment. Securability is the engineering discipline that makes building software in an ever-shifting threat landscape reasonable.
+FIASSE changes how teams apply security. Securable software has engineering qualities that help it remain defensible as systems and threats change. This affects how engineers build, how security teams work with development, and how leaders make decisions about risk and investment.
 
-For Software Engineers: the practices in this document are extensions of what good engineering already looks like. Apply SSEM attributes to the code you write and the code you review. Principles including defensive coding, clear trust boundaries, transparent instrumentation, complete requirements, and dependency stewardship will guide you in building securable software without weighing you down.
+For Software Engineers: apply SSEM attributes to the code you write and review. Defensive coding, clear trust boundaries, instrumentation, complete requirements, and dependency stewardship support securable software.
 
-For security professionals: the leverage point is earlier and further upstream than testing. Requirements, design, and architecture are where security expectations become structural. Set them there. Use SSEM as the shared vocabulary that lets you engage with development teams on engineering terms rather than security mandates. Measure the partnership through implementation completeness against defined criteria, not through vulnerability counts alone.
+For security professionals: set security expectations in requirements, design, and architecture. Use SSEM to discuss them with development teams in engineering terms. Measure the partnership through implementation completeness against defined criteria, alongside vulnerability counts.
 
-For Product Owners: the security posture of your product is a product decision. Every scope cut that removes input validation, every sprint that defers dependency maintenance, and every story accepted without security acceptance criteria is a decision with a security consequence. FIASSE literacy makes those consequences visible before they become incidents. The adoption steps in Section 8 provide a concrete starting point.
+For Product Owners: security posture is a product decision. Scope cuts that remove input validation, deferred dependency maintenance, and stories without security acceptance criteria all affect that posture. FIASSE helps make those consequences visible during planning. Section 8 describes adoption steps.
 
-Regardless of organizational size, domain, or technology stack, the path to better security outcomes runs through the same place: engineers who understand what securable software looks like, teams that have the vocabulary to reason about it, and leaders who create the conditions for it to be built. The investment is in engineering culture, and the return compounds over time.
-
-There is no static state of secure. Securability is a discipline that begins with the next line of code written or generated, the next requirement authored, the next merge reviewed. Start there.
+Better security outcomes depend on engineers who understand securable software, teams that can reason about it, and leaders who make it possible to build. This investment in engineering culture continues with each requirement, code change, and merge review because no system remains secure permanently.
 
 ---
 
