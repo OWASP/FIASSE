@@ -2,9 +2,9 @@
 
 ## Abstract
 
-This document describes the Framework for Integrating Application Security into Software Engineering (FIASSE), a vendor-independent framework that embeds application security into the software engineering discipline, and its core component, the Securable Software Engineering Model (SSEM). SSEM provides a design language grounded in established software engineering terminology, defining inherent security attributes, organized under Maintainability, Trustworthiness, and Reliability, that characterize securable software. Together they enable development teams to resiliently add computing value while reducing the probability of material impact from cyber events across the lifespan of the system.
+This document outlines the Framework for Integrating Application Security into Software Engineering (FIASSE), a vendor-independent framework. FIASSE centers on a design language rooted in established software engineering terminology, provided by the Securable Software Engineering Model (SSEM). These attributes define the inherent security characteristics of securable software. The accompanying principles help software engineers reason about architecture and implementation for securable outcomes. Building on the model and principles, FIASSE also includes feedback flow guidance so security findings have the highest impact. This enables development teams to resiliently add computing value while reducing the probability of material impact from cyber events throughout the code's lifespan.  
 
-FIASSE is not an assurance framework, a maturity model, or a replacement for control catalogs or vulnerability metrics. It intends to address how security requirements are implemented in software so that the assurance and compliance work built around the code has sound material to work with.
+To be clear about scope, FIASSE is not an assurance framework, maturity model, or replacement for control catalogs or vulnerability metrics. Its purpose is to address how security is implemented in software, connecting engineering decisions directly to securable outcomes and easing downstream pressure on assurance and compliance.
 
 ---
 
@@ -583,9 +583,11 @@ The Isolated Integrity Principle is a direct application of the SSEM attribute o
 
 Dependency Stewardship involves applying SSEM attributes to select, integrate, monitor, and manage all dependencies, ensuring a securable system posture.
 
-Dependency management sits at the core of Dependency Stewardship. Dependency management involves evaluating and updating third-party code. Stewardship implies a long-term relationship with each dependency, with a focus on securability and its impact on first-party code. A dependency that passes initial evaluation can become a liability if functionality drifts, maintainers abandon it, codebases stagnate, and issues go unaddressed. The stewardship question goes beyond "Is this dependency acceptable today?" to "Will it remain reliable, maintainable, and trustworthy?"
+Dependency management sits at the core of Dependency Stewardship. It involves evaluating and updating third-party code, while stewardship implies a long-term relationship with each dependency, focusing on its securability and impact on first-party code. A dependency that passes initial evaluation can become a liability if functionality drifts, maintainers abandon it, codebases stagnate, and issues go unaddressed. The stewardship question is not only "Is this dependency acceptable today?" but also "Will it remain reliable, maintainable, and trustworthy?"
 
-Each candidate dependency should be evaluated for fit for the system. This reflects the FIASSE mindset: understanding the implications of dependencies on the securable posture of the system. Assess each SSEM attribute against the dependency:
+
+Each candidate dependency should be evaluated for fit with the system by assessing the relevant SSEM attributes:
+
 
 - **Analyzability:** Understand each dependency's full scope, its purpose, and potential attack surface. Maintain a clear inventory and documented rationale.
 - **Modifiability:** Design code with loosely coupled dependencies to facilitate updates or replacement.
@@ -593,8 +595,8 @@ Each candidate dependency should be evaluated for fit for the system. This refle
 - **Trustworthiness:** Prefer dependencies from authenticated, verifiable developers with a fully traceable delivery path, validated through trusted repository provenance.
 - **Reliability:** Assess how a dependency's failure might affect system reliability and resilience, and develop mitigations.
 
-In practice:
-- Avoid unnecessary dependencies, which introduce ongoing maintenance requirements.
+- Avoid unnecessary dependencies, which introduce ongoing maintenance requirements.
+- Avoid unnecessary dependencies. - Avoid unnecessary dependencies, which introduce ongoing maintenance requirements.
 - Regularly updating dependencies is a fundamental maintenance tactic that bolsters security. Updates often include fixes for known bugs, including security vulnerabilities, and should be integrated into sprints and performed regularly.
 - Analyzing further when direct updates don't resolve known flaws. Decide whether to contribute a fix upstream, fork, or write your own.
 - Maintaining a clear organizational policy for open-source dependencies, including remediating vulnerabilities through changes in first- or third-party code.
