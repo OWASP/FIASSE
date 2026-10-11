@@ -596,11 +596,9 @@ Each candidate dependency should be evaluated for fit with the system by assessi
 
 In practice:
 - Add a dependency only when its value justifies the ongoing maintenance it introduces.
-
 - Update dependencies regularly to receive bug and security fixes. Include this work in sprints.
 - Investigate further when updates do not resolve known flaws. Decide whether to contribute a fix upstream, fork, or write your own.
 - Maintain a clear organizational policy for open-source dependencies, including how to remediate vulnerabilities through changes in first- or third-party code.
-
 - Do not rely solely on CVE databases. A project's intent and health speak more to future securability than its advisory history. No advisory announces the silent drift of a service, or data source.
 
 Not all shared resources are designed for systems requiring SSEM attributes. Adopting one creates a relationship with the code and its maintainers, or with a service and its operator, which the team owns for as long as the dependency remains.
@@ -654,6 +652,7 @@ The merge process produces a structured audit trail as part of ordinary work. Re
 What the organization manages is the resulting security posture over time, not the pass rate of individual merges. A recurring override on the same finding class is not a compliance failure to be enforced harder at the merge; it is a signal pointing upstream: a requirements gap or a securability gap to be addressed where it originates (Section 4.1.2).
 
 ### 5.3. Early Integration: Planning and Requirements
+
 FIASSE integrates security during planning and requirements definition, before implementation. Security expectations set at design time can prevent findings when they are implemented and verified; once a flaw ships, the average time from finding to fix is 252 days [Veracode-SoSS-2025].
 
 The primary mechanism for early integration is active security team participation in requirements gathering, as described in Section 4.1.2. By contributing Security Features, Threat Scenarios, and Security Acceptance Criteria to the requirements process, the security team ensures that security expectations are explicit, testable, and integrated into the development workflow from the start.
