@@ -447,7 +447,8 @@ Requirements bring security into design decisions and help teams address Trustwo
 
 Incomplete requirements are a major source of security gaps in application code. In practice, vulnerabilities commonly trace to a security expectation that was never specified, or to one that was specified but implemented inconsistently across a change. When requirements omit a security expectation, developers cannot be expected to infer what the feature must do. The resulting gap belongs in the requirements process, not with developers for failing to guess.
 
-Requirements do not address every vulnerability class. Injection, supply-chain compromise, evolving cryptographic weaknesses, and novel flaws require other practices. FIASSE addresses these residuals through Boundary Control and Canonical Input Handling for injection, Dependency Stewardship (Section 4.5) for third-party code, and Resilience (Section 3.2.3.3) and Observability (Section 3.2.1.4) for evolving and novel threats.
+Requirements do not address every vulnerability class. Injection, supply-chain compromise, evolving cryptographic weaknesses, and novel flaws require other practices. FIASSE addresses these residuals through Boundary Control and Canonical Input Handling for injection, Dependency Stewardship (Section 4.5) for third-party code, and Resilience (Section 3.2.3.3) and Observability (Section 3.2.1.4) for evolving and novel threats.
+
 
 ### 4.2. Threat Modeling
 
@@ -653,7 +654,7 @@ The merge process produces a structured audit trail as part of ordinary work. Re
 What the organization manages is the resulting security posture over time, not the pass rate of individual merges. A recurring override on the same finding class is not a compliance failure to be enforced harder at the merge; it is a signal pointing upstream: a requirements gap or a securability gap to be addressed where it originates (Section 4.1.2).
 
 ### 5.3. Early Integration: Planning and Requirements
-
+FIASSE integrates security during planning and requirements definition, before implementation. Security expectations set at design time can prevent findings when they are implemented and verified; once a flaw ships, the average time from finding to fix is 252 days [Veracode-SoSS-2025].
 FIASSE integrates security during planning and requirements definition, before implementation. Security expectations set at design time do not enter the remediation queue; once a flaw ships, the average time from finding to fix is 252 days [Veracode-SoSS-2025].
 
 The primary mechanism for early integration is active security team participation in requirements gathering, as described in Section 4.1.2. By contributing Security Features, Threat Scenarios, and Security Acceptance Criteria to the requirements process, the security team ensures that security expectations are explicit, testable, and integrated into the development workflow from the start.
