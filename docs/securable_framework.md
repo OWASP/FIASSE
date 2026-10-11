@@ -143,7 +143,7 @@ This document covers the following topics:
 
 This document is intended for Software Engineers, Application Security professionals, Product Security Engineers, engineering managers, and others involved in software development. Within security organizations, FIASSE provides a paved road: SSEM supplies the technical language and measurable attributes, while FIASSE's emphasis on business alignment and clear expectations helps security teams translate their own strategic objectives into development requirements.
 
-FIASSE complements assurance approaches; it does not replace them. It does not measure security-program maturity, as models such as BSIMM, OpenSAMM, and NIST SSDF do. Nor does it replace control catalogs such as NIST 800-53, ISO 27001 Annex A, or PCI DSS, which support risk management, assurance, and external evaluation. Vulnerability counts and penetration-test findings remain useful measures of a system's defensive posture. FIASSE focuses on implementing security requirements in code, applying security expertise to that work, and preserving development flow. Effective adoption should improve existing assurance metrics, reduce findings churn, produce more durable fixes, and shorten remediation time.
+FIASSE complements assurance approaches; it does not replace them. It does not measure security-program maturity, as BSIMM and OpenSAMM do. It does not define a core set of secure software development practices, as NIST SSDF does. Nor does it replace control catalogs such as NIST 800-53, ISO 27001 Annex A, or PCI DSS, which support risk management, assurance, and external evaluation. Vulnerability counts and penetration-test findings remain useful measures of a system's defensive posture. FIASSE focuses on implementing security requirements in code, applying security expertise to that work, and preserving development flow. Effective adoption should improve existing assurance metrics, reduce findings churn, produce more durable fixes, and shorten remediation time.
 
 ---
 
@@ -445,7 +445,7 @@ Key deliverables include:
 
 Requirements bring security into design decisions and help teams address Trustworthiness, Integrity, and Resilience within their standard workflow.
 
-Incomplete requirements are a major source of security gaps in application code. AppSec practitioners often trace vulnerabilities to expectations that were omitted or implemented inconsistently [NEEDS: source for this claim]. When requirements omit a security expectation, developers cannot be expected to infer what the feature must do. The resulting gap belongs in the requirements process, not with developers for failing to guess.
+Incomplete requirements are a major source of security gaps in application code. In practice, vulnerabilities commonly trace to a security expectation that was never specified, or to one that was specified but implemented inconsistently across a change. When requirements omit a security expectation, developers cannot be expected to infer what the feature must do. The resulting gap belongs in the requirements process, not with developers for failing to guess.
 
 Requirements do not address every vulnerability class. Injection, supply-chain compromise, evolving cryptographic weaknesses, and novel flaws require other practices. FIASSE addresses these through Resilience (Section 3.2.3.3), Dependency Stewardship (Section 4.5), and Observability (Section 3.2.1.4), respectively.
 
