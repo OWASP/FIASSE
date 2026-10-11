@@ -447,7 +447,7 @@ Requirements bring security into design decisions and help teams address Trustwo
 
 Incomplete requirements are a major source of security gaps in application code. In practice, vulnerabilities commonly trace to a security expectation that was never specified, or to one that was specified but implemented inconsistently across a change. When requirements omit a security expectation, developers cannot be expected to infer what the feature must do. The resulting gap belongs in the requirements process, not with developers for failing to guess.
 
-Requirements do not address every vulnerability class. Injection, supply-chain compromise, evolving cryptographic weaknesses, and novel flaws require other practices. FIASSE addresses these through Resilience (Section 3.2.3.3), Dependency Stewardship (Section 4.5), and Observability (Section 3.2.1.4), respectively.
+Requirements do not address every vulnerability class. Injection, supply-chain compromise, evolving cryptographic weaknesses, and novel flaws require other practices. FIASSE addresses these residuals through Boundary Control and Canonical Input Handling for injection, Dependency Stewardship (Section 4.5) for third-party code, and Resilience (Section 3.2.3.3) and Observability (Section 3.2.1.4) for evolving and novel threats.
 
 ### 4.2. Threat Modeling
 
@@ -594,7 +594,8 @@ Each candidate dependency should be evaluated for fit with the system by assessi
 - **Reliability:** Assess how a dependency's failure might affect system reliability and resilience, and develop mitigations.
 
 In practice:
-- Add a dependency only when its value justifies the ongoing maintenance it introduces.
+- Add a dependency only when its value justifies the ongoing maintenance it introduces.
+
 - Update dependencies regularly to receive bug and security fixes. Include this work in sprints.
 - Investigate further when updates do not resolve known flaws. Decide whether to contribute a fix upstream, fork, or write your own.
 - Maintain a clear organizational policy for open-source dependencies, including how to remediate vulnerabilities through changes in first- or third-party code.
