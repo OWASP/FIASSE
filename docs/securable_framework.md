@@ -2,9 +2,9 @@
 
 ## Abstract
 
-This document describes the Framework for Integrating Application Security into Software Engineering (FIASSE), a vendor-independent framework that embeds application security into the software engineering discipline, and its core component, the Securable Software Engineering Model (SSEM). SSEM provides a design language grounded in established software engineering terminology, defining inherent security attributes, organized under Maintainability, Trustworthiness, and Reliability, that characterize securable software. Together they enable development teams to resiliently add computing value while reducing the probability of material impact from cyber events across the lifespan of the system.
+This document outlines the Framework for Integrating Application Security into Software Engineering (FIASSE), a vendor-independent framework. FIASSE centers on a design language rooted in established software engineering terminology, provided by the Securable Software Engineering Model (SSEM). These attributes define the inherent security characteristics of securable software. The accompanying principles help software engineers reason about architecture and implementation for securable outcomes. Building on the model and principles, FIASSE also includes feedback flow guidance so security findings have the highest impact. This enables development teams to resiliently add computing value while reducing the probability of material impact from cyber events throughout the code's lifespan.  
 
-FIASSE is not an assurance framework, a maturity model, or a replacement for control catalogs or vulnerability metrics. It intends to address how security requirements are implemented in software so that the assurance and compliance work built around the code has sound material to work with.
+To be clear about scope, FIASSE is not an assurance framework, maturity model, or replacement for control catalogs or vulnerability metrics. Its purpose is to address how security is implemented in software, connecting engineering decisions directly to securable outcomes and easing downstream pressure on assurance and compliance.
 
 ---
 
@@ -585,7 +585,7 @@ Dependency Stewardship applies SSEM attributes when teams select, integrate, mon
 
 Stewardship considers each dependency's effect on first-party code over the life of the relationship. Initial review is not enough: functionality can drift, maintainers can leave, and issues can go unaddressed. Teams should ask whether a dependency will remain reliable, maintainable, and trustworthy.
 
-Each candidate dependency should be evaluated for fit for the system. This reflects the FIASSE mindset: understanding the implications of dependencies on the securable posture of the system. Assess each SSEM attribute against the dependency:
+Each candidate dependency should be evaluated for fit with the system by assessing the relevant SSEM attributes:
 
 - **Analyzability:** Understand each dependency's full scope, its purpose, and potential attack surface. Maintain a clear inventory and documented rationale.
 - **Modifiability:** Design code with loosely coupled dependencies to facilitate updates or replacement.
