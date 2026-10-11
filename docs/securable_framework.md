@@ -597,7 +597,7 @@ In practice:
 - Avoid unnecessary dependencies, which introduce ongoing maintenance requirements.
 - Update dependencies regularly to receive bug and security fixes. Include this work in sprints.
 - Investigate further when updates do not resolve known flaws. Decide whether to contribute a fix upstream, fork, or write your own.
-- Maintaining a clear organizational policy for open-source dependencies, including remediating vulnerabilities through changes in first- or third-party code.
+- Maintain a clear organizational policy for open-source dependencies, including how to remediate vulnerabilities through changes in first- or third-party code.
 - Do not rely solely on CVE databases. A project's intent and health speak more to future securability than its advisory history. No advisory announces the silent drift of a service, or data source.
 
 Not all shared resources are designed for systems requiring SSEM attributes. Adopting one creates a relationship with the code and its maintainers, or with a service and its operator, which the team owns for as long as the dependency remains.
