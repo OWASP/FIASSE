@@ -654,8 +654,7 @@ The merge process produces a structured audit trail as part of ordinary work. Re
 What the organization manages is the resulting security posture over time, not the pass rate of individual merges. A recurring override on the same finding class is not a compliance failure to be enforced harder at the merge; it is a signal pointing upstream: a requirements gap or a securability gap to be addressed where it originates (Section 4.1.2).
 
 ### 5.3. Early Integration: Planning and Requirements
-FIASSE integrates security during planning and requirements definition, before implementation. Security expectations set at design time can prevent findings when they are implemented and verified; once a flaw ships, the average time from finding to fix is 252 days [Veracode-SoSS-2025].
-FIASSE integrates security during planning and requirements definition, before implementation. Security expectations set at design time do not enter the remediation queue; once a flaw ships, the average time from finding to fix is 252 days [Veracode-SoSS-2025].
+FIASSE integrates security during planning and requirements definition, before implementation. Security expectations set at design time can prevent findings when they are implemented and verified; once a flaw ships, the average time from finding to fix is 252 days [Veracode-SoSS-2025].
 
 The primary mechanism for early integration is active security team participation in requirements gathering, as described in Section 4.1.2. By contributing Security Features, Threat Scenarios, and Security Acceptance Criteria to the requirements process, the security team ensures that security expectations are explicit, testable, and integrated into the development workflow from the start.
 
