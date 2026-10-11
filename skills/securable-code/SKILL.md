@@ -32,7 +32,7 @@ Read the matching section in `framework/` before writing, or while reviewing, co
 | Authentication, credentials, tokens, signatures, attribution of actions | [S3.2.2](framework/S3.2.2.md) trustworthiness |
 | Sensitive data at rest, in transit, or in logs and responses | [S3.2.2](framework/S3.2.2.md) (Confidentiality), [S3.2.3](framework/S3.2.3.md) (Integrity) |
 | Behavior under load, fault tolerance, recovery, state transitions | [S3.2.3](framework/S3.2.3.md) reliability |
-| Adding or upgrading a dependency | [S4.5.0](framework/S4.5.0.md) dependency management, [S4.6.0](framework/S4.6.0.md) stewardship |
+| Adding, upgrading, or revisiting a dependency | [S4.5.0](framework/S4.5.0.md) dependency stewardship |
 | Structuring new modules or refactoring: naming, unit size, coupling, API shape | [S3.2.1](framework/S3.2.1.md) maintainability, [S2.7.0](framework/S2.7.0.md) least astonishment |
 | Reviewing a changeset | [S4.2.1](framework/S4.2.1.md) threat awareness, plus the attribute files [S3.2.1](framework/S3.2.1.md) to [S3.2.3](framework/S3.2.3.md) |
 

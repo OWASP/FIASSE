@@ -16,8 +16,7 @@ This index separates the sections of the [FIASSE framework](../securable_framewo
 | [S4.3.0](S4.3.0.md) | The Boundary Control Principle | Data crossing a trust boundary (user to application, application to database, service to service), or exposing flexible interior logic through an interface. |
 | [S4.4.0](S4.4.0.md) | Resilient Coding | Writing error handling, resource management, concurrency, null handling, or output encoding. Required reading when a construct is inherently risky: string-built queries, `eval()`, or deserialization of untrusted data. |
 | [S4.4.1](S4.4.1.md) | Canonical Input Handling (Canonical Parsing, Isolated Integrity) | Accepting any external input: request bodies, query parameters, headers, files, messages, CLI arguments. Also whenever a client could supply an integrity-critical value such as a price, role, object state, or token algorithm. |
-| [S4.5.0](S4.5.0.md) | Dependency Management | Before adding a library or upgrading an existing one. |
-| [S4.6.0](S4.6.0.md) | Dependency Stewardship | Revisiting dependencies already in the system: manifests, lockfiles, or scheduled maintenance. |
+| [S4.5.0](S4.5.0.md) | Dependency Stewardship | Adding a library, upgrading an existing one, or revisiting dependencies already in the system: manifests, lockfiles, or scheduled maintenance. |
 
 ## Process, role, and adoption sections
 
