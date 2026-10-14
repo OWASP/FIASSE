@@ -45,6 +45,13 @@ FIASSE (pronounced /feiz/) is vendor-independent and is written for Software Eng
 - [5.2.4. The Audit Trail](./S5.2.4.md): TBD
 - [5.2.5. Posture over Pass Rates](./S5.2.5.md): TBD
 - [5.3. Early Integration: Planning and Requirements](./S5.3.0.md): TBD
+- [5.4. Lifecycle Placement and Empirical Intelligence](./S5.4.0.md): Where each FIASSE practice sits in the delivery lifecycle (requirements, build, merge) and how later-stage findings return upstream as empirical intelligence.
+- [5.4.1. Requirements and Design](./S5.4.1.md): Requirements and design stage: security participation, threat modeling, control translation, and the point-in-time statement of expectations.
+- [5.4.2. Build](./S5.4.2.md): Build stage: SSEM attributes, Boundary Control, Resilient Coding, Dependency Stewardship, Threat Awareness, and AI-assisted generation against acceptance criteria.
+- [5.4.3. Merge](./S5.4.3.md): Merge stage: the Securability Report, advisory default, policy gating with override, audit trail, and recurring findings as upstream signals.
+- [5.4.4. Pre-Deployment Validation](./S5.4.4.md): Pre-deployment validation as assurance practice outside FIASSE governance, what it consumes from earlier stages, and why its output is intelligence rather than a work queue.
+- [5.4.5. Production Operation and Incident Response](./S5.4.5.md): Production operation and incident response outside FIASSE governance, and the code qualities (Observability, Accountability, Resilience) they depend on.
+- [5.4.6. Findings as Empirical Intelligence](./S5.4.6.md): Classifying confirmed findings and incidents by the stage that could have prevented them, and reading the distribution as the lagging indicator from Section 8.2.2.
 - [6. Common AppSec Anti-Patterns](./S6.0.0.md): "Shoveling Left," ineffective vulnerability reporting, and exploit-first training.
 - [6.1. Security Controls in the Code Creation Process](./S6.1.0.md): TBD
 - [6.1.1. The Control-as-Requirement Fallacy](./S6.1.1.md): TBD

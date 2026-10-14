@@ -65,6 +65,13 @@ To be clear about scope, FIASSE is not an assurance framework, maturity model, o
       - [5.2.4. The Audit Trail](#524-the-audit-trail)
       - [5.2.5. Posture over Pass Rates](#525-posture-over-pass-rates)
     - [5.3. Early Integration: Planning and Requirements](#53-early-integration-planning-and-requirements)
+    - [5.4. Lifecycle Placement and Empirical Intelligence](#54-lifecycle-placement-and-empirical-intelligence)
+      - [5.4.1. Requirements and Design](#541-requirements-and-design)
+      - [5.4.2. Build](#542-build)
+      - [5.4.3. Merge](#543-merge)
+      - [5.4.4. Pre-Deployment Validation](#544-pre-deployment-validation)
+      - [5.4.5. Production Operation and Incident Response](#545-production-operation-and-incident-response)
+      - [5.4.6. Findings as Empirical Intelligence](#546-findings-as-empirical-intelligence)
   - [6. Common AppSec Anti-Patterns](#6-common-appsec-anti-patterns)
     - [6.1. Security Controls in the Code Creation Process](#61-security-controls-in-the-code-creation-process)
       - [6.1.1. The Control-as-Requirement Fallacy](#611-the-control-as-requirement-fallacy)
@@ -656,6 +663,51 @@ What the organization manages is the resulting security posture over time, not t
 FIASSE integrates security during planning and requirements definition, before implementation. Security expectations set at design time can prevent findings when they are implemented and verified; once a flaw ships, the average time from finding to fix is 252 days [Veracode-SoSS-2025].
 
 The primary mechanism for early integration is active security team participation in requirements gathering, as described in Section 4.1.2. By contributing Security Features, Threat Scenarios, and Security Acceptance Criteria to the requirements process, the security team ensures that security expectations are explicit, testable, and integrated into the development workflow from the start.
+
+### 5.4. Lifecycle Placement and Empirical Intelligence
+
+FIASSE practices apply at three points in the delivery lifecycle: when expectations are set, when code is written, and when a change is merged. Two later stages, pre-deployment validation and production operation, are governed by assurance and operations disciplines rather than by FIASSE (Section 1.2). This section places each practice at its stage and describes how findings from the later stages are returned upstream as empirical intelligence.
+
+The stages are sequential for a given change and continuous for the system. A change moves through requirements, build, and merge in order. Findings from validation and operation arrive later and are classified back to the stage that could have prevented them (Section 5.4.6).
+
+| Stage | Governed by | FIASSE practices | Primary sections |
+| ------- | ------------- | ------------------ | ------------------ |
+| Requirements and design | FIASSE | Security Features, Threat Scenarios, Security Acceptance Criteria, Threat Modeling, control translation | 4.1.2, 4.2, 5.3, 6.1.3, 7.4 |
+| Build | FIASSE | SSEM attributes, Boundary Control, Resilient Coding, Canonical Input Handling, Dependency Stewardship, Threat Awareness | 3.2, 4.2.1, 4.3, 4.4, 4.5, 7.2, 7.3 |
+| Merge | FIASSE | Securability Report, advisory default, policy gating, audit trail | 5.2 through 5.2.5 |
+| Pre-deployment validation | Assurance practice | Consumes acceptance criteria and the audit trail; produces verification evidence and findings | 6.1, 6.2.1, 6.3 |
+| Production operation | Operations practice | Consumes Observability and Accountability; produces telemetry and incident intelligence | 2.6.3, 3.2.1.4, 5.1, 7.4 |
+
+#### 5.4.1. Requirements and Design
+
+Security outcomes are decided at this stage, before code exists. Security participates in requirements gathering and contributes Security Features, Threat Scenarios, and Security Acceptance Criteria (Section 4.1.2). Formal threat modeling is conducted against a defined methodology at feature or system scope, and its outputs feed those same three deliverables (Section 4.2). Security translates catalog controls into requirements with acceptance criteria, and product and development shape the result (Section 6.1.3). The Product Owner checks that the criteria express genuine security intent and defends them against scope cuts (Section 7.4). This stage produces a point-in-time statement of expectations that every later stage measures against (Section 5.3). When a later stage shows that an expectation was missing, the gap is returned here. Developers cannot infer what was never specified (Section 4.1.2).
+
+#### 5.4.2. Build
+
+Expectations become code at this stage. Engineers work from acceptance criteria defined upstream and apply SSEM attributes as the design language for every change (Section 3.2). Boundary Control locates control at trust boundaries and preserves flexibility in the interior (Section 4.3). Resilient Coding and Canonical Input Handling make control concrete (Sections 4.4 and 4.4.1). Dependency Stewardship applies the same attributes to third-party code (Section 4.5). Threat Awareness asks "What can go wrong?" continuously, and design-level answers are escalated to the formal threat model (Section 4.2.1). Transparency tactics instrument the code so that later stages can observe it (Section 2.6.3). AI-assisted generation operates within prompt standards set by senior engineers (Section 7.2). Generated code is vetted against the same acceptance criteria as any other source before it is accepted (Section 7.3). Agentic assistance is most useful when tied to requirements artifacts from Section 5.4.1, so that it checks implementation completeness against defined criteria (Section 8.1.1).
+
+#### 5.4.3. Merge
+
+The merge review examines a change in its architectural context before it joins the main line. Every merge produces a Securability Report that combines automated scan results, changeset-scoped securability signals, and reviewer assessment in SSEM terms (Section 5.2.1). The report is advisory by default (Section 5.2.2). A team can elevate designated finding classes to blocking status, and every gate carries an override path that records who accepted what and why (Section 5.2.3). The resulting audit trail is produced by ordinary work and supports downstream attestation (Section 5.2.4). Code-level threat awareness is the review's primary analytical tool (Section 5.2). Recurring finding classes point to upstream gaps in requirements or securability and are addressed there (Section 5.2.5).
+
+#### 5.4.4. Pre-Deployment Validation
+
+Pre-deployment validation includes QA verification of Security Acceptance Criteria, Security Assurance, dynamic testing, penetration testing, and release approval. It belongs to assurance practice and is governed by the verification standards and control catalogs that FIASSE complements (Section 1.2). FIASSE values this stage because it produces the verification evidence that shows a security requirement was met (Section 6.1). Validation depends on earlier stages: criteria from Section 5.4.1 give testers a target, and the audit trail from Section 5.4.3 records what was evaluated and accepted. FIASSE treats the stage's output as intelligence (Section 5.4.6). Findings routed directly into the backlog before confirmation, pooling, and attribution are the Shoveling Left pattern (Sections 6.2.1 and 6.3).
+
+#### 5.4.5. Production Operation and Incident Response
+
+While FIASSE does not govern monitoring, detection, containment, and recovery, its contribution is significant. Observability is built into the code through instrumentation and auditing. External tooling can only surface what the code exposes (Section 3.2.1.4). Structured logging at trust boundaries and immutable audit trails for security-sensitive events are the engineering investment that makes incident analysis tractable (Section 2.6.3). Accountability makes actions attributable, and Resilience determines how the system behaves while a component is compromised or unavailable (Sections 3.2.2.2 and 3.2.3.3). Appendix A.1.4 provides measures, such as mean time to detect, that show whether instrumentation is adequate. Software built with these attributes reduces the incidents that operations must detect and contain (Section 5.1). After an incident, the Product Owner drives backlog changes that address root causes (Section 7.4). The post-incident analysis is the most direct evidence of upstream shortcomings.
+
+#### 5.4.6. Findings as Empirical Intelligence
+
+Assurance findings and operational incidents are the empirical record of the first three stages' performance. FIASSE interprets them as indicators of upstream health (Section 2.5). Raw findings become intelligence once confirmed, pooled, and attributed to a cause (Sections 6.2 and 6.2.1). Attribution classifies each confirmed finding or incident by the stage that could have prevented it:
+
+- **Unspecified expectation.** No requirement or acceptance criterion addressed the behavior. The finding returns to the requirements stage as a new Security Feature, Threat Scenario, or Acceptance Criterion (Section 4.1.2). Recurring unspecified expectations indicate a gap in security's participation in requirements (Section 5.3).
+- **Specified, implemented inconsistently.** A criterion existed and was met on some paths but not others. The finding returns to the build stage as a securability gap, typically in Analyzability, Modifiability, or Testability, and is addressed with a structural change (Section 3.2.1).
+- **Specified, implemented, not observed at merge.** The criterion was met where it was reviewed, and the defect escaped review. The finding calibrates the merge stage: a scan rule, a review checklist item, or a change to the finding classes the team gates on (Sections 5.1 and 5.2.3).
+- **Residual class.** The finding lies outside what a product requirement can reach: injection, a supply-chain compromise, an evolving cryptographic weakness, or a novel vulnerability class. These return to the build stage through the practices Section 4.1.2 names for them: Boundary Control and Canonical Input Handling for injection, Dependency Stewardship for third-party code, and Resilience and Observability for evolving and novel threats.
+
+Classification produces two outputs. The first is a concrete change in a governed stage: a new acceptance criterion, a structural refactor, a review calibration, or a stewardship action. The second is the distribution of classifications over time, which is the lagging indicator the framework uses to evaluate its own effect. The proportion of findings mapping to unspecified expectations should decrease, and the proportion mapping to residual classes should increase (Section 8.2.2). Security metrics from testing and operations measure the effectiveness of the partnership described in Section 7.1, not development compliance. Performing the classification as part of threat-model maintenance allows code-level and incident-level findings to be assessed from a design perspective. Design-level assessment reveals architectural solutions that scale better than individual fixes (Section 4.2.1).
 
 ---
 
