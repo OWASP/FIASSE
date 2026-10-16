@@ -65,7 +65,7 @@ To be clear about scope, FIASSE is not an assurance framework, maturity model, o
       - [5.2.4. The Audit Trail](#524-the-audit-trail)
       - [5.2.5. Posture over Pass Rates](#525-posture-over-pass-rates)
     - [5.3. Early Integration: Planning and Requirements](#53-early-integration-planning-and-requirements)
-    - [5.4. Lifecycle Placement and Empirical Intelligence](#54-lifecycle-placement-and-empirical-intelligence)
+    - [5.4. Phases and Empirical Intelligence](#54-phases-and-empirical-intelligence)
       - [5.4.1. Requirements and Design](#541-requirements-and-design)
       - [5.4.2. Build](#542-build)
       - [5.4.3. Merge](#543-merge)
@@ -664,23 +664,24 @@ FIASSE integrates security during planning and requirements definition, before i
 
 The primary mechanism for early integration is active security team participation in requirements gathering, as described in Section 4.1.2. By contributing Security Features, Threat Scenarios, and Security Acceptance Criteria to the requirements process, the security team ensures that security expectations are explicit, testable, and integrated into the development workflow from the start.
 
-### 5.4. Lifecycle Placement and Empirical Intelligence
+### 5.4. Phases and Empirical Intelligence
 
-FIASSE practices apply at three points in the delivery lifecycle: when expectations are set, when code is written, and when a change is merged. Two later stages, pre-deployment validation and production operation, are governed by assurance and operations disciplines rather than by FIASSE (Section 1.2). This section places each practice at its stage and describes how findings from the later stages are returned upstream as empirical intelligence.
+FIASSE practices directly apply when expectations are set during requirements and architecture phases and when code is created. However, when the software is tested and when it is operated in production, assurance and operations governance take over (Section 1.2). This section will describe how findings from these later stages are used as empirical intelligence to remediate from upstream.
 
-The stages are sequential for a given change and continuous for the system. A change moves through requirements, build, and merge in order. Findings from validation and operation arrive later and are classified back to the stage that could have prevented them (Section 5.4.6).
+The general flow of code follows sequentially though stages that are abstracted here. A change moves from requirements to build then merge in order. We call out merge as a discrete stage because it has proven to be a high-fidelity evaluation point before the complexity of integration with other changes. Validation is meant to include testing and assurance. It can have several sub-stages reaching upstream to build stages and down stream beyond pre-deployment validation depending on the development culture. Findings from validation and operations arrive later and need to change form to fit back into the stage that could have prevented them (Section 5.4.6).
+
 
 | Stage | Governed by | FIASSE practices | Primary sections |
 | ------- | ------------- | ------------------ | ------------------ |
-| Requirements and design | FIASSE | Security Features, Threat Scenarios, Security Acceptance Criteria, Threat Modeling, control translation | 4.1.2, 4.2, 5.3, 6.1.3, 7.4 |
+| Requirements & Design | FIASSE | Security Features, Threat Scenarios, Security Acceptance Criteria, Threat Modeling, control translation | 4.1.2, 4.2, 5.3, 6.1.3, 7.4 |
 | Build | FIASSE | SSEM attributes, Boundary Control, Resilient Coding, Canonical Input Handling, Dependency Stewardship, Threat Awareness | 3.2, 4.2.1, 4.3, 4.4, 4.5, 7.2, 7.3 |
 | Merge | FIASSE | Securability Report, advisory default, policy gating, audit trail | 5.2 through 5.2.5 |
-| Pre-deployment validation | Assurance practice | Consumes acceptance criteria and the audit trail; produces verification evidence and findings | 6.1, 6.2.1, 6.3 |
-| Production operation | Operations practice | Consumes Observability and Accountability; produces telemetry and incident intelligence | 2.6.3, 3.2.1.4, 5.1, 7.4 |
+| Validation | Assurance practice | Consumes acceptance criteria and the audit trail; produces verification evidence and findings | 6.1, 6.2.1, 6.3 |
+| Production operations | Operations/IR practice | Consumes Observability and Accountability; produces telemetry and incident intelligence | 2.6.3, 3.2.1.4, 5.1, 7.4 |
 
 #### 5.4.1. Requirements and Design
 
-Security outcomes are decided at this stage, before code exists. Security participates in requirements gathering and contributes Security Features, Threat Scenarios, and Security Acceptance Criteria (Section 4.1.2). Formal threat modeling is conducted against a defined methodology at feature or system scope, and its outputs feed those same three deliverables (Section 4.2). Security translates catalog controls into requirements with acceptance criteria, and product and development shape the result (Section 6.1.3). The Product Owner checks that the criteria express genuine security intent and defends them against scope cuts (Section 7.4). This stage produces a point-in-time statement of expectations that every later stage measures against (Section 5.3). When a later stage shows that an expectation was missing, the gap is returned here. Developers cannot infer what was never specified (Section 4.1.2).
+Security outcomes are decided at this stage, before code exists. Security participates in requirements gathering, contributing Security Features, Threat Scenarios, and Security Acceptance Criteria (Section 4.1.2). Formal threat modeling is conducted against a defined methodology at feature or system scope, feeding those same three deliverables (Section 4.2). Security translates catalog controls into requirements with acceptance criteria, and product and development shape the result (Section 6.1.3). The Product Owner checks that the criteria express genuine security intent and defends them against scope cuts (Section 7.4). This stage produces a point-in-time statement of expectations that every later stage measures against (Section 5.3). When a later stage shows that an expectation was missing, the gap is returned here. Developers cannot infer what was never specified (Section 4.1.2).
 
 #### 5.4.2. Build
 
