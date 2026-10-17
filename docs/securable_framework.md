@@ -705,14 +705,11 @@ FIASSE does not govern monitoring, detection, containment, and recovery, but its
 
 #### 5.4.6. Findings as Empirical Intelligence
 
-Assurance findings and operational incidents are the empirical record of the first three stages' performance. FIASSE interprets them as indicators of upstream health (Section 2.5). Raw findings become intelligence once confirmed, pooled, and attributed to a cause (Sections 6.2 and 6.2.1). Attribution classifies each confirmed finding or incident by the stage that could have prevented it:
+Assurance findings and operational incidents are the empirical record of the first three stages' performance. FIASSE interprets them as indicators of upstream health (Section 2.5). Raw findings become intelligence once traced to a cause and redrawn for the failing stage (Sections 6.2 and 6.2.1).
 
-- **Unspecified expectation.** No requirement or acceptance criterion addressed the behavior. The finding returns to the requirements stage as a new Security Feature, Threat Scenario, or Acceptance Criterion (Section 4.1.2). Recurring unspecified expectations indicate a gap in security's participation in requirements (Section 5.3).
-- **Specified, implemented inconsistently.** A criterion existed and was met on some paths but not others. The finding returns to the build stage as a securability gap, typically in Analyzability, Modifiability, or Testability, and is addressed with a structural change (Section 3.2.1).
-- **Specified, implemented, not observed at merge.** The criterion was met where it was reviewed, and the defect escaped review. The finding calibrates the merge stage: a scan rule, a review checklist item, or a change to the finding classes the team gates on (Sections 5.1 and 5.2.3).
-- **Residual class.** The finding lies outside what a product requirement can reach: injection, a supply-chain compromise, an evolving cryptographic weakness, or a novel vulnerability class. These return to the build stage through the practices Section 4.1.2 names for them: Boundary Control and Canonical Input Handling for injection, Dependency Stewardship for third-party code, and Resilience and Observability for evolving and novel threats.
-
-Classification produces two outputs. The first is a concrete change in a governed stage: a new acceptance criterion, a structural refactor, a review calibration, or a stewardship action. The second is the distribution of classifications over time, which is the lagging indicator the framework uses to evaluate its own effect. The proportion of findings mapping to unspecified expectations should decrease, and the proportion mapping to residual classes should increase (Section 8.2.2). Security metrics from testing and operations measure the effectiveness of the partnership described in Section 7.1, not development compliance. Performing the classification as part of threat-model maintenance allows code-level and incident-level findings to be assessed from a design perspective. Design-level assessment reveals architectural solutions that scale better than individual fixes (Section 4.2.1).
+- Recurring unspecified expectations indicate a security participation enhancement is needed in requirements (Section 5.3).
+- Inconsistent implementation findings indicate a securability practice enhancement is needed (Section 3.2.1).
+- Issues caught during validation or in production indicate a merge review practice enhancement is needed, in addition to the previous two.
 
 ---
 
