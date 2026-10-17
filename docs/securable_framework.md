@@ -65,6 +65,13 @@ To be clear about scope, FIASSE is not an assurance framework, maturity model, o
       - [5.2.4. The Audit Trail](#524-the-audit-trail)
       - [5.2.5. Posture over Pass Rates](#525-posture-over-pass-rates)
     - [5.3. Early Integration: Planning and Requirements](#53-early-integration-planning-and-requirements)
+    - [5.4. Phases and Empirical Intelligence](#54-phases-and-empirical-intelligence)
+      - [5.4.1. Requirements and Design](#541-requirements-and-design)
+      - [5.4.2. Build](#542-build)
+      - [5.4.3. Merge](#543-merge)
+      - [5.4.4. Validation](#544-validation)
+      - [5.4.5. Production Operation and Incident Response](#545-production-operation-and-incident-response)
+      - [5.4.6. Findings as Empirical Intelligence](#546-findings-as-empirical-intelligence)
   - [6. Common AppSec Anti-Patterns](#6-common-appsec-anti-patterns)
     - [6.1. Security Controls in the Code Creation Process](#61-security-controls-in-the-code-creation-process)
       - [6.1.1. The Control-as-Requirement Fallacy](#611-the-control-as-requirement-fallacy)
@@ -656,6 +663,53 @@ What the organization manages is the resulting security posture over time, not t
 FIASSE integrates security during planning and requirements definition, before implementation. Security expectations set at design time can prevent findings when they are implemented and verified; once a flaw ships, the average time from finding to fix is 252 days [Veracode-SoSS-2025].
 
 The primary mechanism for early integration is active security team participation in requirements gathering, as described in Section 4.1.2. By contributing Security Features, Threat Scenarios, and Security Acceptance Criteria to the requirements process, the security team ensures that security expectations are explicit, testable, and integrated into the development workflow from the start.
+
+### 5.4. Phases and Empirical Intelligence
+
+FIASSE practices directly apply when expectations are set during requirements and architecture phases and when code is created. However, when the software is tested and when it is operated in production, assurance and operations governance take over (Section 1.2). This section will describe how findings from these later stages are used as empirical intelligence to remediate from upstream.
+
+The general flow of code follows sequentially through stages that are abstracted here. A change moves from requirements to build, then merge in order. We call out merge as a discrete stage because it has proven to be a high-fidelity evaluation point before the complexity of integration with other changes. Validation is meant to include testing and assurance. It can have several sub-stages reaching upstream to build stages and downstream beyond pre-deployment validation depending on the development culture. Findings from validation and operations arrive later and need to change form to fit back into the stage that could have prevented them (Section 5.4.6).
+
+
+| Stage | Governed by | FIASSE practices | Primary sections |
+| ------- | ------------- | ------------------ | ------------------ |
+| Requirements & Design | FIASSE | Security Features, Threat Scenarios, Security Acceptance Criteria, Threat Modeling, control translation | 4.1.2, 4.2, 5.3, 6.1.3, 7.4 |
+| Build | FIASSE | SSEM attributes, Boundary Control, Resilient Coding, Canonical Input Handling, Dependency Stewardship, Threat Awareness | 3.2, 4.2.1, 4.3, 4.4, 4.5, 7.2, 7.3 |
+| Merge | FIASSE | Securability Report, advisory default, policy gating, audit trail | 5.2 through 5.2.5 |
+| Validation | Assurance practice | Consumes acceptance criteria and the audit trail; produces verification evidence and findings | 6.1, 6.2.1, 6.3 |
+| Production operations | Operations/IR practice | Consumes Observability and Accountability; produces telemetry and incident intelligence | 2.6.3, 3.2.1.4, 5.1, 7.4 |
+
+#### 5.4.1. Requirements and Design
+
+This stage encompasses pre-work done before Software Engineering receives its marching orders. This is meant to indicate various Agile and Lean information gathering, or those one-liner tickets that are all too common. It also covers monolithic requirements documents like those used in high-risk environments.
+
+Security outcomes are decided before code changes, ideally before code exists. Security participates in requirements gathering to contribute Security Features, Threat Scenarios, and Security Acceptance Criteria (Section 4.1.2). Threat modeling is conducted using a defined methodology at feature or system scope (Section 4.2). Security translates security intelligence into fully fleshed-out requirements with acceptance criteria (Section 6.1.3). The Product Owner checks that criteria express genuine security intent and defends security requirements against scope cuts (Section 7.4). This stage produces a clear point-in-time statement of expectations influencing all later stages (Section 5.3). When a finding in later stages points to missing or unclear expectations, that intelligence is used to amend and iterate from here. Even established secure developers cannot add scope not clearly specified (Section 4.1.2).
+
+Those participating in this stage benefit from using SSEM attributes as the design language to clearly communicate architecture and outcomes.
+
+#### 5.4.2. Build
+
+Conceptually, this stage involves turning expectations into code. Software Engineers turn expectations into code, guided by the framework's principles and the foundational context documented earlier. Boundary Control ensures heightened control at trust boundaries while preserving flexibility in the interior (Section 4.3). Securable coding practices ensure first-party code and dependencies work together for secure outcomes (Section 2). Agentic code generation is guided deliberately. Code is generated deliberately and vetted for completeness against the same acceptance criteria as any other source (Section 7.3 & Section 8.1).
+
+#### 5.4.3. Merge
+
+This stage is a high-fidelity evaluation point before integration with other changes. It provides a finite scope for reporting and recording decisions on security-sensitive topics (Section 5.2.3). The resulting audit trail is produced by ordinary work and supports downstream attestation (Section 5.2.4). Code-level threat awareness is cultivated through review comments (Section 5.2). Recurring finding classes at this stage indicate upstream gaps in requirements or securability in coding practices, which are addressed in their respective phases (Section 5.2.5). These issues are then addressed in their respective phases (Section 5.2.5).
+
+#### 5.4.4. Validation
+
+Validation involves verifying Security Acceptance Criteria, Security Assurance, dynamic testing, penetration testing, and release approval. Assurance practices like QA and AppSec apply verification standards and security controls (Section 1.2). FIASSE values this stage because it produces verification evidence showing a security requirement was met (Section 6.1). When earlier stages are robust, this stage can be treated as security intelligence (Section 5.4.6). Found security flaws are redrawn as requirements before being routed directly into the backlog (Sections 6.2.1 and 6.3).
+
+#### 5.4.5. Production Operation and Incident Response
+
+FIASSE does not govern monitoring, detection, containment, and recovery, but its contribution is significant. Observability is built into the code through instrumentation and auditing. External tooling can only surface what the code exposes (Section 3.2.1.4). Structured logging at trust boundaries and immutable audit trails for security-sensitive events make incident analysis tractable (Section 2.6.3). Accountability makes actions attributable, and Resilience determines how the system behaves while a component is compromised or unavailable (Sections 3.2.2.2 and 3.2.3.3). Appendix A.1.4 provides measures, such as mean time to detect, that show whether instrumentation is adequate. Software built with these attributes reduces incidents that operations must detect and contain (Section 5.1). After an incident, the Product Owner drives backlog changes that address root causes (Section 7.4). The post-incident analysis exposes upstream shortcomings directly.
+
+#### 5.4.6. Findings as Empirical Intelligence
+
+Assurance findings and operational incidents are the empirical record of the first three stages' performance. FIASSE interprets them as indicators of upstream health (Section 2.5). Raw findings become intelligence once traced to a cause and redrawn for the failing stage (Sections 6.2 and 6.2.1).
+
+- Recurring unspecified expectations indicate a security participation enhancement is needed in requirements (Section 5.3).
+- Inconsistent implementation findings indicate a securability practice enhancement is needed (Section 3.2.1).
+- Findings that surface in validation or production were not observed at merge. If adequate expectations were documented, these findings indicate a merge review practice enhancement is needed in addition to the build enhancement above (Sections 5.1 and 5.2.3).
 
 ---
 
