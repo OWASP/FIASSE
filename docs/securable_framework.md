@@ -693,7 +693,7 @@ Conceptually, this stage involves turning expectations into code. Software Engin
 
 #### 5.4.3. Merge
 
-The merge review examines a change in its architectural context before it joins the main line. Every merge produces a Securability Report that combines automated scan results, changeset-scoped securability signals, and reviewer assessment in SSEM terms (Section 5.2.1). The report is advisory by default (Section 5.2.2). A team can elevate designated finding classes to blocking status, and every gate carries an override path that records who accepted what and why (Section 5.2.3). The resulting audit trail is produced by ordinary work and supports downstream attestation (Section 5.2.4). Code-level threat awareness is the review's primary analytical tool (Section 5.2). Recurring finding classes point to upstream gaps in requirements or securability and are addressed there (Section 5.2.5).
+This stage is a high-fidelity evaluation point before integration with other changes. It provides a finite scope for reporting and recording decisions on security-sensitive topics (Section 5.2.3). The resulting audit trail is produced by ordinary work and supports downstream attestation (Section 5.2.4). Code-level threat awareness is cultivated through review comments (Section 5.2). Recurring finding classes at this stage indicate upstream gaps in requirements or securability in coding practices, which are addressed in their respective phases (Section 5.2.5). These issues are then addressed in their respective phases (Section 5.2.5).
 
 #### 5.4.4. Pre-Deployment Validation
 
