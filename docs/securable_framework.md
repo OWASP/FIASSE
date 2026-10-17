@@ -2,7 +2,7 @@
 
 ## Abstract
 
-This document outlines the Framework for Integrating Application Security into Software Engineering (FIASSE), a vendor-independent framework. FIASSE centers on a design language rooted in established software engineering terminology, provided by the Securable Software Engineering Model (SSEM). These attributes define the inherent security characteristics of securable software. The accompanying principles help software engineers reason about architecture and implementation for securable outcomes. Building on the model and principles, FIASSE also includes feedback flow guidance so security findings have the highest impact. This enables development teams to resiliently add computing value while reducing the probability of material impact from cyber events throughout the code's lifespan.  
+This document outlines the Framework for Integrating Application Security into Software Engineering (FIASSE), a vendor-independent framework. FIASSE centers on a design language rooted in established software engineering terminology, provided by the Securable Software Engineering Model (SSEM). SSEM attributes define the inherent security characteristics of securable software. The accompanying principles help software engineers reason about architecture and implementation for securable outcomes. Building on the model and principles, FIASSE also includes feedback flow guidance so security findings have the highest impact. This enables development teams to resiliently add computing value while reducing the probability of material impact from cyber events throughout the code's lifespan.
 
 To be clear about scope, FIASSE is not an assurance framework, maturity model, or replacement for control catalogs or vulnerability metrics. Its purpose is to address how security is implemented in software, connecting engineering decisions directly to securable outcomes and easing downstream pressure on assurance and compliance.
 
@@ -128,13 +128,13 @@ Organizations invest significantly in secure coding initiatives and security tes
 
 Generative AI tools for code generation have added a new dimension to this challenge. These tools can accelerate development, but they also risk propagating insecure patterns if not guided by sound engineering principles. Ensuring AI-generated code is securable requires the same foundational approach as any other code.
 
-Many well-intentioned strategies, including the prevalent "shift left" movement, have failed to produce lasting changes in software. Integrating security earlier is a sound concept. The challenge is delivering security intelligence that developers act on within the bounds of sound software engineering. Best practices are not enough. So, how can teams consistently produce securable code without requiring every developer to become a security specialist?
+Many well-intentioned strategies, including the prevalent "shift left" movement, have failed to produce lasting changes in software. Integrating security earlier is a sound concept. The challenge is delivering security intelligence that developers act on within the bounds of sound software engineering. Best practices are not enough. How can teams consistently produce securable code without requiring every developer to become a security specialist?
 
 ### 1.2. Document Purpose and Scope
 
 This document introduces the Framework for Integrating Application Security into Software Engineering (FIASSE, pronounced /feiz/) and its core component, the Securable Software Engineering Model (SSEM, pronounced /si:m/).
 
-FIASSE provides the overarching strategic approach and practices that integrate security into software engineering. SSEM, as a model within FIASSE, offers a common design language (a shared set of terms and concepts that gives a team a common vocabulary for discussing and evaluating a system's qualities) and a set of measurable attributes that guide the creation of securable software, aligning AppSec objectives with business goals.
+FIASSE provides the overarching strategic approach and practices that integrate security into software engineering. SSEM, as a model within FIASSE, offers a common design language and a set of measurable attributes that guide the creation of securable software, aligning AppSec objectives with business goals. A design language is a shared set of terms and concepts that gives a team a common vocabulary for discussing and evaluating a system's qualities.
 
 The term "securable" is used throughout this document as a deliberate choice over "secure." Where "secure" implies a condition that is either achieved or not, "securable" describes software that is built to remain defensible: structured so that it can be understood, changed, tested, and hardened as the world around it changes. Section 2.1 develops this concept in full.
 
@@ -146,11 +146,12 @@ This document covers the following topics:
 - Strategies for integrating FIASSE into existing development processes (Section 5)
 - Common pitfalls in AppSec and how FIASSE addresses them (Section 6)
 - The roles of engineering and security personnel in adopting FIASSE (Section 7)
-- The evolution of FIASSE in response to emerging trends and strategies for organizational adoption (Section 8)
+- Strategies for organizational adoption and indicators of adoption effectiveness (Section 8)
+- Approaches for measuring SSEM attributes (Appendix A)
 
 This document is intended for Software Engineers, Application Security professionals, Product Security Engineers, engineering managers, and others involved in software development. Within security organizations, FIASSE provides a paved road: SSEM supplies the technical language and measurable attributes, while FIASSE's emphasis on business alignment and clear expectations helps security teams translate their own strategic objectives into development requirements.
 
-FIASSE complements assurance approaches; it does not replace them. It does not measure security-program maturity, as BSIMM and OpenSAMM do. It does not define a core set of secure software development practices, as NIST SSDF does. Nor does it replace control catalogs such as NIST 800-53, ISO 27001 Annex A, or PCI DSS, which support risk management, assurance, and external evaluation. Vulnerability counts and penetration-test findings remain useful measures of a system's defensive posture. FIASSE focuses on implementing security requirements in code, applying security expertise to that work, and preserving development flow. Effective adoption should improve existing assurance metrics, reduce findings churn, produce more durable fixes, and shorten remediation time.
+FIASSE complements assurance approaches; it does not replace them. It does not measure security-program maturity, as BSIMM and OWASP SAMM do. It does not define a core set of secure software development practices, as NIST SSDF does. Nor does it replace control catalogs such as NIST SP 800-53, ISO/IEC 27001 Annex A, or PCI DSS, which support risk management, assurance, and external evaluation. Vulnerability counts and penetration-test findings remain useful measures of a system's defensive posture. FIASSE focuses on implementing security requirements in code, applying security expertise to that work, and preserving development flow. Effective adoption should improve existing assurance metrics, reduce findings churn, produce more durable fixes, and shorten remediation time.
 
 ---
 
@@ -169,7 +170,7 @@ FIASSE is oriented by four core values. Framed in the spirit of the Agile Manife
 >
 > In software engineering, "control" is an engineering concept (e.g., control flow, version control, boundary control, control theory). In security and assurance vocabulary, "security control" is a risk-and-assurance concept: an administrative, technical, or physical measure cataloged so its presence and effectiveness can be evaluated, typically by parties external to the code creation process.
 >
-> Both meanings are legitimate in their own domain. FIASSE does not reject security controls as a concept; it locates them where they belong, which is in risk management, assurance, and external evaluation. It uses different vocabulary for the engineering work of building software. When discussing what developers build, FIASSE speaks of "Security Features" (specific capabilities such as authentication mechanisms; see Section 4.1.2), "Securable Attributes" (the SSEM qualities defined in Section 3.2), and Security "Acceptance Criteria" (testable conditions a feature must satisfy).
+> Both meanings are legitimate in their own domain. FIASSE does not reject security controls as a concept; it locates them where they belong, which is in risk management, assurance, and external evaluation. It uses different vocabulary for the engineering work of building software. When discussing what developers build, FIASSE speaks of "Security Features" (specific capabilities such as authentication mechanisms; see Section 4.1.2), "Securable Attributes" (the SSEM qualities defined in Section 3.2), and "Security Acceptance Criteria" (testable conditions a feature must satisfy).
 >
 > The distinction matters because external security controls do not, on their own, make software secure. They measure and constrain; they do not construct. The qualities that make software defensible live in the code itself, and those qualities are what SSEM names. The first value is a statement about where engineering attention is best invested, not a dismissal of the assurance vocabulary that risk and audit functions correctly use.
 
@@ -191,7 +192,7 @@ All three are governed by **Business Value over Security Activity** (Section 2):
 
 Development teams that internalize this paradigm build systems capable of maintaining their protective qualities as the system evolves, rather than becoming brittle and insecure over time.
 
-Authentication illustrates this paradigm applied to a specific system mechanism. An authentication system evaluated as "secure" today may be inadequate tomorrow as credential attack techniques mature, MFA bypass methods emerge, or identity standards change. What matters is whether its architecture allows the team to sustain its integrity over time. The question shifts from "Is our authentication secure?" to "Is our authentication built so that security can be maintained?"
+Authentication illustrates this paradigm applied to a specific system mechanism. An authentication system evaluated as "secure" today may be inadequate tomorrow as credential attack techniques mature, multi-factor authentication (MFA) bypass methods emerge, or identity standards change. What matters is whether its architecture allows the team to sustain its integrity over time. The question shifts from "Is our authentication secure?" to "Is our authentication built so that security can be maintained?"
 
 ### 2.2. Resiliently Add Computing Value
 
@@ -203,7 +204,7 @@ Software Engineering is the discipline of designing, developing, and maintaining
 
 ### 2.3. Security Mission: Reducing Material Impact
 
-The core mission of cybersecurity, as articulated by Rick Howard in "Cybersecurity First Principles," is to "reduce the probability of material impact of a cyber event" [Howard]. Complete elimination of breaches is not a practical business goal. Security strategies must therefore align with overarching business objectives through a balanced approach.
+The core mission of cybersecurity, as articulated by Rick Howard in "Cybersecurity First Principles," is to "reduce the probability of material impact of a cyber event" [Howard]. Complete elimination of breaches is not a practical business goal. Security strategies must therefore align with overarching business objectives.
 
 AppSec's role extends beyond formal buy-in and metrics: it encompasses enabling Development teams to meet security expectations and pass security assessments. This reduces the likelihood of a successful attack and limits potential damage when incidents occur.
 
@@ -233,7 +234,7 @@ Transparency means designing systems so authorized parties can understand intern
 
 Relying exclusively on external tooling for transparency produces a reactive posture. A system that is transparent by design, through structured logging, instrumentation, and clear audit trails, is easier to analyze, maintain, and secure from the outset.
 
-Each SSEM attribute is demonstrated through transparency in some form. Note that transparency operates within the bound set by Confidentiality: visibility is extended only to authorized parties.
+Each SSEM attribute is demonstrated through transparency in some form. Transparency operates within the bound set by Confidentiality: visibility is extended only to authorized parties.
 
 #### 2.6.1. Transparency and Maintainability
 
@@ -264,7 +265,7 @@ POLA is particularly relevant to securable software for three reasons:
 
 - **Predictability aids analysis.** When code behaves as expected, developers can identify problems faster, making the system more Analyzable.
 - **Reduced cognitive burden.** Unexpected behavior introduces complexity that developers must track mentally. Eliminating surprise reduces that burden and supports Modifiability.
-- **Intuitive security boundaries.** Clear separation of concerns and trust boundaries makes it easier for developers to understand where security controls are needed and why.
+- **Intuitive security boundaries.** Clear separation of concerns and trust boundaries makes it easier for developers to understand where Security Features and boundary control are needed and why.
 
 In practice, POLA manifests as:
 
@@ -290,7 +291,7 @@ SSEM is designed to:
 
 - Account for the iterative nature of software development and agile methodologies.
 - Serve as a mental model, a checklist, or a vehicle for expressing and setting clear expectations for securable design.
-- Shift conversations away from find-and-fix monotony toward cohesive, intention-driven creation of software with inherent securable qualities.
+- Shift conversations away from find-and-fix cycles toward cohesive, intention-driven creation of software with inherent securable qualities.
 
 This is the value of **Securable Attributes over Security Controls** made operational. Rather than enumerating controls for auditors to verify at a point in time, SSEM defines the engineering qualities that allow a system to be secured, measured, and improved as it evolves.
 
@@ -323,7 +324,7 @@ Contributing factors [Heitlager2007]:
 
 - **Volume (Lines of Code):** Overall size of the codebase.
 - **Duplication:** Percentage of duplicated code.
-- **Unit Size** (e.g., method Lines of Code / class Lines of Code): Lines of code per class, method, or block.
+- **Unit Size (e.g., method or class Lines of Code):** Lines of code per method, class, or block.
 - **Unit Complexity (e.g., Cyclomatic Complexity):** Degree of complexity within a code unit.
 - **Component Balance:** Distribution and size uniformity of top-level components.
 
@@ -350,7 +351,7 @@ Contributing factors:
 - **Component Independence:** The percentage of code in modules with no incoming dependencies from other top-level components; higher independence facilitates isolated testing.
 - **Unit Coupling:** High coupling complicates testing by introducing dependencies that must also be exercised.
 
-Testability enables teams to verify that security controls function as intended and that changes do not introduce new vulnerabilities. It also supports automated testing that runs continuously, directly scaling the reach of security assurance.
+Testability enables teams to verify that Security Features function as intended and that changes do not introduce new vulnerabilities. It also supports automated testing that runs continuously, directly scaling the reach of security assurance.
 
 ##### 3.2.1.4. Observability
 
@@ -379,9 +380,9 @@ FIASSE treats Confidentiality as an attribute achieved through the construction 
 
 ##### 3.2.2.2. Accountability
 
-**Definition:** The property that every action taken within a system can be attributed to a specific, identified entity. Accountability involves managing principals and access rights in a way that enables attribution of actions to specific users or processes. This attribution is essential for auditing and incident response.
+**Definition:** The property that every action taken within a system can be attributed to a specific, identified entity. This attribution is essential for auditing and incident response.
 
-Achieving Accountability requires robust methods for managing principals and their access rights. While it draws on strategies common to non-repudiation, including comprehensive logging and robust authentication, its core focus is the unique and verifiable attribution of every system action to a specific entity.
+Achieving Accountability requires robust management of principals and their access rights. It draws on strategies shared with non-repudiation, including comprehensive logging and robust authentication, applied to the goal of unique and verifiable attribution.
 
 ##### 3.2.2.3. Authenticity
 
@@ -447,15 +448,14 @@ Active AppSec participation in requirements gathering brings security into produ
 Key deliverables include:
 
 - **Security Features:** Specific security capabilities that must be implemented, such as authentication mechanisms, encryption requirements, or access controls.
-- **Threat Scenarios:** Descriptions of potential misuse cases or attack paths relevant to the feature being developed, used to identify necessary controls.
+- **Threat Scenarios:** Descriptions of potential misuse cases or attack paths relevant to the feature being developed, used to identify the Security Features and design decisions that address them.
 - **Security Acceptance Criteria:** Testable conditions a feature must satisfy. QA can verify these conditions during security testing. Implementation completeness against defined criteria provides a measurable basis for confidence in the feature.
 
 Requirements bring security into design decisions and help teams address Trustworthiness, Integrity, and Resilience within their standard workflow.
 
 Incomplete requirements are a major source of security gaps in application code. In practice, vulnerabilities commonly trace to a security expectation that was never specified, or to one that was specified but implemented inconsistently across a change. When requirements omit a security expectation, developers cannot be expected to infer what the feature must do. The resulting gap belongs in the requirements process, not with developers for failing to guess.
 
-Requirements do not address every vulnerability class. Injection, supply-chain compromise, evolving cryptographic weaknesses, and novel flaws require other practices. FIASSE addresses these residuals through Boundary Control and Canonical Input Handling for injection, Dependency Stewardship (Section 4.5) for third-party code, and Resilience (Section 3.2.3.3) and Observability (Section 3.2.1.4) for evolving and novel threats.
-
+Requirements do not address every vulnerability class. Injection, supply-chain compromise, evolving cryptographic weaknesses, and novel flaws require other practices. FIASSE addresses these residuals through Boundary Control (Section 4.3) and Canonical Input Handling (Section 4.4.1) for injection, Dependency Stewardship (Section 4.5) for third-party code, and Resilience (Section 3.2.3.3) and Observability (Section 3.2.1.4) for evolving and novel threats.
 
 ### 4.2. Threat Modeling
 
@@ -504,7 +504,7 @@ Practical defensive coding focuses on:
 - **Strong typing:** Ensuring data is usable in the intended way.
 - **Input validation at trust boundaries:** Confirming data conforms to expected formats, types, lengths, and ranges before processing.
 - **Output encoding:** Properly escaping and encoding all output destined for other systems or interpreters, preventing injection attacks by ensuring data is treated as data rather than executable instructions.
-- **Null value handling:** Confine null to the edges where it is unavoidable: input handling and database communication. Within business logic, represent absence explicitly, and treat an unexpected null as an exceptional condition to be raised rather than a value to be propagated.
+- **Null value handling:** Confine null to the edges where it is unavoidable, such as input handling and database communication. Within business logic, represent absence explicitly, and treat an unexpected null as an exceptional condition to be raised rather than a value to be propagated.
 - **Comprehensive error handling:** Managing unexpected conditions gracefully rather than allowing the application to crash or behave unpredictably.
 - **Immutable data structures for concurrent programming:** Preventing insecure modification and ensuring thread safety.
 - **Avoidance and isolation of risky operations:** Certain programming constructs introduce disproportionate risk and should be avoided where alternatives exist. String concatenation used to construct queries or commands, deserialization of untrusted data, and dynamic execution constructs such as `eval()` are common examples. Where such operations cannot be avoided, they must be encapsulated behind a well-defined, narrow interface and isolated from the rest of the application so that their risk surface is bounded and their behavior is auditable.
@@ -518,7 +518,7 @@ These are verifiable items that AppSec can assess during review.
 
 Input handling is a critical aspect of resilient coding. The most effective approach applies a minimal acceptable range for each parameter at the point of input through three practices:
 
-- **Canonicalization/Normalization:** Ensures input data conforms to expected formats, types, lengths, and ranges before processing, preventing unexpected or malicious data from entering the system.
+- **Canonicalization/Normalization:** Converts input into a single standard representation before validation, so that every check operates on one form of each value.
 - **Validation:** Confirms input data meets specific criteria before processing. Prefer allowing only explicit, known-good values rather than attempting to reject unexpected values.
 - **Sanitization:** Removes or neutralizes potentially harmful content, preventing malicious data from being executed or interpreted as code.
 
@@ -534,10 +534,10 @@ A practical boundary workflow is:
 
 - Define an explicit input schema per operation, not a generic "accept anything" envelope.
 - Parse only expected fields into a typed structure.
-- Optionally reject the request when parsing fails or when forbidden/unknown fields are present, based on policy.
+- Fail closed when parsing does not succeed. Based on policy, also reject requests that contain forbidden or unknown fields.
 - Log parse failures and schema deviations with actionable context.
 
-This approach reduces injection risk, prevents accidental propagation of malformed input, and improves analyzability because input handling behavior is centralized and deterministic.
+This approach reduces injection risk, prevents accidental propagation of malformed input, and improves Analyzability because input handling behavior is centralized and deterministic.
 
 Requests that deviate from expectation should be logged at minimum. The log entry should capture enough context to be useful in retrospect: the specific deviation observed, the request source, a timestamp, and any relevant session or user identity. A bare count or a generic "unexpected input" message does not support meaningful analysis.
 
@@ -583,7 +583,7 @@ For example, when a user initiates checkout through a shopping API, the client m
 
 A server applying the Isolated Integrity Principle accepts only the client's intent, specifically to check out with the specified items at the specified quantities, and discards the client-supplied price entirely. It derives the actual price from its own inventory. It may log or reject the request outright for including a price field. The client expresses intent; the server enforces integrity.
 
-A more advanced application of this principle involves JWTs (JSON Web Tokens). If a server accepts any algorithm specified in the JWT header for signature verification, it allows the client to dictate how the token's integrity is established, which is a direct violation of the principle.
+A more advanced application of this principle involves JSON Web Tokens (JWTs). If a server accepts any algorithm specified in the JWT header for signature verification, it allows the client to dictate how the token's integrity is established, which is a direct violation of the principle.
 
 The Isolated Integrity Principle is a direct application of the SSEM attribute of Integrity (Section 3.2.3.2): it ensures the system performs its intended function in an unimpaired manner, free from the manipulation that client-supplied data could otherwise introduce.
 
@@ -602,15 +602,16 @@ Each candidate dependency should be evaluated for fit with the system by assessi
 - **Reliability:** Assess how a dependency's failure might affect system reliability and resilience, and develop mitigations.
 
 In practice:
+
 - Add a dependency only when its value justifies the ongoing maintenance it introduces.
 - Update dependencies regularly to receive bug and security fixes. Include this work in sprints.
 - Investigate further when updates do not resolve known flaws. Decide whether to contribute a fix upstream, fork, or write your own.
 - Maintain a clear organizational policy for open-source dependencies, including how to remediate vulnerabilities through changes in first- or third-party code.
-- Do not rely solely on CVE databases. A project's intent and health speak more to future securability than its advisory history. No advisory announces the silent drift of a service, or data source.
+- Do not rely solely on CVE databases. A project's intent and health speak more to future securability than its advisory history. No advisory announces the silent drift of a service or data source.
 
 Not all shared resources are designed for systems requiring SSEM attributes. Adopting one creates a relationship with the code and its maintainers, or with a service and its operator, which the team owns for as long as the dependency remains.
 
-Out-of-process dependencies introduce functional drift, threatening trustworthiness and reliability. Address this by taking architecture and abstraction steps. For further direction on out-of-process dependencies, such as external APIs, managed services, identity providers, and AI resources, refer to the related OWASP Security Verification Standard requirements catalog.
+Out-of-process dependencies introduce functional drift, threatening Trustworthiness and Reliability. Address this through architectural isolation and abstraction. For further direction on out-of-process dependencies, such as external APIs, managed services, identity providers, and AI resources, refer to the related requirements in the OWASP Application Security Verification Standard (ASVS).
 
 ---
 
@@ -640,7 +641,7 @@ Merge reviews are also a practical venue for code-level threat awareness. Asking
 
 #### 5.2.1. The Securability Report
 
-Every merge produces an informational report. Merge-request code review can identify vulnerabilities early [OWASP-CRG]. The report combines scan results and changeset-scoped securability signals with reviewer assessment in SSEM terms. Automation can surface known issues, while reviewers interpret the change in its architectural context. The report is generated for every merge and blocks nothing by default. Automation covers each change; reviewers focus on the changes and findings that warrant attention.
+Merge-request code review can identify vulnerabilities early [OWASP-CRG]. Every merge produces an informational Securability Report. The report combines scan results and changeset-scoped securability signals with reviewer assessment in SSEM terms. Automation surfaces known issues, while reviewers interpret the change in its architectural context. The report blocks nothing by default. Automation covers each change; reviewers focus on the changes and findings that warrant attention.
 
 #### 5.2.2. The Advisory Default
 
@@ -648,7 +649,7 @@ The report makes the securability consequences of a change visible while they ar
 
 #### 5.2.3. Gating as a Policy Decision
 
-A team, with its product owner and security partnership, may elevate designated finding classes, components, or risk thresholds to blocking status. Wherever gating is enabled, an override path must exist. Exercising the override is not a failure of the mechanism; it is the mechanism completing: the business retains the authority to accept vulnerable code, and the override records who accepted what, and why (Accountability, Section 3.2.2.2).
+A team, with its product owner and security partnership, may elevate designated finding classes, components, or risk thresholds to blocking status. Wherever gating is enabled, an override path must exist. Exercising the override is not a failure of the mechanism. It is the mechanism completing: the business retains the authority to accept vulnerable code, and the override records who accepted what, and why (Accountability, Section 3.2.2.2).
 
 #### 5.2.4. The Audit Trail
 
@@ -656,20 +657,19 @@ The merge process produces a structured audit trail as part of ordinary work. Re
 
 #### 5.2.5. Posture over Pass Rates
 
-What the organization manages is the resulting security posture over time, not the pass rate of individual merges. A recurring override on the same finding class is not a compliance failure to be enforced harder at the merge; it is a signal pointing upstream: a requirements gap or a securability gap to be addressed where it originates (Section 4.1.2).
+What the organization manages is the resulting security posture over time, not the pass rate of individual merges. A recurring override on the same finding class is not a compliance failure to be enforced harder at the merge. It is a signal pointing upstream to a requirements gap or a securability gap, to be addressed where it originates (Section 4.1.2).
 
 ### 5.3. Early Integration: Planning and Requirements
 
-FIASSE integrates security during planning and requirements definition, before implementation. Security expectations set at design time can prevent findings when they are implemented and verified; once a flaw ships, the average time from finding to fix is 252 days [Veracode-SoSS-2025].
+FIASSE integrates security during planning and requirements definition, before implementation. Security expectations set at design time, then implemented and verified, can prevent findings. Once a flaw ships, the average time from finding to fix is 252 days [Veracode-SoSS-2025].
 
 The primary mechanism for early integration is active security team participation in requirements gathering, as described in Section 4.1.2. By contributing Security Features, Threat Scenarios, and Security Acceptance Criteria to the requirements process, the security team ensures that security expectations are explicit, testable, and integrated into the development workflow from the start.
 
 ### 5.4. Phases and Empirical Intelligence
 
-FIASSE practices directly apply when expectations are set during requirements and architecture phases and when code is created. However, when the software is tested and when it is operated in production, assurance and operations governance take over (Section 1.2). This section will describe how findings from these later stages are used as empirical intelligence to remediate from upstream.
+FIASSE practices apply directly when expectations are set during the requirements and architecture phases and when code is created. When the software is tested and operated in production, assurance and operations governance take over (Section 1.2). This section describes how findings from these later stages are used as empirical intelligence to drive remediation upstream.
 
-The general flow of code follows sequentially through stages that are abstracted here. A change moves from requirements to build, then merge in order. We call out merge as a discrete stage because it has proven to be a high-fidelity evaluation point before the complexity of integration with other changes. Validation is meant to include testing and assurance. It can have several sub-stages reaching upstream to build stages and downstream beyond pre-deployment validation depending on the development culture. Findings from validation and operations arrive later and need to change form to fit back into the stage that could have prevented them (Section 5.4.6).
-
+The stages below abstract the general flow of a change. A change moves from requirements to build to merge. Merge is treated as a discrete stage because it is a high-fidelity evaluation point before a change is integrated with others. Validation includes testing and assurance. Depending on the development culture, it can have several sub-stages that reach upstream into build and downstream beyond pre-deployment validation. Findings from validation and operations arrive later and must be redrawn to fit the stage that could have prevented them (Section 5.4.6).
 
 | Stage | Governed by | FIASSE practices | Primary sections |
 | ------- | ------------- | ------------------ | ------------------ |
@@ -681,27 +681,27 @@ The general flow of code follows sequentially through stages that are abstracted
 
 #### 5.4.1. Requirements and Design
 
-This stage encompasses pre-work done before Software Engineering receives its marching orders. This is meant to indicate various Agile and Lean information gathering, or those one-liner tickets that are all too common. It also covers monolithic requirements documents like those used in high-risk environments.
+This stage encompasses the work done before Software Engineering receives a change to implement. It covers Agile and Lean information gathering, one-line tickets, and the monolithic requirements documents used in high-risk environments.
 
-Security outcomes are decided before code changes, ideally before code exists. Security participates in requirements gathering to contribute Security Features, Threat Scenarios, and Security Acceptance Criteria (Section 4.1.2). Threat modeling is conducted using a defined methodology at feature or system scope (Section 4.2). Security translates security intelligence into fully fleshed-out requirements with acceptance criteria (Section 6.1.3). The Product Owner checks that criteria express genuine security intent and defends security requirements against scope cuts (Section 7.4). This stage produces a clear point-in-time statement of expectations influencing all later stages (Section 5.3). When a finding in later stages points to missing or unclear expectations, that intelligence is used to amend and iterate from here. Even established secure developers cannot add scope not clearly specified (Section 4.1.2).
+Security outcomes are decided before code changes, ideally before code exists. Security participates in requirements gathering to contribute Security Features, Threat Scenarios, and Security Acceptance Criteria (Section 4.1.2). Threat modeling is conducted using a defined methodology at feature or system scope (Section 4.2). Security translates security intelligence into complete requirements with acceptance criteria (Section 6.1.3). The Product Owner checks that criteria express genuine security intent and defends security requirements against scope cuts (Section 7.4). This stage produces a clear point-in-time statement of expectations influencing all later stages (Section 5.3). When a later-stage finding points to a missing or unclear expectation, that intelligence returns here to amend the expectations. Even experienced developers cannot add scope that was never specified (Section 4.1.2).
 
-Those participating in this stage benefit from using SSEM attributes as the design language to clearly communicate architecture and outcomes.
+Participants in this stage benefit from using SSEM attributes as the design language for communicating architecture and outcomes.
 
 #### 5.4.2. Build
 
-Conceptually, this stage involves turning expectations into code. Software Engineers turn expectations into code, guided by the framework's principles and the foundational context documented earlier. Boundary Control ensures heightened control at trust boundaries while preserving flexibility in the interior (Section 4.3). Securable coding practices ensure first-party code and dependencies work together for secure outcomes (Section 2). Agentic code generation is guided deliberately. Code is generated deliberately and vetted for completeness against the same acceptance criteria as any other source (Section 7.3 & Section 8.1).
+Software Engineers turn expectations into code, guided by the framework's principles and the foundational context documented earlier. Boundary Control ensures heightened control at trust boundaries while preserving flexibility in the interior (Section 4.3). Securable coding practices ensure first-party code and dependencies work together for secure outcomes (Sections 4.4 and 4.5). Agentic code generation is directed deliberately, and generated code is vetted for completeness against the same acceptance criteria as any other source (Sections 7.2 and 7.3).
 
 #### 5.4.3. Merge
 
-This stage is a high-fidelity evaluation point before integration with other changes. It provides a finite scope for reporting and recording decisions on security-sensitive topics (Section 5.2.3). The resulting audit trail is produced by ordinary work and supports downstream attestation (Section 5.2.4). Code-level threat awareness is cultivated through review comments (Section 5.2). Recurring finding classes at this stage indicate upstream gaps in requirements or securability in coding practices, which are addressed in their respective phases (Section 5.2.5). These issues are then addressed in their respective phases (Section 5.2.5).
+This stage is a high-fidelity evaluation point before integration with other changes. Every merge produces a Securability Report, advisory by default (Sections 5.2.1 and 5.2.2). The stage provides a finite scope for reporting and recording decisions on security-sensitive topics (Section 5.2.3). The resulting audit trail is produced by ordinary work and supports downstream attestation (Section 5.2.4). Code-level threat awareness is cultivated through review comments (Section 5.2). Recurring finding classes at this stage indicate upstream gaps in requirements or in securable coding practice, which are addressed in their respective stages (Section 5.2.5).
 
 #### 5.4.4. Validation
 
-Validation involves verifying Security Acceptance Criteria, Security Assurance, dynamic testing, penetration testing, and release approval. Assurance practices like QA and AppSec apply verification standards and security controls (Section 1.2). FIASSE values this stage because it produces verification evidence showing a security requirement was met (Section 6.1). When earlier stages are robust, this stage can be treated as security intelligence (Section 5.4.6). Found security flaws are redrawn as requirements before being routed directly into the backlog (Sections 6.2.1 and 6.3).
+Validation covers verification of Security Acceptance Criteria, security assurance, dynamic testing, penetration testing, and release approval. Assurance practices such as QA and AppSec apply verification standards and security controls (Section 1.2). FIASSE values this stage because it produces verification evidence showing a security requirement was met (Section 6.1). When earlier stages are robust, findings from this stage are treated as empirical intelligence (Section 5.4.6). Security flaws found here are redrawn as requirements before they enter the backlog (Sections 6.2.1 and 6.3).
 
 #### 5.4.5. Production Operation and Incident Response
 
-FIASSE does not govern monitoring, detection, containment, and recovery, but its contribution is significant. Observability is built into the code through instrumentation and auditing. External tooling can only surface what the code exposes (Section 3.2.1.4). Structured logging at trust boundaries and immutable audit trails for security-sensitive events make incident analysis tractable (Section 2.6.3). Accountability makes actions attributable, and Resilience determines how the system behaves while a component is compromised or unavailable (Sections 3.2.2.2 and 3.2.3.3). Appendix A.1.4 provides measures, such as mean time to detect, that show whether instrumentation is adequate. Software built with these attributes reduces incidents that operations must detect and contain (Section 5.1). After an incident, the Product Owner drives backlog changes that address root causes (Section 7.4). The post-incident analysis exposes upstream shortcomings directly.
+FIASSE does not govern monitoring, detection, containment, and recovery, but its contribution is significant. Observability is built into the code through instrumentation and auditing. External tooling can only surface what the code exposes (Section 3.2.1.4). Structured logging at trust boundaries and immutable audit trails for security-sensitive events make incident analysis tractable (Section 2.6.3). Accountability makes actions attributable, and Resilience determines how the system behaves while a component is compromised or unavailable (Sections 3.2.2.2 and 3.2.3.3). Appendix A.1.4 provides measures, such as mean time to detect, that show whether instrumentation is adequate. Software built with these attributes reduces incidents that operations must detect and contain (Section 5.1). Post-incident analysis exposes upstream shortcomings directly. The Product Owner then drives backlog changes that address root causes (Section 7.4).
 
 #### 5.4.6. Findings as Empirical Intelligence
 
@@ -717,21 +717,21 @@ Assurance findings and operational incidents are the empirical record of the fir
 
 ### 6.1. Security Controls in the Code Creation Process
 
-Four artifacts collapse into the single word "control." A **catalog control** is an assurance artifact that declares a protection must exist within a system, giving risk management and external evaluation something to select and assess. A **security requirement** specifies what the code must observably do to produce that protection. It is scoped by product, funded by the business, carrying acceptance criteria. A **security feature** is the resulting implementation. **Verification evidence** proves the feature meets its criteria and that the control is genuinely met. The activities between them (allocation, specification, implementation, verification) are where security is engineered into software. Skipping these steps produces two predictable failures.
+Four artifacts collapse into the single word "control." A **catalog control** is an assurance artifact that declares a protection must exist within a system, giving risk management and external evaluation something to select and assess. A **security requirement** specifies what the code must observably do to produce that protection. It is scoped by product, funded by the business, and carries acceptance criteria. A **security feature** is the resulting implementation. **Verification evidence** proves the feature meets its criteria and that the control is genuinely met. The activities between them (allocation, specification, implementation, verification) are where security is engineered into software. Skipping these steps produces two predictable failures.
 
-The catalogs themselves (NIST SP 800-53, ISO/IEC 27001 Annex A, PCI DSS, and their equivalents) are legitimate, valuable, and a rich input to requirements gathering: security brings a relevant control forward as context, and product and development shape a concrete requirement with explicit buy-in. Every failure below occurs in their application, where the catalogs were always designed to require translation.
+The catalogs themselves (NIST SP 800-53, ISO/IEC 27001 Annex A, PCI DSS, and their equivalents) are legitimate, valuable, and a rich input to requirements gathering: security brings a relevant control forward as context, and product and development shape a concrete requirement with explicit buy-in. The failures below occur in their application. The catalogs were always designed to require translation.
 
 #### 6.1.1. The Control-as-Requirement Fallacy
 
-The control-as-requirement fallacy treats a catalog item as a specification the programmer should already know to build. The ecosystem invites the conflation: PCI DSS names its controls "requirements," and 800-53's "controls" span policy to mechanism. Hence the weight of the terminology note in Section 2. When translation is skipped, development receives items that look like requirements but were never gathered as requirements: never scoped, never funded, never given acceptance criteria. The programmer is expected to infer an implementation, but a catalog control cannot support the inference; it is deliberately implementation-agnostic and system-scoped. "Enforce approved authorizations" (AC-3) is not verifiable against a codebase as written; the auditor reads it one way, the programmer inferred another, and the friction lands on development instead of on the missing process. Translated, the same control becomes a requirement: *every request to a document endpoint verifies the authenticated caller's permission on that document server-side; unauthorized requests return 403 and are logged with the caller's identity*. Development implements that as an authorization check in the document service, and a passing test against those criteria is the audit evidence. The control told no one what to build; the requirement did.
+The control-as-requirement fallacy treats a catalog item as a specification the programmer should already know to build. The ecosystem invites the conflation: PCI DSS names its controls "requirements," and 800-53's "controls" span policy to mechanism. This is why the terminology note in Section 2 matters. When translation is skipped, development receives items that look like requirements but were never gathered as requirements: never scoped, never funded, never given acceptance criteria. The programmer is expected to infer an implementation, but a catalog control cannot support the inference; it is deliberately implementation-agnostic and system-scoped. "Enforce approved authorizations" (AC-3) is not verifiable against a codebase as written; the auditor reads it one way, the programmer infers another, and the friction lands on development instead of on the missing process. Translated, the same control becomes a requirement: *every request to a document endpoint verifies the authenticated caller's permission on that document server-side; unauthorized requests return 403 and are logged with the caller's identity*. Development implements that as an authorization check in the document service, and a passing test against those criteria is the audit evidence. The control told no one what to build; the requirement did.
 
 #### 6.1.2. The Control-as-Protection Fallacy
 
-The control-as-protection fallacy reads the documented existence of a control as a property of the software. Many controls are properly satisfied outside the application: platform, network, process, or inheritance. That is sound assurance practice and corrosive engineering shorthand: a protection provided by the environment defends the code only in that environment, and even correctly-external controls leave residual obligations inside the code. For example the fact that the code should accept identity only from the trusted boundary and fail closed when the upstream protection is absent may go unspecified because "the control is handled." Unallocated security controls fail in another way: each team assumes the other owns them. Software is defensible only when the code's share of every relevant control is specified, implemented, and verifiable.
+The control-as-protection fallacy reads the documented existence of a control as a property of the software. Many controls are properly satisfied outside the application: platform, network, process, or inheritance. That is sound assurance practice and corrosive engineering shorthand: a protection provided by the environment defends the code only in that environment, and even correctly external controls leave residual obligations inside the code. For example, the expectation that the code accept identity only from the trusted boundary and fail closed when the upstream protection is absent may go unspecified because "the control is handled." Unallocated security controls fail in another way: each team assumes the other owns them. Software is defensible only when the code's share of every relevant control is specified, implemented, and verifiable.
 
 #### 6.1.3. The Requirements Process as the Corrective
 
-The requirements process supplies what the catalog deliberately omits. *Allocation*: decide and record which layer satisfies each control, including the code's residual share. *Specification*: express that share as observable behavior with acceptance criteria. ASVS is a ready-made requirements library at this altitude, so much translation is selection rather than authorship. *Adequacy*: assessment verifies that a control exists and operates, not that it suffices against this product's threat model; the catalog is a floor, never a ceiling. The expectations follow. Security brings controls forward, participates in requirements (correcting at its source the friction Sections 2.5 and 5.1 describe), and owns the control-to-requirement mapping. Product weighs; the business funds. Development implements to specification, keeps the verifying tests green, and answers a control-shaped demand that arrives without criteria by requesting the requirement, not inferring one. The payoff is symmetric: development receives specifications instead of insinuations, and security receives audit evidence assembled from living tests. This point-in-time attestation is a state; a requirement under test is a property.
+The requirements process supplies what the catalog deliberately omits. *Allocation*: decide and record which layer satisfies each control, including the code's residual share. *Specification*: express that share as observable behavior with acceptance criteria. ASVS is a ready-made requirements library at this altitude, so much translation is selection rather than authorship. *Adequacy*: assessment verifies that a control exists and operates, not that it suffices against this product's threat model; the catalog is a floor, never a ceiling. Role expectations follow. Security brings controls forward, participates in requirements (correcting at its source the friction Sections 2.5 and 5.1 describe), and owns the control-to-requirement mapping. Product weighs the requirement; the business funds it. Development implements to specification, keeps the verifying tests green, and answers a control-shaped demand that arrives without criteria by requesting the requirement, not inferring one. The payoff is symmetric: development receives specifications instead of insinuations, and security receives audit evidence assembled from living tests. A point-in-time attestation is a state; a requirement under test is a property.
 
 The corrective discipline is the first FIASSE value (Section 2). A control describes a protection. A requirement specifies behavior. A feature delivers it. Evidence proves it. Mistaking a control for a requirement burdens developers with inference; mistaking it for a feature dresses software in paper. Catalogs make software defensible in exactly one way: as input to the code creation process, translated on the way in.
 
@@ -766,7 +766,7 @@ Scanning and testing tools are valuable for understanding current security postu
 
 Fix requests must not circumvent the processes software engineers rely on. Bypassing established workflows leads to misunderstandings and mistakes. AppSec should not expect developers to act on security findings without clear, actionable information and the opportunity to work through their standard processes.
 
-This section is the **Actionable Security Intelligence Principle** (Section 6.2) applied to tool output. Scanner results, penetration test findings, and monitoring signals are raw material, and the principle holds that they become useful only when converted into specific, engineering-grounded direction tied to requirements, acceptance criteria, and the team's existing workflow. Treating security output as finished intelligence rather than input to it produces the same breakdown the Shoveling Left discussion describes, just arriving through a different channel.
+This section is the **Actionable Security Intelligence Principle** (Section 6.2) applied to tool output. Scanner results, penetration test findings, and monitoring signals are raw material, and the principle holds that they become useful only when converted into specific, engineering-grounded direction tied to requirements, acceptance criteria, and the team's existing workflow. Treating security output as finished intelligence rather than input to it produces the same breakdown the Shoveling Left discussion describes, arriving through a different channel.
 
 ---
 
@@ -774,7 +774,7 @@ This section is the **Actionable Security Intelligence Principle** (Section 6.2)
 
 ### 7.1. The Role of the Security Team
 
-The security team ensures timely delivery of securable outcomes by setting expectations early and letting engineering's own processes carry them: early engagement in requirements gathering, design, and architecture review sets the guardrails for development.
+The security team ensures timely delivery of securable outcomes by setting expectations early and letting engineering's own processes carry them. Early engagement in requirements gathering, design, and architecture review sets the guardrails for development.
 
 The security team is not responsible for adherence to architecture or feature requirements. That accountability belongs to the development team, enforced through standard Quality Assurance and User Acceptance processes. Security metrics from application security testing tools and penetration tests therefore measure partnership effectiveness, not development compliance. This distinction lets the security team invest in requirements, design, and assurance rather than policing developers for line-level fixes.
 
@@ -788,7 +788,7 @@ The security team's effectiveness is limited by software quality. SSEM makes thi
 
 In most organizations, security still focuses downstream on review and testing. Moving upstream into requirements and design may meet resistance. Security careers and team charters often center on finding bugs and gatekeeping, while leadership commonly measures security through vulnerability counts and audit outcomes. Recognizing these incentives helps teams plan the transition.
 
-The shift is strategically necessary regardless. Security expertise applied at the requirements and design stages produces more leverage per hour than the same expertise applied to post-implementation review; the framework's premise is that this leverage is where security's remaining capacity should be invested. In an environment where AI-assisted development multiplies the volume of code produced, the option of scaling gate-keeping to keep up with generation does not exist. The security function either moves upstream or falls further behind.
+The shift is strategically necessary regardless. Security expertise applied at the requirements and design stages produces more leverage per hour than the same expertise applied to post-implementation review; the framework's premise is that this leverage is where security's remaining capacity should be invested. In an environment where AI-assisted development multiplies the volume of code produced, the option of scaling gatekeeping to keep up with generation does not exist. The security function either moves upstream or falls further behind.
 
 #### 7.1.2. Capacity Relief Through Agentic AppSec
 
@@ -854,7 +854,7 @@ FIASSE does not require a rigid adoption sequence, but organizations benefit fro
    - Identify existing security practices and how they align with SSEM attributes.
    - Determine the current level of familiarity with software engineering principles among development teams.
    - Identify the misalignments that FIASSE can address.
-   - Determine if the organization has a functioning requirements or planning practice that security can insert into, or whether work moves from idea to code through informal channels. The method of integrating FIASSE upstream varies depending on how this is done.
+   - Determine whether the organization has a functioning requirements or planning practice that security can join, or whether work moves from idea to code through informal channels. The method of integrating FIASSE upstream depends on the answer.
    - Determine whether senior engineers with both design maturity and calendar capacity exist in sufficient numbers to participate and champion FIASSE within their teams. The framework's practices (Sections 5.2 and 7.2) depend on this bench. Agentic tooling may be required to reduce this pressure (Section 8.1.1).
    - Determine whether merge reviews are substantive rather than rubber-stamp, whether mentorship happens in practice rather than in principle, and whether quality is treated as a first-class engineering concern. FIASSE extends healthy engineering culture; it does not create it.
    - Where a prerequisite is thin or absent, name it in the assessment output. Section 8.1 (Degraded-Mode Adoption) describes how to proceed when prerequisites are not fully met; the honest naming is what makes that path usable.
@@ -867,7 +867,7 @@ FIASSE does not require a rigid adoption sequence, but organizations benefit fro
    - Both Development and AppSec should understand that FIASSE is to be discussed in the context of software engineering, not as a separate security initiative.
    - After initial training, ongoing delivery should occur within merge reviews, architecture discussions, and requirements sessions. Leaders should bring FIASSE into these activities directly.
 
-5. **Adopt agentic AppSec tooling as capacity relief.** The AppSec role shift FIASSE describes (Section 7.1) depends on security expertise being available for requirements and design work. In most organizations, that capacity does not exist without deliberate relief from the mechanical portion of the reviewer role. Agentic AppSec tooling such as AI-assisted analysis, triage, and pattern detection operating on the code and its changes is the mechanism for that relief. Adopt it with a clear intent: the security capacity it frees is reinvested upstream, not consumed processing more findings. Tie tooling adoption to specific upstream engagements the security team will now be able to take on. Without that tie, agentic tooling produces higher-volume Shoveling Left (Section 6.2) rather than the strategic shift the framework aims for.
+5. **Adopt agentic AppSec tooling as capacity relief.** The AppSec role shift FIASSE describes (Section 7.1) depends on security expertise being available for requirements and design work. In most organizations, that capacity does not exist without deliberate relief from the mechanical portion of the reviewer role. Agentic AppSec tooling, such as AI-assisted analysis, triage, and pattern detection operating on the code and its changes, is the mechanism for that relief. Adopt it with a clear intent: the security capacity it frees is reinvested upstream, not consumed processing more findings. Tie tooling adoption to specific upstream engagements the security team will now be able to take on. Without that tie, agentic tooling produces higher-volume Shoveling Left (Section 6.2) rather than the strategic shift the framework aims for.
 
 6. **Foster collaboration.** Promote regular engagement between AppSec and Development. Discourage isolated reviews; encourage AppSec to participate in development activities such as requirements gathering.
 
@@ -899,7 +899,7 @@ FIASSE does not replace the assurance metrics organizations already track. It ex
 
 #### 8.2.1. Leading Indicators
 
-Should be visible within one to two quarters of good-faith adoption.
+Leading indicators should be visible within one to two quarters of good-faith adoption.
 
 - Security acceptance criteria appear on user stories and feature specifications as a matter of course, not by exception.
 - Threat scenarios and security features are recorded during requirements gathering rather than surfaced during review.
@@ -909,12 +909,12 @@ Should be visible within one to two quarters of good-faith adoption.
 
 #### 8.2.2. Lagging Indicators
 
-Should be visible within one to two years of good-faith adoption.
+Lagging indicators should be visible within one to two years of good-faith adoption.
 
 - Findings churn (the rate at which the same class of finding recurs across releases) declines.
 - Fix durability improves: fixes stay fixed rather than regressing under subsequent changes.
 - Turnaround from finding to durable remediation shortens.
-- Vulnerability class distribution shifts away from missing-or-inconsistent-requirement causes toward classes that lie outside what upstream requirements can reach (Section 4.1.2's residual: novel classes, supply-chain compromises, cryptographic weaknesses).
+- Vulnerability class distribution shifts away from missing-or-inconsistent-requirement causes toward classes that lie outside what upstream requirements can reach (the residual classes Section 4.1.2 names: novel classes, supply-chain compromises, cryptographic weaknesses).
 - The proportion of security findings that map to a specified requirement grows, and the proportion that map to unspecified expectations shrinks.
 
 #### 8.2.3. Distinguishing Framework Failure from Adoption Failure
