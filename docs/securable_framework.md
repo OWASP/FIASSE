@@ -69,7 +69,7 @@ To be clear about scope, FIASSE is not an assurance framework, maturity model, o
       - [5.4.1. Requirements and Design](#541-requirements-and-design)
       - [5.4.2. Build](#542-build)
       - [5.4.3. Merge](#543-merge)
-      - [5.4.4. Pre-Deployment Validation](#544-pre-deployment-validation)
+      - [5.4.4. Validation](#544-validation)
       - [5.4.5. Production Operation and Incident Response](#545-production-operation-and-incident-response)
       - [5.4.6. Findings as Empirical Intelligence](#546-findings-as-empirical-intelligence)
   - [6. Common AppSec Anti-Patterns](#6-common-appsec-anti-patterns)
@@ -695,9 +695,9 @@ Conceptually, this stage involves turning expectations into code. Software Engin
 
 This stage is a high-fidelity evaluation point before integration with other changes. It provides a finite scope for reporting and recording decisions on security-sensitive topics (Section 5.2.3). The resulting audit trail is produced by ordinary work and supports downstream attestation (Section 5.2.4). Code-level threat awareness is cultivated through review comments (Section 5.2). Recurring finding classes at this stage indicate upstream gaps in requirements or securability in coding practices, which are addressed in their respective phases (Section 5.2.5). These issues are then addressed in their respective phases (Section 5.2.5).
 
-#### 5.4.4. Pre-Deployment Validation
+#### 5.4.4. Validation
 
-Pre-deployment validation includes QA verification of Security Acceptance Criteria, Security Assurance, dynamic testing, penetration testing, and release approval. It belongs to assurance practice and is governed by the verification standards and control catalogs that FIASSE complements (Section 1.2). FIASSE values this stage because it produces the verification evidence that shows a security requirement was met (Section 6.1). Validation depends on earlier stages: criteria from Section 5.4.1 give testers a target, and the audit trail from Section 5.4.3 records what was evaluated and accepted. FIASSE treats the stage's output as intelligence (Section 5.4.6). Findings routed directly into the backlog before confirmation, pooling, and attribution are the Shoveling Left pattern (Sections 6.2.1 and 6.3).
+Validation involves verifying Security Acceptance Criteria, Security Assurance, dynamic testing, penetration testing, and release approval. Assurance practices like QA and AppSec apply verification standards and security controls (Section 1.2). FIASSE values this stage because it produces verification evidence showing a security requirement was met (Section 6.1). When earlier stages are robust, this stage can be treated as security intelligence (Section 5.4.6). Found security flaws are redrawn as requirements before being routed directly into the backlog (Sections 6.2.1 and 6.3).
 
 #### 5.4.5. Production Operation and Incident Response
 
