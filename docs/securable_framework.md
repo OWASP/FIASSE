@@ -709,7 +709,7 @@ Assurance findings and operational incidents are the empirical record of the fir
 
 - Recurring unspecified expectations indicate a security participation enhancement is needed in requirements (Section 5.3).
 - Inconsistent implementation findings indicate a securability practice enhancement is needed (Section 3.2.1).
-- Issues caught during validation or in production indicate a merge review practice enhancement is needed, in addition to the previous two.
+- Findings that surface in validation or production were not observed at merge. If adequate expectations were documented, these findings indicate a merge review practice enhancement is needed in addition to the build enhancement above (Sections 5.1 and 5.2.3).
 
 ---
 
