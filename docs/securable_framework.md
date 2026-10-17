@@ -668,7 +668,7 @@ The primary mechanism for early integration is active security team participatio
 
 FIASSE practices directly apply when expectations are set during requirements and architecture phases and when code is created. However, when the software is tested and when it is operated in production, assurance and operations governance take over (Section 1.2). This section will describe how findings from these later stages are used as empirical intelligence to remediate from upstream.
 
-The general flow of code follows sequentially though stages that are abstracted here. A change moves from requirements to build then merge in order. We call out merge as a discrete stage because it has proven to be a high-fidelity evaluation point before the complexity of integration with other changes. Validation is meant to include testing and assurance. It can have several sub-stages reaching upstream to build stages and down stream beyond pre-deployment validation depending on the development culture. Findings from validation and operations arrive later and need to change form to fit back into the stage that could have prevented them (Section 5.4.6).
+The general flow of code follows sequentially through stages that are abstracted here. A change moves from requirements to build, then merge in order. We call out merge as a discrete stage because it has proven to be a high-fidelity evaluation point before the complexity of integration with other changes. Validation is meant to include testing and assurance. It can have several sub-stages reaching upstream to build stages and downstream beyond pre-deployment validation depending on the development culture. Findings from validation and operations arrive later and need to change form to fit back into the stage that could have prevented them (Section 5.4.6).
 
 
 | Stage | Governed by | FIASSE practices | Primary sections |
@@ -681,7 +681,11 @@ The general flow of code follows sequentially though stages that are abstracted 
 
 #### 5.4.1. Requirements and Design
 
-Security outcomes are decided at this stage, before code exists. Security participates in requirements gathering, contributing Security Features, Threat Scenarios, and Security Acceptance Criteria (Section 4.1.2). Formal threat modeling is conducted against a defined methodology at feature or system scope, feeding those same three deliverables (Section 4.2). Security translates catalog controls into requirements with acceptance criteria, and product and development shape the result (Section 6.1.3). The Product Owner checks that the criteria express genuine security intent and defends them against scope cuts (Section 7.4). This stage produces a point-in-time statement of expectations that every later stage measures against (Section 5.3). When a later stage shows that an expectation was missing, the gap is returned here. Developers cannot infer what was never specified (Section 4.1.2).
+This stage encompasses pre-work done before Software Engineering receives its marching orders. This is meant to indicate various Agile and Lean information gathering, or those one-liner tickets that are all too common. It also covers monolithic requirements documents like those used in high-risk environments.
+
+Security outcomes are decided before code changes, ideally before code exists. Security participates in requirements gathering to contribute Security Features, Threat Scenarios, and Security Acceptance Criteria (Section 4.1.2). Threat modeling is conducted using a defined methodology at feature or system scope (Section 4.2). Security translates security intelligence into fully fleshed-out requirements with acceptance criteria (Section 6.1.3). The Product Owner checks that criteria express genuine security intent and defends security requirements against scope cuts (Section 7.4). This stage produces a clear point-in-time statement of expectations influencing all later stages (Section 5.3). When a finding in later stages points to missing or unclear expectations, that intelligence is used to amend and iterate from here. Even established secure developers cannot add scope not clearly specified (Section 4.1.2).
+
+Those participating in this stage benefit from using SSEM attributes as the design language to clearly communicate architecture and outcomes.
 
 #### 5.4.2. Build
 
