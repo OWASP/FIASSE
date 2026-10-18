@@ -28,7 +28,7 @@ These sections shape requirements, reviews, team practice, and organizational ad
 - [S3.1.0](S3.1.0.md): SSEM model overview and design language.
 - [S4.1.0](S4.1.0.md) to [S4.1.2](S4.1.2.md): setting expectations and integrating security into requirements.
 - [S4.2.0](S4.2.0.md), [S4.2.2](S4.2.2.md): formal threat modeling and its solution framework (the code-level practice is [S4.2.1](S4.2.1.md)).
-- [S5.1.0](S5.1.0.md) to [S5.3.0](S5.3.0.md): integrating security into development processes and merge reviews.
+- [S5.1.0](S5.1.0.md) to [S5.4.6](S5.4.6.md): integrating security into development processes, merge reviews, and lifecycle placement of practices.
 - [S6.1.0](S6.1.0.md) to [S6.3.0](S6.3.0.md): common AppSec anti-patterns.
 - [S7.1.0](S7.1.0.md) to [S7.4.0](S7.4.0.md): roles and responsibilities.
 - [S8.1.0](S8.1.0.md) to [S8.2.3](S8.2.3.md): organizational adoption and indicators of effectiveness.
