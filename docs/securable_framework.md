@@ -689,7 +689,7 @@ Participants in this stage benefit from using SSEM attributes as the design lang
 
 #### 5.4.2. Build
 
-Software Engineers turn expectations into code, guided by the framework's principles and the foundational context documented earlier. Boundary Control ensures heightened control at trust boundaries while preserving flexibility in the interior (Section 4.3). Securable coding practices ensure first-party code and dependencies work together for secure outcomes (Sections 4.4 and 4.5). Agentic code generation is directed deliberately, and generated code is vetted for completeness against the same acceptance criteria as any other source (Sections 7.2 and 7.3).
+Software Engineers turn expectations into code, guided by the framework's principles and the foundational context documented earlier. Boundary Control ensures heightened control at trust boundaries while preserving flexibility in the interior (Section 4.3). Securable coding habits make sure ensure first-party code and dependencies work together for secure outcomes (Sections 4.4 and 4.5). Agentic code generation is directed deliberately, and generated code is vetted for completeness against the same acceptance criteria as any other source (Sections 7.2 and 7.3).
 
 #### 5.4.3. Merge
 
@@ -709,7 +709,7 @@ Assurance findings and operational incidents are the empirical record of the fir
 
 - Recurring unspecified expectations indicate a security participation enhancement is needed in requirements (Section 5.3).
 - Inconsistent implementation findings indicate a securability practice enhancement is needed (Section 3.2.1).
-- Findings that surface in validation or production should be compared with the merge report and audit trail. Findings already reported and accepted at merge, or arising from subsequently emerging threats, require separate attribution. If adequate expectations were documented and a defect was detectable but missed at merge, use the finding to improve merge review and, where applicable, build practice (Sections 4.1.2, 5.2.3, and 5.2.4).
+- Findings that surface in validation or production should be compared with the merge report and audit trail. Findings already reported and accepted at merge, or arising from subsequently emerging threats, require separate attribution. If adequate expectations were documented and a defect was detectable but missed at merge, use the finding to improve merge review and, where applicable, build practice (Sections 4.1.2, 5.2.3, and 5.2.4).
 
 ---
 
